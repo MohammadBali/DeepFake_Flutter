@@ -85,7 +85,6 @@ class Home extends StatelessWidget {
     ),
   );
 
-
   Widget postItemBuilder({required AppCubit cubit, required String name})=>defaultBox(
       boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
       child: Column(
