@@ -1,3 +1,4 @@
+import 'package:deepfake_detection/modules/PostDetails/postDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -81,17 +82,32 @@ Widget defaultFormField({
 
 Widget defaultBox(
 {
+  required AppCubit cubit,
   required boxColor,
   double borderRadius=8,
   double padding=25,
   required Widget child,
+  required void Function()? onTap,
 
-})=>Container(
-  padding: EdgeInsetsDirectional.only(start: padding/1.5, end:padding, bottom:padding*1.2, top:padding/1.5),
-  decoration: BoxDecoration(
-    color: boxColor,
-    borderRadius: BorderRadius.circular(borderRadius),),
-  child: child,
+})=>GestureDetector(
+  onTap: onTap,
+  child:  Container(
+
+    padding: EdgeInsetsDirectional.only(start: padding/1.5, end:padding, bottom:padding*1.2, top:padding/1.5),
+
+    decoration: BoxDecoration(
+
+      color: boxColor,
+
+      borderRadius: BorderRadius.circular(borderRadius),
+
+      border: Border.all(color: cubit.isDarkTheme? Colors.white : Colors.black),
+
+    ),
+
+    child: child,
+
+  ),
 );
 
 
@@ -105,14 +121,18 @@ Widget defaultQueryBox(
       double borderRadius=8,
       double padding=15,
       required Widget child,
+      required void Function()? onTap,
 
-    })=>Container(
+    })=>GestureDetector(
+      onTap: onTap,
+      child: Container(
   padding: EdgeInsetsDirectional.all(padding),
   decoration: BoxDecoration(
-    color: boxColor,
-    borderRadius: BorderRadius.circular(borderRadius),),
+      color: boxColor,
+      borderRadius: BorderRadius.circular(borderRadius),),
   child: child,
-);
+),
+    );
 
 
 
@@ -358,12 +378,203 @@ PreferredSizeWidget defaultAppBar({
     ),
   ),
 
-  actions:[
-    IconButton(
-      onPressed: (){},
-      icon: const Icon(Icons.person_4),
+  actions:[],
+
+
+);
+
+
+
+//------------------------------------------------------------------------------------------\\
+
+//Post Item Builder
+
+Widget postItemBuilder({required AppCubit cubit, required String name, required BuildContext context})=>defaultBox(
+    cubit: cubit,
+    boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+
+      children:
+      [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children:
+          [
+            Column(
+              children:
+              [
+                const CircleAvatar(
+                  backgroundColor: Colors.amber,
+                  radius: 22,
+                ),
+
+                const SizedBox(height: 8,),
+
+                Text(
+                  name.length >6 ? '${name.substring(0,6)}...' : name  ,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+
+              ],
+            ),
+
+            const SizedBox(width: 10,),
+
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
+                child: Text(
+                  'No Way This Document is Fake!',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+
+
+          ],
+        ),
+
+        const SizedBox(height: 15,),
+
+        Padding(
+          padding: const EdgeInsetsDirectional.only(end: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children:
+            [
+              Wrap(
+                alignment:WrapAlignment.spaceBetween,
+                runAlignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                direction: Axis.vertical,
+                children:
+                [
+                  IconButton(
+                      onPressed: ()
+                      {
+
+                      },
+                      icon: Icon(
+                        Icons.thumb_up_off_alt_outlined,
+                        color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
+                      )
+                  ),
+
+                  Text(
+                    '15',
+                  ),
+                ],
+              ),
+
+              Wrap(
+                alignment:WrapAlignment.spaceBetween,
+                runAlignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                direction: Axis.vertical,
+                children:
+                [
+                  IconButton(
+                      onPressed: ()
+                      {
+
+                      },
+                      icon: Icon(
+                        Icons.comment_rounded,
+                        color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
+                      )
+                  ),
+
+                  Text(
+                    '250',
+                  ),
+                ],
+              ),
+
+              const Spacer(),
+
+              Align(
+                alignment: AlignmentDirectional.bottomEnd,
+                child: defaultQueryBox(
+                    boxColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,
+                    child: Text(
+                      'Chat with Allen.docx',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    onTap:(){}
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+
+    onTap: ()
+    {
+      navigateTo(context, const PostDetails() );
+    }
+);
+
+
+//------------------------------------------------------------------------------------------\\
+
+//Comment Item Builder
+
+
+Widget commentItemBuilder({required AppCubit cubit, required String name, required BuildContext context})=>Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+
+  children:
+  [
+    Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children:
+      [
+        Column(
+          children:
+          [
+            const CircleAvatar(
+              backgroundColor: Colors.amber,
+              radius: 22,
+            ),
+
+            const SizedBox(height: 8,),
+
+            Text(
+              name.length >6 ? '${name.substring(0,6)}...' : name  ,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+
+          ],
+        ),
+
+        const SizedBox(width: 10,),
+
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
+            child: Text(
+              'No Way This Document is Fake!',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ),
+
+
+      ],
     ),
   ],
-
-
 );

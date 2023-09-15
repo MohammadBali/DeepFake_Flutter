@@ -88,7 +88,7 @@ class Login extends StatelessWidget {
                         'Login Now and Start Revealing the Truth',
                         style: TextStyle(
                           fontSize: 16,
-                          color: defaultDarkFontColor,
+                          color: AppCubit.get(context).isDarkTheme? defaultDarkFontColor : defaultFontColor,
                           fontFamily: 'WithoutSans',
                         ),
                       ),
@@ -120,7 +120,7 @@ class Login extends StatelessWidget {
                           keyboard: TextInputType.text,
                           label: 'Password',
                           prefix: Icons.password_rounded,
-                          suffixIconColor: Colors.grey,
+                          //suffixIconColor: Colors.grey,
                           suffix: cubit.isPassVisible? Icons.visibility_off_rounded : Icons.visibility_rounded,
                           isFilled: true,
                           fillColor: AppCubit.get(context).isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
@@ -170,6 +170,7 @@ class Login extends StatelessWidget {
                         fallback: (context)=> Center(
                           child: defaultButton(
                             color: AppCubit.get(context).isDarkTheme? defaultDarkColor : defaultColor,
+                            textColor: AppCubit.get(context).isDarkTheme? Colors.black : Colors.white,
                             letterSpacing:2,
                             onTap: ()
                             {

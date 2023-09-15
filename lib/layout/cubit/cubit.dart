@@ -1,5 +1,6 @@
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/models/UserDataModel/UserDataModel.dart';
+import 'package:deepfake_detection/modules/ChatBot/chatBot.dart';
 import 'package:deepfake_detection/modules/Home/home.dart';
 import 'package:deepfake_detection/modules/Profile/profile.dart';
 import 'package:deepfake_detection/modules/TextFiles/text_files.dart';
@@ -20,6 +21,7 @@ class AppCubit extends Cubit<AppStates>
   [
     const Home(),
     const TextFiles(),
+    const ChatBot(),
     const Profile(),
   ];
 

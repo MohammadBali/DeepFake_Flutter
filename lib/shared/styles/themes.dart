@@ -75,25 +75,26 @@ ThemeData lightTheme(context) => ThemeData(
       if (states.contains(MaterialState.disabled)) {
         return Colors.white;
       }
-      return Colors.grey;
+      return defaultColor;
     }),
     trackColor: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
       if (states.contains(MaterialState.selected)) {
-        return Colors.black;
+        return Colors.white;
       }
       if (states.contains(MaterialState.disabled)) {
         return Colors.white;
       }
-      return Colors.white;
+      return defaultBottomNavBarColor;
     }),
   ),
 
   iconTheme: const IconThemeData(
-      color: Colors.white
+      color: Colors.black
   ),
 
   inputDecorationTheme: const InputDecorationTheme(
-    prefixIconColor: Colors.grey,
+    prefixIconColor: Colors.black,
+    suffixIconColor: Colors.black,
     labelStyle: TextStyle(
         color: Colors.white
     ),
@@ -205,6 +206,7 @@ ThemeData darkTheme(context)=> ThemeData(
   //
   inputDecorationTheme: const InputDecorationTheme(
     prefixIconColor: Colors.grey,
+    suffixIconColor: Colors.grey,
     labelStyle: TextStyle(
         color: Colors.white
     ),
@@ -232,6 +234,8 @@ ThemeData darkTheme(context)=> ThemeData(
       foregroundColor: MaterialStateProperty.all(Colors.white),
     ),
   ),
+
+
 
   textTheme: Theme.of(context).textTheme.apply(
     bodyColor: Colors.white,
