@@ -44,12 +44,16 @@ class Home extends StatelessWidget {
 
                   const SizedBox(height: 40,),
 
-                  ListView.separated(
-                    itemCount: 5,
-                    separatorBuilder: (context,index)=>const SizedBox(height: 25,),
-                    itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, name: 'Rachel', context: context),
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
+                  ConditionalBuilder(
+                    condition: cubit.postModel!=null,
+                    builder: (context)=>ListView.separated(
+                      itemCount: cubit.postModel!.posts!.length,
+                      separatorBuilder: (context,index)=>const SizedBox(height: 25,),
+                      itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: cubit.postModel!.posts![index], context: context),
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                    ),
+                    fallback: (context)=> Center(child: defaultProgressIndicator(context)),
                   ),
                 ],
               ),

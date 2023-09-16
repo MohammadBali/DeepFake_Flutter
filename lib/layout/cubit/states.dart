@@ -22,3 +22,13 @@ class AppGetNewsLoadingState extends AppStates{}
 class AppGetNewsSuccessState extends AppStates{}
 
 class AppGetNewsErrorState extends AppStates{}
+
+
+// GET POSTS
+
+
+class AppGetPostsLoadingState extends AppStates{}
+
+class AppGetPostsSuccessState extends AppStates{}
+
+class AppGetPostsErrorState extends AppStates{}

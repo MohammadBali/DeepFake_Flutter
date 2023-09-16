@@ -1,12 +1,14 @@
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
+import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PostDetails extends StatelessWidget {
-  const PostDetails({super.key});
+  Post post;
+  PostDetails({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +41,8 @@ class PostDetails extends StatelessWidget {
                     [
                       postItemBuilder(
                         cubit: cubit,
-                        name: 'Rachel',
-                        context: context
+                        context: context,
+                        post: post,
                       ),
 
                       const SizedBox(height: 20,),

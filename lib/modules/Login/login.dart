@@ -48,6 +48,8 @@ class Login extends StatelessWidget {
 
                 AppCubit().getUserData();
 
+                AppCubit().getPosts();
+
                 navigateAndFinish(context, const HomeLayout());
 
               }).catchError((error)

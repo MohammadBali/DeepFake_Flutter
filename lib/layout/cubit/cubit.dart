@@ -1,5 +1,6 @@
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/models/NewsModel/NewsModel.dart';
+import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/models/UserDataModel/UserDataModel.dart';
 import 'package:deepfake_detection/modules/ChatBot/chatBot.dart';
 import 'package:deepfake_detection/modules/Home/home.dart';
@@ -105,6 +106,37 @@ class AppCubit extends Cubit<AppStates>
 
       emit(AppGetNewsErrorState());
     });
+  }
+
+
+  PostModel? postModel;
+  void getPosts()
+  {
+    if(token !='')
+      {
+        print('In Getting Posts...');
+
+        emit(AppGetPostsLoadingState());
+
+        MainDioHelper.getData(
+            url: posts,
+            token: token,
+        ).then((value){
+
+          print('Got Posts Data, ${value.data}');
+
+          postModel=PostModel.fromJson(value.data);
+
+          emit(AppGetPostsSuccessState());
+        }).catchError((error)
+        {
+          print('ERROR WHILE GETTING POSTS, ${error.toString()}');
+
+          emit(AppGetPostsErrorState());
+        });
+
+      }
+
   }
 
 

@@ -1,3 +1,4 @@
+import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/modules/PostDetails/postDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -392,7 +393,7 @@ PreferredSizeWidget defaultAppBar({
 
 //Post Item Builder
 
-Widget postItemBuilder({required AppCubit cubit, required String name, required BuildContext context})=>defaultBox(
+Widget postItemBuilder({required AppCubit cubit, required Post post, required BuildContext context})=>defaultBox(
     cubit: cubit,
     boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
     child: Column(
@@ -408,15 +409,16 @@ Widget postItemBuilder({required AppCubit cubit, required String name, required 
             Column(
               children:
               [
-                const CircleAvatar(
-                  backgroundColor: Colors.amber,
+
+                 CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/${post.owner!.photo!}'),
                   radius: 22,
                 ),
 
                 const SizedBox(height: 8,),
 
                 Text(
-                  name.length >6 ? '${name.substring(0,6)}...' : name  ,
+                  post.owner!.name!.length >10 ? '${ post.owner!.name!.substring(0,10)}...' :  post.owner!.name!  ,
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -432,7 +434,7 @@ Widget postItemBuilder({required AppCubit cubit, required String name, required 
               child: Padding(
                 padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
                 child: Text(
-                  'No Way This Document is Fake!',
+                  post.title!,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -462,7 +464,6 @@ Widget postItemBuilder({required AppCubit cubit, required String name, required 
                   IconButton(
                       onPressed: ()
                       {
-
                       },
                       icon: Icon(
                         Icons.thumb_up_off_alt_outlined,
@@ -500,18 +501,22 @@ Widget postItemBuilder({required AppCubit cubit, required String name, required 
                 ],
               ),
 
-              const Spacer(),
+              //const Spacer(),
 
-              Align(
-                alignment: AlignmentDirectional.bottomEnd,
-                child: defaultQueryBox(
-                    boxColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,
-                    child: Text(
-                      'Chat with Allen.docx',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    onTap:(){}
+              const SizedBox(width: 50,),
+
+              Expanded(
+                child: Align(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  child: defaultQueryBox(
+                      boxColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,
+                      child: Text(
+                        post.inquiry!.name!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      onTap:(){}
+                  ),
                 ),
               ),
             ],
@@ -522,7 +527,7 @@ Widget postItemBuilder({required AppCubit cubit, required String name, required 
 
     onTap: ()
     {
-      navigateTo(context, const PostDetails() );
+      navigateTo(context, PostDetails(post: post,) );
     }
 );
 
