@@ -40,6 +40,6 @@ const deleteAPost='deletePost'; // pass Post's ID
 
 //NEWS ENDPOINTS
 
-const getNews='getNews';
+const news='getNews';
 
 

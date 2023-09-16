@@ -3,6 +3,7 @@ import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/home_layout.dart';
 import 'package:deepfake_detection/modules/Login/cubit/loginCubit.dart';
 import 'package:deepfake_detection/modules/Login/cubit/loginStates.dart';
+import 'package:deepfake_detection/modules/Register/register.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 
 import 'package:deepfake_detection/shared/components/constants.dart';
@@ -157,7 +158,7 @@ class Login extends StatelessWidget {
                           ),
                           onPressed: ()
                           {
-                            //navigateTo(context, widget);
+                            navigateTo(context, Register());
                           },
                         ),
                       ),

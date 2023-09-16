@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:material_dialogs/dialogs.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Widget defaultFormField({
   required TextEditingController controller,
@@ -86,6 +87,7 @@ Widget defaultBox(
   required boxColor,
   double borderRadius=8,
   double padding=25,
+  bool paddingOptions=true,
   required Widget child,
   required void Function()? onTap,
 
@@ -93,7 +95,7 @@ Widget defaultBox(
   onTap: onTap,
   child:  Container(
 
-    padding: EdgeInsetsDirectional.only(start: padding/1.5, end:padding, bottom:padding*1.2, top:padding/1.5),
+    padding: paddingOptions? EdgeInsetsDirectional.only(start: padding/1.5, end:padding, bottom:padding*1.2, top:padding/1.5) : EdgeInsetsDirectional.only(start: padding, end:padding, bottom:padding, top:padding) ,
 
     decoration: BoxDecoration(
 
@@ -300,19 +302,20 @@ MaterialColor getMaterialColor(Color color) {
 //---------------------------------------------------------------------------------\\
 
 
-Widget defaultLinearProgressIndicator(BuildContext context)
+Widget defaultLinearProgressIndicator(BuildContext context, {double? value})
 {
   return LinearProgressIndicator(
-    backgroundColor: AppCubit.get(context).isDarkTheme? defaultDarkColor : defaultColor,
+    backgroundColor: AppCubit.get(context).isDarkTheme? defaultSecondaryDarkColor : defaultThirdColor,
+    value: value,
   );
 }
 
 
-Widget defaultProgressIndicator(BuildContext context)
+Widget defaultProgressIndicator(BuildContext context, {double? value})
 {
   return CircularProgressIndicator(
-    backgroundColor: AppCubit.get(context).isDarkTheme? defaultDarkColor : defaultColor,
-
+    backgroundColor: AppCubit.get(context).isDarkTheme? defaultSecondaryDarkColor : defaultThirdColor,
+    value: value,
   );
 }
 
@@ -578,3 +581,17 @@ Widget commentItemBuilder({required AppCubit cubit, required String name, requir
     ),
   ],
 );
+
+
+//------------------------------------------------------------------------------------------\\
+
+//URL Launcher
+
+Future<void> defaultLaunchUrl(String ur) async
+{
+  final Uri url = Uri.parse(ur);
+  if (!await launchUrl(url))
+  {
+    throw 'Could not launch $url';
+  }
+}

@@ -9,8 +9,6 @@ import 'package:deepfake_detection/shared/network/remote/main_dio_helper.dart';
 import 'package:deepfake_detection/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-
 import 'layout/home_layout.dart';
 
 void main() async {
@@ -77,7 +75,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers:
         [
-          BlocProvider(create: (BuildContext  context) => AppCubit()..changeTheme(themeFromState: isDark)..getUserData() ),
+          BlocProvider(create: (BuildContext  context) => AppCubit()..changeTheme(themeFromState: isDark)..getUserData()..getNews() ),
         ],
         child: BlocConsumer<AppCubit,AppStates>(
           listener: (context,state){},

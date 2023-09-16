@@ -1,4 +1,5 @@
 import 'package:deepfake_detection/layout/cubit/states.dart';
+import 'package:deepfake_detection/models/NewsModel/NewsModel.dart';
 import 'package:deepfake_detection/models/UserDataModel/UserDataModel.dart';
 import 'package:deepfake_detection/modules/ChatBot/chatBot.dart';
 import 'package:deepfake_detection/modules/Home/home.dart';
@@ -51,27 +52,60 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  //Get User Data by Token.
   static UserData? userData;
 
   void getUserData()
   {
-    print('In Getting User Data');
-    emit(AppGetUserDataLoadingState());
+    if(token !='')
+      {
+        print('In Getting User Data');
+        emit(AppGetUserDataLoadingState());
+
+        MainDioHelper.getData(
+          url: getUserDataByToken,
+          token: token,
+        ).then((value){
+
+          print('got UserData, ${value.data}');
+
+          userData=UserData.fromJson(value.data);
+
+          emit(AppGetUserDataSuccessState());
+        }).catchError((error){
+          print('ERROR WHILE GETTING USER DATA, ${error.toString()}');
+
+          emit(AppGetUserDataErrorState());
+        });
+      }
+  }
+
+
+  NewsModel? newsModel;
+
+  void getNews()
+  {
+    print('In Getting News...');
+
+    emit(AppGetNewsLoadingState());
 
     MainDioHelper.getData(
-      url: getUserDataByToken,
-      token: token,
-    ).then((value){
+      url: news,
+    ).then((value) {
 
-      print('got UserData, ${value.data}');
+      print('Got News Data, ${value.data}');
 
-      userData=UserData.fromJson(value.data);
+      newsModel= NewsModel.fromJson(value.data);
 
-      emit(AppGetUserDataSuccessState());
-    }).catchError((error){
-      print('ERROR WHILE GETTING USER DATA, ${error.toString()}');
+      emit(AppGetNewsSuccessState());
 
-      emit(AppGetUserDataErrorState());
+    }).catchError((error)
+    {
+      print('ERROR WHILE GETTING NEWS, ${error.toString()}');
+
+      emit(AppGetNewsErrorState());
     });
   }
+
+
 }

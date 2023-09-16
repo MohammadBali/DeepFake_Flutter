@@ -95,8 +95,9 @@ ThemeData lightTheme(context) => ThemeData(
   inputDecorationTheme: const InputDecorationTheme(
     prefixIconColor: Colors.black,
     suffixIconColor: Colors.black,
+
     labelStyle: TextStyle(
-        color: Colors.white
+        color: Colors.black
     ),
 
     enabledBorder: OutlineInputBorder(
@@ -155,8 +156,25 @@ ThemeData darkTheme(context)=> ThemeData(
 
   datePickerTheme: DatePickerThemeData(
 
-    backgroundColor: defaultSecondaryDarkColor,
+    backgroundColor: defaultBoxDarkColor,
+    shadowColor: defaultDarkFontColor,
+    elevation: 4,
+    yearForegroundColor: MaterialStateProperty.all(Colors.white),
+    dayForegroundColor: MaterialStateProperty.all(Colors.white),
     headerForegroundColor: defaultThirdDarkColor,
+    weekdayStyle: TextStyle(color: defaultSecondaryDarkColor),
+
+    dayBackgroundColor: MaterialStateProperty.resolveWith((states) {
+      // If the button is pressed, return green, otherwise blue
+
+      if (states.contains(MaterialState.selected)) {
+        return defaultSecondaryDarkColor;
+      }
+      return null;
+    }),
+
+
+
   ),
 
   bottomNavigationBarTheme:  BottomNavigationBarThemeData(
