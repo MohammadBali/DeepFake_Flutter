@@ -58,6 +58,9 @@ class NewsPage extends StatelessWidget {
                   },
                 ),
 
+                  const SizedBox(height: 2,),
+
+
                   Align(
                   alignment: AlignmentDirectional.bottomEnd,
                   child: Text(

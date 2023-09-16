@@ -160,15 +160,28 @@ ThemeData darkTheme(context)=> ThemeData(
     shadowColor: defaultDarkFontColor,
     elevation: 4,
     yearForegroundColor: MaterialStateProperty.all(Colors.white),
-    dayForegroundColor: MaterialStateProperty.all(Colors.white),
+    dayForegroundColor: MaterialStateProperty.resolveWith((states)
+    {
+      if(states.contains(MaterialState.disabled))
+        {
+          return Colors.black26;
+        }
+
+      if(states.contains(MaterialState.selected))
+      {
+        return Colors.black;
+      }
+
+      return Colors.white;
+    }),
     headerForegroundColor: defaultThirdDarkColor,
     weekdayStyle: TextStyle(color: defaultSecondaryDarkColor),
 
     dayBackgroundColor: MaterialStateProperty.resolveWith((states) {
-      // If the button is pressed, return green, otherwise blue
+
 
       if (states.contains(MaterialState.selected)) {
-        return defaultSecondaryDarkColor;
+        return defaultDarkColor;
       }
       return null;
     }),

@@ -1,5 +1,7 @@
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
+import 'package:deepfake_detection/shared/components/constants.dart';
+import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,35 +19,53 @@ class Profile extends StatelessWidget {
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
-            child: Row(
-              children:
-              [
-                Icon(
-                  cubit.isDarkTheme? Icons.sunny : Icons.brightness_3_rounded,
-                  size: 22,
+            child: Column(
+              children: [
+
+                Row(
+                  children:
+                  [
+                    Icon(
+                      cubit.isDarkTheme? Icons.sunny : Icons.brightness_3_rounded,
+                      size: 22,
+                    ),
+
+                    const SizedBox(width: 10,),
+
+                    const Text(
+                      'Dark Mode',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500
+                      ),
+                    ),
+
+                    const Spacer(),
+
+                    Switch(
+                      value: cubit.isDarkTheme,
+                      onChanged: (bool newValue)
+                      {
+                        cubit.changeTheme();
+                      },
+                      activeColor: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                      inactiveTrackColor: cubit.isDarkTheme? Colors.white: null,
+                      activeTrackColor: cubit.isDarkTheme? defaultDarkColor.withOpacity(0.5) : defaultColor.withOpacity(0.5),
+                    ),
+                  ],
                 ),
 
-                const SizedBox(width: 10,),
-
-                const Text(
-                  'Dark Mode',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500
-                  ),
-                ),
-
-                const Spacer(),
-
-                Switch(
-                  value: cubit.isDarkTheme,
-                  onChanged: (bool newValue)
+                TextButton(
+                  onPressed: ()
                   {
-                    cubit.changeTheme();
+                    CacheHelper.saveData(key: 'token', value: '').then((value)
+                    {
+                      token='';
+                      print('set token to zero');
+                    });
+
                   },
-                  activeColor: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-                  inactiveTrackColor: cubit.isDarkTheme? Colors.white: null,
-                  activeTrackColor: cubit.isDarkTheme? defaultDarkColor.withOpacity(0.5) : defaultColor.withOpacity(0.5),
+                  child: const Text('Logout'),
                 ),
               ],
             ),
