@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/models/PostModel/PostModel.dart';
@@ -9,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PostDetails extends StatelessWidget {
   Post post;
   PostDetails({super.key, required this.post});
+
+  TextEditingController addComment=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class PostDetails extends StatelessWidget {
 
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(28.0),
+                padding: const EdgeInsetsDirectional.only(start: 28.0, end:28.0, top:28.0, bottom: 10.0),
                 child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,6 +46,7 @@ class PostDetails extends StatelessWidget {
                         cubit: cubit,
                         context: context,
                         post: post,
+                        isCommentClickable: false,
                       ),
 
                       const SizedBox(height: 20,),
@@ -52,33 +56,130 @@ class PostDetails extends StatelessWidget {
                         cubit: cubit,
                         boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
                         onTap: (){},
-                        child: ListView.separated(
-                          itemBuilder: (context,index)=>commentItemBuilder(cubit: cubit, name: 'name', context: context),
-                          separatorBuilder: (context,index)
-                          {
-                            return Column(
-                              children:
-                              [
-                                const SizedBox(height: 20),
+                        child: Column(
+                          children: [
 
-                                Container(width: double.infinity, height: 1, color: cubit.isDarkTheme? defaultDarkColor : defaultColor,),
+                            addCommentItemBuilder(cubit: cubit, context: context),
 
-                                const SizedBox(height: 20),
-                              ],
-                            );
-                          },
-                          itemCount: 5,
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
+
+                            Container(width: double.infinity, height: 1, color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,),
+
+                            const SizedBox(height: 20),
+
+                            ConditionalBuilder(
+                              condition: post.comments!.isNotEmpty,
+                              builder: (context)=> ListView.separated(
+                                itemBuilder: (context,index)=>commentItemBuilder(cubit: cubit, comment: post.comments![index], context: context),
+                                separatorBuilder: (context,index)=> Column(
+                                  children:
+                                  [
+                                    const SizedBox(height: 20),
+
+                                    Container(width: double.infinity, height: 1, color: cubit.isDarkTheme? defaultDarkColor : defaultColor,),
+
+                                    const SizedBox(height: 20),
+                                  ],
+                                ),
+
+                                itemCount: post.comments!.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                              ),
+
+                              fallback: (context) => const SizedBox(height: 1,),
+                            ),
+
+                          ],
                         ),
                       ),
+
                     ],
                   ),
                 ),
               ),
             ),
+
+
           );
         },
     );
   }
+
+
+  Widget addCommentItemBuilder({required AppCubit cubit, required BuildContext context})=>Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+
+    children:
+    [
+      Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children:
+            [
+              Column(
+                children:
+                [
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/${AppCubit.userData!.photo!}'),
+                    radius: 22,
+                  ),
+
+                  const SizedBox(height: 8,),
+
+                  Text(
+                    AppCubit.userData!.name!.length >10 ? '${AppCubit.userData!.name!.substring(0,10)}...' : AppCubit.userData!.name!  ,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+
+                ],
+              ),
+
+              const SizedBox(width: 10,),
+
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
+                  child:  TextFormField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      labelText: 'Add a Comment',
+                      labelStyle: TextStyle(
+                        color: cubit.isDarkTheme? Colors.grey : Colors.black,
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                    ),
+                    maxLines: 2,
+                  ),
+                ),
+              ),
+
+
+            ],
+          ),
+
+          Align(
+            alignment: AlignmentDirectional.bottomEnd,
+            child: TextButton(
+              child: const Text(
+                'POST',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+
+                ),
+              ),
+              onPressed: (){},
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
 }

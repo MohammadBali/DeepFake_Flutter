@@ -28,7 +28,9 @@ class Post
   Inquiry? inquiry;
   UserData? owner;
 
-  List<Likes>? likes=[];
+  List<Like>? likes=[];
+
+  List<Comment>? comments=[];
 
   Post.fromJson(Map<String,dynamic>json)
   {
@@ -44,8 +46,15 @@ class Post
 
       json['likes'].forEach((like)
       {
-        likes!.add(Likes.fromJson(like));
+        likes!.add(Like.fromJson(like));
       });
+
+      json['comments'].forEach((comment)
+      {
+        comments!.add(Comment.fromJson(comment));
+      });
+
+
     }
     catch(e)
     {
@@ -54,14 +63,35 @@ class Post
   }
 }
 
-class Likes
+class Like
 {
   String? owner;
   String? id;
   
-  Likes.fromJson(Map<String,dynamic>json)
+  Like.fromJson(Map<String,dynamic>json)
   {
     owner=json['owner'];
     id=json['_id'];
+  }
+}
+
+class Comment
+{
+  String? comment;
+  UserData? owner;
+  String? id;
+
+  Comment.fromJson(Map<String,dynamic> json)
+  {
+    try
+    {
+      comment=json['comment'];
+      owner=UserData.fromJson(json['owner']);
+      id=json['_id'];
+    }
+    catch(e)
+    {
+      print('ERROR WHILE SETTING DATA IN COMMENT CLASS MODEL, ${e.toString()}');
+    }
   }
 }

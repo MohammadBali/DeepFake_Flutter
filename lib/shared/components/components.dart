@@ -393,7 +393,7 @@ PreferredSizeWidget defaultAppBar({
 
 //Post Item Builder
 
-Widget postItemBuilder({required AppCubit cubit, required Post post, required BuildContext context})=>defaultBox(
+Widget postItemBuilder({required AppCubit cubit, required Post post, required BuildContext context, bool isCommentClickable =true})=>defaultBox(
     cubit: cubit,
     boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
     child: Column(
@@ -472,7 +472,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
                   ),
 
                   Text(
-                    '15',
+                  calculateNumberOfLikes(post.likes!),
                   ),
                 ],
               ),
@@ -487,7 +487,10 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
                   IconButton(
                       onPressed: ()
                       {
-
+                        if(isCommentClickable)
+                          {
+                            navigateTo(context, PostDetails(post: post));
+                          }
                       },
                       icon: Icon(
                         Icons.comment_rounded,
@@ -496,7 +499,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
                   ),
 
                   Text(
-                    '250',
+                    calculateNumberOfComments(post.comments!),
                   ),
                 ],
               ),
@@ -537,7 +540,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
 //Comment Item Builder
 
 
-Widget commentItemBuilder({required AppCubit cubit, required String name, required BuildContext context})=>Column(
+Widget commentItemBuilder({required AppCubit cubit, required Comment comment, required BuildContext context})=>Column(
   crossAxisAlignment: CrossAxisAlignment.start,
 
   children:
@@ -550,15 +553,15 @@ Widget commentItemBuilder({required AppCubit cubit, required String name, requir
         Column(
           children:
           [
-            const CircleAvatar(
-              backgroundColor: Colors.amber,
+             CircleAvatar(
+              backgroundImage: AssetImage('assets/images/${comment.owner!.photo!}'),
               radius: 22,
             ),
 
             const SizedBox(height: 8,),
 
             Text(
-              name.length >6 ? '${name.substring(0,6)}...' : name  ,
+              comment.owner!.name!.length >10 ? '${comment.owner!.name!.substring(0,10)}...' : comment.owner!.name!  ,
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
@@ -574,7 +577,7 @@ Widget commentItemBuilder({required AppCubit cubit, required String name, requir
           child: Padding(
             padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
             child: Text(
-              'No Way This Document is Fake!',
+              comment.comment!,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -599,4 +602,19 @@ Future<void> defaultLaunchUrl(String ur) async
   {
     throw 'Could not launch $url';
   }
+}
+
+//------------------------------------------------------------------------------------------\\
+
+// Calculate the number of comments/likes and return it as String, 1000 => 1K ,  200,000 => 200K etc...
+
+String calculateNumberOfLikes(List<Like> likes)
+{
+  return '${likes.length}';
+}
+
+
+String calculateNumberOfComments(List<Comment> comments)
+{
+  return '${comments.length}';
 }

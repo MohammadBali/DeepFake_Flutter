@@ -13,9 +13,18 @@ class UserData
     {
       id=json['_id'];
       name=json['name'];
-      gender=json['birthDate'];
-      email=json['email'];
       photo=json['photo'];
+
+      if(json['birthDate']!=null)
+        {
+          gender=json['birthDate'];
+        }
+
+      if(json['email']!=null)
+        {
+          email=json['email'];
+        }
+
     }
     catch(error)
     {
