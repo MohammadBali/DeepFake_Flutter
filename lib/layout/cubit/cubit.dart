@@ -21,7 +21,7 @@ class AppCubit extends Cubit<AppStates>
 
   List<Widget> bottomBarWidgets=
   [
-    const Home(),
+    Home(),
     const TextFiles(),
     const ChatBot(),
     const Profile(),
@@ -82,8 +82,8 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  //Get News
   NewsModel? newsModel;
-
   void getNews()
   {
     print('In Getting News...');
@@ -109,7 +109,9 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  PostModel? postModel;
+  //Get Posts
+  static PostModel? postModel;
+
   void getPosts()
   {
     if(token !='')
@@ -140,4 +142,65 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  //Will get the next new posts when scrolled and will add them to postModel
+  void getNextPosts({required String? nextPage})
+  {
+    if(nextPage !=null)
+      {
+        emit(AppGetNewPostsLoadingState());
+
+        MainDioHelper.getData(
+          url: 'posts$nextPage',
+          token: token,
+        ).then((value){
+
+          //print('Got Posts Data, ${value.data}');
+
+          value.data['posts'].forEach((post)
+          {
+            print('Adding New Post');
+
+            //postModel?.posts?.add(Post.fromJson(post));
+
+            nextPostAdder(Post.fromJson(post));
+
+            postModel?.pagination= Pagination.fromJson(value.data['pagination']);
+          });
+
+          emit(AppGetNewPostsSuccessState());
+        }).catchError((error)
+        {
+          print('ERROR WHILE GETTING NEW POSTS, ${error.toString()}');
+
+          emit(AppGetNewPostsErrorState());
+        });
+      }
+
+    else
+      {
+        print('NextPage is Null');
+      }
+  }
+
+
+  int nextPostAdder(Post post)
+  {
+    try
+    {
+      for (var p in postModel!.posts!)
+      {
+        if(post.id! == p.id!)
+        {
+          return -1;
+        }
+      }
+      postModel?.posts?.add(post);
+      return 1;
+    }
+    catch(e)
+    {
+      print('ERROR IN NEXT POST ADDER, ${e.toString()}');
+      return -2;
+    }
+  }
 }

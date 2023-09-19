@@ -43,7 +43,7 @@ void main() async {
   {
     if (token.isNotEmpty) //Token is there, so Logged in before
     {
-      widget = const HomeLayout(); //Straight to Home Page.
+      widget = HomeLayout(); //Straight to Home Page.
     }
 
     else

@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class HomeLayout extends StatelessWidget {
+
   const HomeLayout({super.key});
 
   @override

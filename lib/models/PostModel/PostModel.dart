@@ -4,6 +4,7 @@ import 'package:deepfake_detection/models/UserDataModel/UserDataModel.dart';
 class PostModel
 {
   List<Post>? posts=[];
+  Pagination? pagination;
 
   PostModel.fromJson(Map<String,dynamic>json)
   {
@@ -13,11 +14,30 @@ class PostModel
       {
         posts!.add(Post.fromJson(post));
       });
+
+      pagination=Pagination.fromJson(json['pagination']);
     }
     catch(e)
     {
       print('ERROR WHILE SETTING POST-MODEL CLASS, ${e.toString()}');
     }
+  }
+}
+
+
+class Pagination
+{
+  int? currentPage;
+  int? totalPages;
+  String? nextPage;
+  String? previousPage;
+
+  Pagination.fromJson(Map<String,dynamic>json)
+  {
+    currentPage=json['currentPage'];
+    totalPages=json['totalPages'];
+    nextPage=json['nextPage'];
+    previousPage=json['previousPage'];
   }
 }
 

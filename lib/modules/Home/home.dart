@@ -8,8 +8,39 @@ import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class Home extends StatefulWidget {
+  Home({super.key});
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  ScrollController scrollController= ScrollController();
+  final GlobalKey _key = GlobalKey();
+
+  @override
+  void initState()
+  {
+    super.initState();
+
+    AppCubit cubit= AppCubit.get(context);
+
+    scrollController.addListener(()
+    {
+      _onScroll(cubit);
+    });
+  }
+
+  @override
+  void dispose()
+  {
+    // scrollController.removeListener(()
+    // {
+    //   _onScroll();
+    // });
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +50,8 @@ class Home extends StatelessWidget {
       {
         var cubit=AppCubit.get(context);
         return SingleChildScrollView(
+          controller: scrollController,
+          key: _key,
           child: Padding(
             padding: const EdgeInsets.all(28.0),
             child: Center(
@@ -45,16 +78,22 @@ class Home extends StatelessWidget {
                   const SizedBox(height: 40,),
 
                   ConditionalBuilder(
-                    condition: cubit.postModel!=null,
+                    condition: AppCubit.postModel!=null,
                     builder: (context)=>ListView.separated(
-                      itemCount: cubit.postModel!.posts!.length,
+                      itemCount: AppCubit.postModel!.posts!.length,
                       separatorBuilder: (context,index)=>const SizedBox(height: 25,),
-                      itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: cubit.postModel!.posts![index], context: context),
+                      itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: AppCubit.postModel!.posts![index], context: context),
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                     ),
                     fallback: (context)=> Center(child: defaultProgressIndicator(context)),
                   ),
+
+                  const SizedBox(height: 20,),
+
+                  //If Loading New Posts => Show Loading Progress Bar
+                  if(state is AppGetNewPostsLoadingState)
+                  defaultLinearProgressIndicator(context),
                 ],
               ),
             ),
@@ -64,6 +103,22 @@ class Home extends StatelessWidget {
     );
   }
 
+
+  void _onScroll(AppCubit cubit)
+  {
+
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) //scrollController.position.maxScrollExtent * threshold
+    {
+      if(AppCubit.postModel?.pagination?.nextPage !=null)
+        {
+          cubit.getNextPosts(nextPage: AppCubit.postModel?.pagination?.nextPage);  //Get Data from Cubit.
+        }
+
+    }
+
+
+
+  }
 
   Widget quoteItemBuilder({required AppCubit cubit, required Article article, required BuildContext context})=>defaultBox(
     cubit: cubit,
@@ -117,7 +172,6 @@ class Home extends StatelessWidget {
     },
   );
 
-
   Widget progressQuoteBuilder(AppCubit cubit, BuildContext context)=>defaultBox(
       cubit: cubit,
       boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
@@ -125,5 +179,4 @@ class Home extends StatelessWidget {
       paddingOptions:false,
       onTap: (){},
   );
-
 }
