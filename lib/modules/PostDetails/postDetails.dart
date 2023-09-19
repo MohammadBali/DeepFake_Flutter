@@ -11,10 +11,12 @@ class PostDetails extends StatelessWidget {
   Post post;
   PostDetails({super.key, required this.post});
 
-  TextEditingController addComment=TextEditingController();
+  TextEditingController addCommentController=TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
+    print(post.id);
     return BlocConsumer<AppCubit,AppStates>(
         listener: (context,state){},
         builder: (context,state)
@@ -47,6 +49,7 @@ class PostDetails extends StatelessWidget {
                         context: context,
                         post: post,
                         isCommentClickable: false,
+                        isBoxClickable: false,
                       ),
 
                       const SizedBox(height: 20,),
@@ -61,10 +64,15 @@ class PostDetails extends StatelessWidget {
 
                             addCommentItemBuilder(cubit: cubit, context: context),
 
+                            Visibility(
+                              visible: post.comments!.isNotEmpty,
+                              child: Container(width: double.infinity, height: 1, color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,)
+                            ),
 
-                            Container(width: double.infinity, height: 1, color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,),
-
-                            const SizedBox(height: 20),
+                            Visibility(
+                              visible: post.comments!.isNotEmpty,
+                              child: const SizedBox(height: 20),
+                            ),
 
                             ConditionalBuilder(
                               condition: post.comments!.isNotEmpty,
@@ -175,7 +183,16 @@ class PostDetails extends StatelessWidget {
 
                 ),
               ),
-              onPressed: (){},
+              onPressed: ()
+              {
+                if(addCommentController.text.isNotEmpty)
+                  {
+                  }
+                else
+                  {
+                    defaultToast(msg: 'No Data to post');
+                  }
+              },
             ),
           ),
         ],

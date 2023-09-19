@@ -61,11 +61,11 @@ class _RegisterState extends State<Register> {
               {
                 token=state.registerModel.token!;
 
-                AppCubit().getUserData();
+                AppCubit.get(context).getUserData();
 
-                AppCubit().getPosts();
+                AppCubit.get(context).getPosts();
 
-                navigateAndFinish(context, HomeLayout());
+                navigateAndFinish(context, const HomeLayout());
 
               }).catchError((error)
               {

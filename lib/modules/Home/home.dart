@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                     builder: (context) =>SizedBox(
                       height: 150,
                       child: ListView.separated(
-                        itemBuilder: (context,index)=> quoteItemBuilder(cubit: cubit, article: cubit.newsModel!.articles![index], context: context),
+                        itemBuilder: (context,index)=> newsItemBuilder(cubit: cubit, article: cubit.newsModel!.articles![index], context: context),
                         separatorBuilder: (context,index)=> const SizedBox(width: 20,),
                         itemCount: cubit.newsModel!.articles!.length,
                         scrollDirection: Axis.horizontal,
@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
 
   }
 
-  Widget quoteItemBuilder({required AppCubit cubit, required Article article, required BuildContext context})=>defaultBox(
+  Widget newsItemBuilder({required AppCubit cubit, required Article article, required BuildContext context})=>defaultBox(
     cubit: cubit,
     boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
     child: Padding(

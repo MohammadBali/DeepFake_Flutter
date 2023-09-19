@@ -13,6 +13,8 @@ const getaProfileById='users/getAUserProfile'; // pass his ID
 
 const deleteUser='users/delete';
 
+const updateUser= 'users/me';
+
 
 //INQUIRIES ENDPOINTS
 

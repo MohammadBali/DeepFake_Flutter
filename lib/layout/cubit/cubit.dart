@@ -1,11 +1,14 @@
 import 'package:deepfake_detection/layout/cubit/states.dart';
+import 'package:deepfake_detection/models/InquiryModel/InquiryModel.dart';
 import 'package:deepfake_detection/models/NewsModel/NewsModel.dart';
 import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/models/UserDataModel/UserDataModel.dart';
 import 'package:deepfake_detection/modules/ChatBot/chatBot.dart';
 import 'package:deepfake_detection/modules/Home/home.dart';
+import 'package:deepfake_detection/modules/Login/login.dart';
 import 'package:deepfake_detection/modules/Profile/profile.dart';
 import 'package:deepfake_detection/modules/TextFiles/text_files.dart';
+import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/components/constants.dart';
 import 'package:deepfake_detection/shared/network/end_points.dart';
 import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
@@ -53,6 +56,8 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  //USER APIS
+
   //Get User Data by Token.
   static UserData? userData;
 
@@ -82,6 +87,84 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  //Update User Profile
+  void updateUserProfile({String? name, String? email, String? photo})
+  {
+    String? n,e,p;
+    name==null || name=='' ? n=null : name==userData!.name! ? n=null : n=name ; //If passed Name is null => store null in n and don't pass it to API, otherwise put the data
+
+    email==null || email=='' ? e=null : email==userData!.email! ? e=null : e=email;
+
+    photo==null ? p=null : photo==userData!.photo! ? p=null : p=photo;
+
+    print('Data to update name: $n  email: $e  photo: $p');
+
+    if(n==null && e==null && p==null)
+      {
+        defaultToast(msg: 'No Data to Update');
+      }
+
+    else
+      {
+        emit(AppUpdateUserProfileLoadingState());
+
+        MainDioHelper.patchData(
+          url: updateUser,
+          token: token,
+          data: {
+            if(n!=null) 'name':n,
+            if(e!=null) 'email':e,
+            if(p!=null) 'photo':p,
+          },
+        ).then((value){
+          print('Got Updated User Data, ${value.data}');
+
+          userData=UserData.fromJson(value.data);
+
+          emit(AppUpdateUserProfileSuccessState());
+        }).catchError((error)
+        {
+          print('ERROR WHILE PATCHING USER DATA, ${error.toString()}');
+          emit(AppUpdateUserProfileErrorState(error.toString()));
+
+        });
+      }
+  }
+
+  //Logout User
+  bool logout({required BuildContext context})
+  {
+
+    CacheHelper.saveData(key: 'token', value: '').then((value)
+    {
+      token='';
+      userData=null;
+      postModel=null;
+      inquiryModel=null;
+      currentBottomBarIndex=0;
+      defaultToast(msg: 'Logged Out');
+
+      navigateAndFinish(context, Login());
+      emit(AppLogoutState());
+
+      return true;
+
+    }).catchError((error)
+    {
+      defaultToast(msg: error.toString());
+      print('ERROR WHILE LOGGING OUT, ${error.toString()}');
+
+      return false;
+    });
+
+    return false;
+  }
+
+  //------------------------------------------
+
+
+  //NEWS APIS
+
   //Get News
   NewsModel? newsModel;
   void getNews()
@@ -109,6 +192,11 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  //--------------------------------------------
+
+
+  //POSTS APIS
+
   //Get Posts
   static PostModel? postModel;
 
@@ -121,11 +209,11 @@ class AppCubit extends Cubit<AppStates>
         emit(AppGetPostsLoadingState());
 
         MainDioHelper.getData(
-            url: posts,
-            token: token,
+          url: posts,
+          token: token,
         ).then((value){
 
-          print('Got Posts Data, ${value.data}');
+          print('Got Posts Data...');
 
           postModel=PostModel.fromJson(value.data);
 
@@ -136,9 +224,7 @@ class AppCubit extends Cubit<AppStates>
 
           emit(AppGetPostsErrorState());
         });
-
       }
-
   }
 
 
@@ -150,7 +236,7 @@ class AppCubit extends Cubit<AppStates>
         emit(AppGetNewPostsLoadingState());
 
         MainDioHelper.getData(
-          url: 'posts$nextPage',
+          url: '$posts$nextPage',
           token: token,
         ).then((value){
 
@@ -203,4 +289,44 @@ class AppCubit extends Cubit<AppStates>
       return -2;
     }
   }
+
+
+  //-----------------------------------------
+
+
+  //INQUIRIES API
+
+  InquiryModel? inquiryModel;
+
+  void getInquiries()
+  {
+    if(token != '')
+      {
+        print('Getting User Inquiries...');
+        emit(AppGetInquiriesLoadingState());
+
+        MainDioHelper.getData(
+          url: getUserInquiries,
+          token: token,
+        ).then((value) {
+          print('Got User Inquiries...');
+
+          inquiryModel=InquiryModel.fromJson(value.data);
+
+          emit(AppGetInquiriesSuccessState());
+        }).catchError((error)
+        {
+          print('ERROR WHILE GETTING USER INQUIRIES, ${error.toString()}');
+
+          emit(AppGetInquiriesErrorState());
+        });
+      }
+  }
+
+
+
+ //----------------------------------------------
+
+
+
 }

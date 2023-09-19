@@ -46,11 +46,13 @@ class Login extends StatelessWidget {
               {
                 token=state.loginModel.token!;
 
-                AppCubit().getUserData();
+                AppCubit.get(context).getUserData();
 
-                AppCubit().getPosts();
+                AppCubit.get(context).getPosts();
 
-                navigateAndFinish(context, HomeLayout());
+                AppCubit.get(context).getInquiries();
+
+                navigateAndFinish(context,const HomeLayout());
 
               }).catchError((error)
               {

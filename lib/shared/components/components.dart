@@ -92,6 +92,9 @@ Widget defaultBox(
   required Widget child,
   required void Function()? onTap,
 
+  bool manualBorderColor=false,
+  Color borderColor=Colors.white,
+
 })=>GestureDetector(
   onTap: onTap,
   child:  Container(
@@ -104,7 +107,9 @@ Widget defaultBox(
 
       borderRadius: BorderRadius.circular(borderRadius),
 
-      border: Border.all(color: cubit.isDarkTheme? Colors.white : Colors.black),
+      border: Border.all(
+          color: manualBorderColor ? borderColor : cubit.isDarkTheme? Colors.white : Colors.black
+      ),
 
     ),
 
@@ -169,7 +174,7 @@ Widget defaultButton(
         title.toUpperCase(),
         style: TextStyle(
           fontSize: 16,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w500,
           color: textColor,
           fontFamily: 'WithoutSans',
           letterSpacing: letterSpacing,
@@ -393,7 +398,7 @@ PreferredSizeWidget defaultAppBar({
 
 //Post Item Builder
 
-Widget postItemBuilder({required AppCubit cubit, required Post post, required BuildContext context, bool isCommentClickable =true})=>defaultBox(
+Widget postItemBuilder({required AppCubit cubit, required Post post, required BuildContext context, bool isCommentClickable =true, bool isBoxClickable=true})=>defaultBox(
     cubit: cubit,
     boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
     child: Column(
@@ -530,7 +535,10 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
 
     onTap: ()
     {
-      navigateTo(context, PostDetails(post: post,) );
+      if(isBoxClickable)
+        {
+          navigateTo(context, PostDetails(post: post,) );
+        }
     }
 );
 
