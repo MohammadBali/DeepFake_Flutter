@@ -36,10 +36,10 @@ class Inquiry
       id=json['_id'];
       name=json['name'];
       type=json['type'];
+      owner=json['owner'];
+      result=json['result'];
+      createdAt=json['createdAt'];
       data=json['data'];
-      owner==json['owner'];
-      result==json['result'];
-      createdAt==json['createdAt'];
     }
     catch(e)
     {

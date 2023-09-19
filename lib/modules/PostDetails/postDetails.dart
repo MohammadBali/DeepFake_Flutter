@@ -16,7 +16,6 @@ class PostDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(post.id);
     return BlocConsumer<AppCubit,AppStates>(
         listener: (context,state){},
         builder: (context,state)
@@ -177,10 +176,9 @@ class PostDetails extends StatelessWidget {
             alignment: AlignmentDirectional.bottomEnd,
             child: TextButton(
               child: const Text(
-                'POST',
+                'ADD COMMENT',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
-
                 ),
               ),
               onPressed: ()

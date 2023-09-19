@@ -1,6 +1,6 @@
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
-import 'package:deepfake_detection/modules/TextFileResult/text_file_result.dart';
+import 'package:deepfake_detection/modules/InquiryDetails/InquiryDetails.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +85,10 @@ class TextFiles extends StatelessWidget {
                     color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
                     onTap: ()
                     {
-                      navigateTo(context, const TextFileResult());
+                      navigateTo(context, InquiryDetails(
+                        inquiry: cubit.inquiryModel!.inquiries![0], //TO BE CHANGED
+                      )
+                      );
                     },
                     textColor: cubit.isDarkTheme? Colors.black : Colors.white,
                   ),

@@ -44,13 +44,16 @@ class Login extends StatelessWidget {
 
               CacheHelper.saveData(key: 'token', value: state.loginModel.token).then((value)
               {
+                var cubit= AppCubit.get(context);
                 token=state.loginModel.token!;
 
-                AppCubit.get(context).getUserData();
+                cubit.getUserData();
 
-                AppCubit.get(context).getPosts();
+                cubit.getPosts();
 
-                AppCubit.get(context).getInquiries();
+                cubit.getInquiries();
+
+                cubit.getUserPosts();
 
                 navigateAndFinish(context,const HomeLayout());
 

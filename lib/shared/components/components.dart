@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
+import 'package:intl/intl.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -346,7 +347,6 @@ Widget defaultAlertDialog(
     title: Text(
       title,
       textAlign: TextAlign.center,
-
     ),
 
     content: content,
@@ -354,16 +354,17 @@ Widget defaultAlertDialog(
     elevation: 50,
 
     contentTextStyle: TextStyle(
-      fontSize: 18,
+      fontSize: 16,
       color:  AppCubit.get(context).isDarkTheme? Colors.white: Colors.black,
       fontFamily: 'WithoutSans',
+      fontWeight: FontWeight.w400
     ),
 
     titleTextStyle: TextStyle(
-      fontSize: 24,
+      fontSize: 22,
       color:  AppCubit.get(context).isDarkTheme? Colors.white: Colors.black,
-      fontWeight: FontWeight.w600,
-      fontFamily: 'WithoutSans',
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Neology',
     ),
 
     backgroundColor: AppCubit.get(context).isDarkTheme? defaultAlertDarkColor: defaultHomeColor,
@@ -626,3 +627,17 @@ String calculateNumberOfComments(List<Comment> comments)
 {
   return '${comments.length}';
 }
+
+
+//------------------------------------------------------------------------------------------\\
+
+String dateFormatter(String date)
+{
+  DateTime dateTime=DateTime.parse(date);
+
+  DateFormat format= DateFormat('dd-MM-yyyy HH.mm');
+
+  return format.format(dateTime);
+}
+
+

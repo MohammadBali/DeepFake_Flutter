@@ -100,7 +100,7 @@ class MainDioHelper
 
 
   static Future<Response> putData(
-      {required String url, Map<String,dynamic>?query,  required Map<String,dynamic> data, String lang='en', String? token,  }) async
+      {required String url, Map<String,dynamic>?query,  required Map<String,dynamic> data, String lang='en', String? token, bool isStatusCheck=false }) async
   {
     dio?.options.headers=
     {
@@ -108,6 +108,21 @@ class MainDioHelper
       'Connection' : 'keep-alive',
       'Authorization': 'Bearer $token',
     };
+
+    if(isStatusCheck == true)  //Allow Status 400,200,201 for Register and Login Errors.
+    {
+      dio?.options.validateStatus= (status) {
+        if([200,201,400].contains(status))
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      };
+    }
+
     print('in Main Dio putData');
     return await dio!.put(
       url,
@@ -134,7 +149,7 @@ class MainDioHelper
     );
   }
 
-  static Future<Response> deleteData({required String url, Map<String,dynamic>?query,  required Map<String,dynamic> data, String? token,})
+  static Future<Response> deleteData({required String url, Map<String,dynamic>?query,  required Map<String,dynamic> data, String? token, bool isStatusCheck=false})
   async {
     dio?.options.headers=
     {
@@ -142,6 +157,22 @@ class MainDioHelper
       'Accept' : 'application/json',
       'Authorization': 'Bearer $token',
     };
+
+    if(isStatusCheck == true)  //Allow Status 400,200,201 for Register and Login Errors.
+        {
+      dio?.options.validateStatus= (status) {
+        if([200,201,400].contains(status))
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      };
+    }
+
+
     print('in Main Dio deleteData');
     return await dio!.delete(
       url,

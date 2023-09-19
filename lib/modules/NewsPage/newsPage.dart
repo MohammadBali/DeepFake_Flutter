@@ -64,7 +64,7 @@ class NewsPage extends StatelessWidget {
                   Align(
                   alignment: AlignmentDirectional.bottomEnd,
                   child: Text(
-                    article.date!,
+                    dateFormatter(article.date!),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

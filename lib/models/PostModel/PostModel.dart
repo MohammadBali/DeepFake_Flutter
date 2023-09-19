@@ -15,7 +15,10 @@ class PostModel
         posts!.add(Post.fromJson(post));
       });
 
-      pagination=Pagination.fromJson(json['pagination']);
+      if(json['pagination'] !=null)
+        {
+          pagination=Pagination.fromJson(json['pagination']);
+        }
     }
     catch(e)
     {
@@ -48,6 +51,8 @@ class Post
   Inquiry? inquiry;
   UserData? owner;
 
+  String? createdAt;
+
   List<Like>? likes=[];
 
   List<Comment>? comments=[];
@@ -63,6 +68,8 @@ class Post
       inquiry=Inquiry.fromJson(json['inquiry']);
 
       owner=UserData.fromJson(json['inquiry']['owner']);
+
+      createdAt=json['createdAt'];
 
       json['likes'].forEach((like)
       {

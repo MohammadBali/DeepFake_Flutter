@@ -131,6 +131,28 @@ class AppCubit extends Cubit<AppStates>
       }
   }
 
+  PostModel? userPostsModel;
+
+  void getUserPosts()
+  {
+    if(token!='')
+      {
+        print("In Getting User's Posts");
+        emit(AppGetUserPostsLoadingState());
+        MainDioHelper.getData(
+          url: userPosts,
+          token: token,
+        ).then((value) {
+          userPostsModel=PostModel.fromJson(value.data);
+          emit(AppGetUserPostsSuccessState());
+        }).catchError((error)
+        {
+          print('ERROR WHILE GETTING USER POSTS, ${error.toString()}');
+          emit(AppGetUserPostsErrorState());
+        });
+      }
+  }
+
   //Logout User
   bool logout({required BuildContext context})
   {
@@ -291,6 +313,45 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  //Send API to delete from Back-end and then delete it from userPostsModel.
+  void deletePost(String postId)
+  {
+    print('In Delete Post with ID:$postId');
+    emit(AppDeleteAPostLoadingState());
+
+    MainDioHelper.deleteData(
+      url: '$deleteAPost/$postId',
+      data: {},
+      token: token,
+    ).then((value) {
+
+      print('Got Delete a Post Data...');
+
+      Post? toBeDeleted;
+
+      for (var post in userPostsModel!.posts!)
+      {
+        if(post.id! == postId)
+          {
+            toBeDeleted=post;
+          }
+      }
+
+      if(toBeDeleted !=null)
+        {
+          userPostsModel!.posts!.remove(toBeDeleted);
+          print('Deleted post from userPostsModel');
+        }
+
+      emit(AppDeleteAPostSuccessState());
+
+    }).catchError((error)
+    {
+      print('ERROR WHILE DELETING A POST, ${error.toString()}');
+      emit(AppDeleteAPostErrorState(error.toString()));
+    });
+  }
+
   //-----------------------------------------
 
 
@@ -324,6 +385,42 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  //Delete an Inquiry
+  void deleteInquiry(String inquiryId)
+  {
+    print('In Delete Inquiry, Id is: $inquiryId');
+    emit(AppDeleteInquiryLoadingState());
+
+    MainDioHelper.deleteData(
+      url: '$deleteUserInquiry/$inquiryId',
+      data: {},
+      token: token,
+    ).then((value) {
+      print('Got Deleted Inquiry Data, ${value.data}');
+
+      Inquiry? toBeDeleted;
+
+      for (var inquiry in inquiryModel!.inquiries!)
+      {
+        if(inquiry.id! == inquiryId)
+        {
+          toBeDeleted=inquiry;
+        }
+      }
+
+      if(toBeDeleted !=null)
+      {
+        inquiryModel!.inquiries!.remove(toBeDeleted);
+        print('Deleted inquiry from inquiryModel');
+      }
+
+      emit(AppDeleteAPostSuccessState());
+    }).catchError((error)
+    {
+      print('ERROR WHILE DELETING AN INQUIRY, ${error.toString()}');
+      emit(AppDeleteInquiryErrorState(error.toString()));
+    });
+  }
 
  //----------------------------------------------
 

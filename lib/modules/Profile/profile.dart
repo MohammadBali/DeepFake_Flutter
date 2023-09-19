@@ -2,10 +2,9 @@ import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/modules/AllSettings/General/Appearance/appearance.dart';
 import 'package:deepfake_detection/modules/AllSettings/Personal/EditProfile/editProfile.dart';
-import 'package:deepfake_detection/modules/Login/login.dart';
+import 'package:deepfake_detection/modules/AllSettings/Personal/PreviousInquiries/UserInquiries.dart';
+import 'package:deepfake_detection/modules/AllSettings/Personal/YourPosts/UserPosts.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
-import 'package:deepfake_detection/shared/components/constants.dart';
-import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,7 +52,7 @@ class Profile extends StatelessWidget {
                         text: 'Your Posts',
                         onTap: ()
                         {
-
+                          navigateTo(context, const UserPosts());
                         }
                       ),
 
@@ -66,7 +65,7 @@ class Profile extends StatelessWidget {
                         text: 'Previous Inquiries',
                         onTap: ()
                         {
-
+                          navigateTo(context, const UserInquiries());
                         }
                       ),
                     ],

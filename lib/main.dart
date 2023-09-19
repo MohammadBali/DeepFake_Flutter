@@ -12,6 +12,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'layout/home_layout.dart';
 
 void main() async {
+
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.dumpErrorToConsole(details);
+  };
+
   WidgetsFlutterBinding.ensureInitialized(); //Makes sure that all the await and initializer get done before runApp
 
   Bloc.observer = MyBlocObserver(); //Running Bloc Observer which prints change in states and errors etc...  in console
@@ -43,7 +48,7 @@ void main() async {
   {
     if (token.isNotEmpty) //Token is there, so Logged in before
     {
-      widget = HomeLayout(); //Straight to Home Page.
+      widget = const HomeLayout(); //Straight to Home Page.
     }
 
     else
@@ -75,7 +80,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers:
         [
-          BlocProvider(create: (BuildContext  context) => AppCubit()..changeTheme(themeFromState: isDark)..getUserData()..getPosts()..getNews()..getInquiries() ),
+          BlocProvider(create: (BuildContext  context) => AppCubit()..changeTheme(themeFromState: isDark)..getUserData()..getPosts()..getUserPosts()..getNews()..getInquiries() ),
         ],
         child: BlocConsumer<AppCubit,AppStates>(
           listener: (context,state){},

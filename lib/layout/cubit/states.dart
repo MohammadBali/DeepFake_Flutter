@@ -19,6 +19,20 @@ class AppGetUserDataErrorState extends AppStates{}
 
 //-----------------------------------------------
 
+
+
+
+//GET USER POSTS
+
+class AppGetUserPostsLoadingState extends AppStates{}
+
+class AppGetUserPostsSuccessState extends AppStates{}
+
+class AppGetUserPostsErrorState extends AppStates{}
+
+
+//-----------------------------------------------
+
 //GET NEWS
 
 class AppGetNewsLoadingState extends AppStates{}
@@ -65,7 +79,7 @@ class AppGetInquiriesErrorState extends AppStates{}
 
 //-----------------------------------------------
 
-// GET INQUIRIES
+// UPDATE USER PROFILE DATA
 
 
 class AppUpdateUserProfileLoadingState extends AppStates{}
@@ -77,6 +91,43 @@ class AppUpdateUserProfileErrorState extends AppStates
   final String error;
 
   AppUpdateUserProfileErrorState(this.error);
+}
+
+
+//-----------------------------------------------
+
+
+
+// DELETE AN INQUIRY
+
+
+class AppDeleteInquiryLoadingState extends AppStates{}
+
+class AppDeleteInquirySuccessState extends AppStates{}
+
+class AppDeleteInquiryErrorState extends AppStates
+{
+  final String error;
+
+  AppDeleteInquiryErrorState(this.error);
+}
+
+
+//-----------------------------------------------
+
+
+// GET POSTS
+
+
+class AppDeleteAPostLoadingState extends AppStates{}
+
+class AppDeleteAPostSuccessState extends AppStates{}
+
+class AppDeleteAPostErrorState extends AppStates
+{
+  final String error;
+
+  AppDeleteAPostErrorState(this.error);
 }
 
 

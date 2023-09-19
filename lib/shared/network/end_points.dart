@@ -15,6 +15,8 @@ const deleteUser='users/delete';
 
 const updateUser= 'users/me';
 
+const userPosts= 'posts/me';
+
 
 //INQUIRIES ENDPOINTS
 

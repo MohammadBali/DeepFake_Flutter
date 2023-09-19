@@ -1,13 +1,15 @@
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
+import 'package:deepfake_detection/models/InquiryModel/InquiryModel.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TextFileResult extends StatelessWidget {
-  const TextFileResult({super.key});
+class InquiryDetails extends StatelessWidget {
+  const InquiryDetails({super.key, required this.inquiry});
 
+  final Inquiry inquiry;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
@@ -18,7 +20,7 @@ class TextFileResult extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'Text Result',
+                'Inquiry Details',
                 style: TextStyle(
                   color: cubit.isDarkTheme? defaultDarkFontColor: defaultFontColor,
                   fontFamily: 'WithoutSans',
@@ -49,7 +51,7 @@ class TextFileResult extends StatelessWidget {
                         [
                           Expanded(
                             child: Text(
-                              'Dr.Nowatski Paper.docx',
+                              inquiry.name!,
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: cubit.isDarkTheme? defaultSecondaryDarkColor : Colors.white,
@@ -62,7 +64,7 @@ class TextFileResult extends StatelessWidget {
 
                           const SizedBox(width: 5,),
 
-                          Icon(Icons.file_copy_outlined),
+                          const Icon(Icons.file_copy_outlined),
                         ],
                       ),
                       onTap: (){},
@@ -73,7 +75,7 @@ class TextFileResult extends StatelessWidget {
 
                   Expanded(
                     child: Text(
-                      'This Text file is not fake and it is valid.',
+                      inquiry.result =='correct' ? 'This Text file is not fake and it is valid.' : 'This Text file is fake and it is not valid.',
                       style: TextStyle(
                         color: cubit.isDarkTheme? defaultDarkFontColor: defaultFontColor,
                         fontWeight: FontWeight.w500,
@@ -93,7 +95,7 @@ class TextFileResult extends StatelessWidget {
                       const Spacer(),
 
                       Text(
-                        'Valid Data',
+                        inquiry.result =='correct' ? 'Valid Data' : 'Not Valid',
                         style: TextStyle(
                           color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
                           fontSize: 30,
@@ -106,7 +108,7 @@ class TextFileResult extends StatelessWidget {
                       const Spacer(),
 
                       Icon(
-                        Icons.check_rounded,
+                        inquiry.result =='correct' ? Icons.check_rounded : Icons.cancel_outlined,
                         size: 32,
                         color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
                       )
