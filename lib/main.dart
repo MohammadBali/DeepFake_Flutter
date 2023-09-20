@@ -26,7 +26,7 @@ void main() async {
   await CacheHelper.init(); //Starting CacheHelper, await for it since there is async,await in .init().
 
   bool? isDark = CacheHelper.getData(key: 'isDarkTheme'); //Getting the last Cached ThemeMode
-  isDark ??= false;
+  isDark ??= true;
 
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding'); //To get if OnBoarding screen has been shown before, if true then straight to Login Screen.
   onBoarding ??= false;
