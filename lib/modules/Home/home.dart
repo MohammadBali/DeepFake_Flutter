@@ -49,52 +49,59 @@ class _HomeState extends State<Home> {
       builder: (context,state)
       {
         var cubit=AppCubit.get(context);
-        return SingleChildScrollView(
-          controller: scrollController,
-          key: _key,
-          child: Padding(
-            padding: const EdgeInsets.all(28.0),
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children:
-                [
 
-                  ConditionalBuilder(
-                    condition: cubit.newsModel !=null,
-                    builder: (context) =>SizedBox(
-                      height: 150,
-                      child: ListView.separated(
-                        itemBuilder: (context,index)=> newsItemBuilder(cubit: cubit, article: cubit.newsModel!.articles![index], context: context),
-                        separatorBuilder: (context,index)=> const SizedBox(width: 20,),
-                        itemCount: cubit.newsModel!.articles!.length,
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
+        return RefreshIndicator(
+          onRefresh:() async
+          {
+            await cubit.checkForNewPosts();
+          },
+          child: SingleChildScrollView(
+            controller: scrollController,
+            key: _key,
+            child: Padding(
+              padding: const EdgeInsets.all(28.0),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children:
+                  [
+
+                    ConditionalBuilder(
+                      condition: cubit.newsModel !=null,
+                      builder: (context) =>SizedBox(
+                        height: 150,
+                        child: ListView.separated(
+                          itemBuilder: (context,index)=> newsItemBuilder(cubit: cubit, article: cubit.newsModel!.articles![index], context: context),
+                          separatorBuilder: (context,index)=> const SizedBox(width: 20,),
+                          itemCount: cubit.newsModel!.articles!.length,
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                        ),
                       ),
+                      fallback: (context)=> progressNewsBuilder(cubit, context),
                     ),
-                    fallback: (context)=> progressQuoteBuilder(cubit, context),
-                  ),
 
-                  const SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
 
-                  ConditionalBuilder(
-                    condition: AppCubit.postModel!=null,
-                    builder: (context)=>ListView.separated(
-                      itemCount: AppCubit.postModel!.posts!.length,
-                      separatorBuilder: (context,index)=>const SizedBox(height: 25,),
-                      itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: AppCubit.postModel!.posts![index], context: context),
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+                    ConditionalBuilder(
+                      condition: AppCubit.postModel!=null,
+                      builder: (context)=>ListView.separated(
+                        itemCount: AppCubit.postModel!.posts!.length,
+                        separatorBuilder: (context,index)=>const SizedBox(height: 25,),
+                        itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: AppCubit.postModel!.posts![index], context: context),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                      ),
+                      fallback: (context)=> Center(child: defaultProgressIndicator(context)),
                     ),
-                    fallback: (context)=> Center(child: defaultProgressIndicator(context)),
-                  ),
 
-                  const SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
 
-                  //If Loading New Posts => Show Loading Progress Bar
-                  if(state is AppGetNewPostsLoadingState)
-                  defaultLinearProgressIndicator(context),
-                ],
+                    //If Loading New Posts => Show Loading Progress Bar
+                    if(state is AppGetNewPostsLoadingState)
+                    defaultLinearProgressIndicator(context),
+                  ],
+                ),
               ),
             ),
           ),
@@ -172,7 +179,7 @@ class _HomeState extends State<Home> {
     },
   );
 
-  Widget progressQuoteBuilder(AppCubit cubit, BuildContext context)=>defaultBox(
+  Widget progressNewsBuilder(AppCubit cubit, BuildContext context)=>defaultBox(
       cubit: cubit,
       boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
       child: Center(child: defaultLinearProgressIndicator(context),),

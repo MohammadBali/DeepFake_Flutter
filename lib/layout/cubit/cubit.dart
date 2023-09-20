@@ -13,6 +13,7 @@ import 'package:deepfake_detection/shared/components/constants.dart';
 import 'package:deepfake_detection/shared/network/end_points.dart';
 import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
 import 'package:deepfake_detection/shared/network/remote/main_dio_helper.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -73,7 +74,7 @@ class AppCubit extends Cubit<AppStates>
           token: token,
         ).then((value){
 
-          print('got UserData, ${value.data}');
+          print('got UserData...');
 
           userData=UserData.fromJson(value.data);
 
@@ -131,28 +132,6 @@ class AppCubit extends Cubit<AppStates>
       }
   }
 
-  PostModel? userPostsModel;
-
-  void getUserPosts()
-  {
-    if(token!='')
-      {
-        print("In Getting User's Posts");
-        emit(AppGetUserPostsLoadingState());
-        MainDioHelper.getData(
-          url: userPosts,
-          token: token,
-        ).then((value) {
-          print('Got User Posts');
-          userPostsModel=PostModel.fromJson(value.data,isOwnerUser: true);
-          emit(AppGetUserPostsSuccessState());
-        }).catchError((error)
-        {
-          print('ERROR WHILE GETTING USER POSTS, ${error.toString()}');
-          emit(AppGetUserPostsErrorState());
-        });
-      }
-  }
 
   //Logout User
   bool logout({required BuildContext context})
@@ -164,6 +143,7 @@ class AppCubit extends Cubit<AppStates>
       userData=null;
       postModel=null;
       inquiryModel=null;
+      userPostsModel=null;
       currentBottomBarIndex=0;
       defaultToast(msg: 'Logged Out');
 
@@ -200,7 +180,7 @@ class AppCubit extends Cubit<AppStates>
       url: news,
     ).then((value) {
 
-      print('Got News Data, ${value.data}');
+      print('Got News Data...');
 
       newsModel= NewsModel.fromJson(value.data);
 
@@ -222,6 +202,50 @@ class AppCubit extends Cubit<AppStates>
 
   //Get Posts
   static PostModel? postModel;
+
+  //Check for New Posts & Merge Together
+  PostModel? newPostModel;
+  Future<void> checkForNewPosts()async
+  {
+    print('In Check For New Posts...');
+    emit(AppCheckNewPostsLoadingState());
+
+    MainDioHelper.getData(
+      url: posts,
+      token: token,
+    ).then((value){
+
+      print('Got Check For New Posts Data...');
+
+      newPostModel=PostModel.fromJson(value.data);
+
+      bool isFound=false;
+      for (var newPost in newPostModel!.posts!)
+      {
+        for(var oldPost in postModel!.posts!)
+          {
+            if(newPost.id! == oldPost.id!)
+              {
+                isFound=true;
+              }
+          }
+
+        if(isFound==false)
+          {
+            postModel!.posts!.add(newPost);
+          }
+        isFound=false;
+      }
+
+      emit(AppCheckNewPostsSuccessState());
+    }).catchError((error)
+    {
+      print('ERROR WHILE CHECKING FOR NEW POSTS, ${error.toString()}');
+
+      emit(AppCheckNewPostsErrorState());
+    });
+
+  }
 
   void getPosts()
   {
@@ -327,7 +351,7 @@ class AppCubit extends Cubit<AppStates>
       }
   }
 
-
+  //A Helper Function for GetNextPosts
   int nextPostAdder(Post post)
   {
     try
@@ -349,6 +373,30 @@ class AppCubit extends Cubit<AppStates>
     }
   }
 
+
+  //Get User Posts
+  PostModel? userPostsModel;
+
+  void getUserPosts()
+  {
+    if(token!='')
+    {
+      print("In Getting User's Posts");
+      emit(AppGetUserPostsLoadingState());
+      MainDioHelper.getData(
+        url: userPosts,
+        token: token,
+      ).then((value) {
+        print('Got User Posts');
+        userPostsModel=PostModel.fromJson(value.data,isOwnerUser: true);
+        emit(AppGetUserPostsSuccessState());
+      }).catchError((error)
+      {
+        print('ERROR WHILE GETTING USER POSTS, ${error.toString()}');
+        emit(AppGetUserPostsErrorState());
+      });
+    }
+  }
 
   //Send API to delete from Back-end and then delete it from userPostsModel.
   void deletePost(String postId)
@@ -463,6 +511,42 @@ class AppCubit extends Cubit<AppStates>
 
  //----------------------------------------------
 
+  //FILE PICKER
+
+  PlatformFile? chosenFile;
+
+  void pickFile() async
+  {
+    emit(AppGetFileLoadingState());
+
+    try {
+      FilePickerResult? result= await FilePicker.platform.pickFiles(allowedExtensions: ['docx','pdf','doc','txt'], type: FileType.custom, allowMultiple: false, );
+      if(result !=null)
+      {
+        chosenFile=result.files.first;
+
+        emit(AppGetFileSuccessState());
+      }
+      else
+      {
+        print('FILE PICKER RESULT IS NULL');
+        emit(AppGetFileErrorState());
+      }
 
 
+    }catch (e)
+    {
+      print('ERROR WHILE PICKING A FILE, ${e.toString()}');
+
+      defaultToast(msg: e.toString());
+      emit(AppGetFileErrorState());
+    }
+  }
+
+
+  void removeFile()
+  {
+    chosenFile=null;
+    emit(AppRemoveFileState());
+  }
 }

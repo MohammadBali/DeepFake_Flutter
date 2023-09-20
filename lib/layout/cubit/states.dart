@@ -134,7 +134,7 @@ class AppDeleteInquiryErrorState extends AppStates
 //-----------------------------------------------
 
 
-// GET POSTS
+// DELETE POSTS
 
 
 class AppDeleteAPostLoadingState extends AppStates{}
@@ -151,7 +151,38 @@ class AppDeleteAPostErrorState extends AppStates
 
 //-----------------------------------------------
 
+
+// GET POSTS
+
+
+class AppCheckNewPostsLoadingState extends AppStates{}
+
+class AppCheckNewPostsSuccessState extends AppStates{}
+
+class AppCheckNewPostsErrorState extends AppStates {}
+
+
+//-----------------------------------------------
+
+
 // LOGOUT
 
 class AppLogoutState extends AppStates{}
 
+
+// GET FILE
+
+
+class AppGetFileLoadingState extends AppStates{}
+
+class AppGetFileSuccessState extends AppStates{}
+
+class AppGetFileErrorState extends AppStates{}
+
+
+//-----------------------------------------------
+
+
+// REMOVE FILE
+
+class AppRemoveFileState extends AppStates{}

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/modules/Login/login.dart';
@@ -9,15 +11,20 @@ import 'package:deepfake_detection/shared/network/remote/main_dio_helper.dart';
 import 'package:deepfake_detection/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'layout/home_layout.dart';
 
 void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized(); //Makes sure that all the await and initializer get done before runApp
 
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
   };
 
-  WidgetsFlutterBinding.ensureInitialized(); //Makes sure that all the await and initializer get done before runApp
+  Directory appDocDir = await getApplicationDocumentsDirectory();
+
+  appDocPath=appDocDir.path;
 
   Bloc.observer = MyBlocObserver(); //Running Bloc Observer which prints change in states and errors etc...  in console
 

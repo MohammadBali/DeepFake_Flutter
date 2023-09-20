@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
+
 import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/modules/PostDetails/postDetails.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +11,11 @@ import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:material_dialogs/dialogs.dart';
+import 'package:open_file_plus/open_file_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'constants.dart';
 
 Widget defaultFormField({
   required TextEditingController controller,
@@ -97,6 +105,7 @@ Widget defaultBox(
   Color borderColor=Colors.white,
 
 })=>GestureDetector(
+
   onTap: onTap,
   child:  Container(
 
@@ -566,7 +575,16 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      onTap:(){}
+                      onTap:() async
+                      {
+                        File? file=await base64ToFile(post.inquiry!.data!, post.inquiry!.type!);
+
+                        if(file!=null)
+                        {
+                          print('Converted File');
+                          openFile(file.path);
+                        }
+                      }
                   ),
                 ),
               ),
@@ -673,6 +691,7 @@ String calculateNumberOfComments(List<Comment> comments)
 
 //------------------------------------------------------------------------------------------\\
 
+//Format Date to More readable one
 String dateFormatter(String date)
 {
   DateTime dateTime=DateTime.parse(date);
@@ -683,3 +702,44 @@ String dateFormatter(String date)
 }
 
 
+//------------------------------------------------------------------------------------------\\
+
+//Open Local Files From Path
+
+Future<void> openFile(String path)
+async {
+  OpenFile.open(path).then((value)
+  {
+    print(value);
+    if(value.message.contains('No APP found to open this file'))
+      {
+        defaultToast(msg: value.message, length: Toast.LENGTH_LONG);
+      }
+  }).catchError((error)
+  {
+    print('ERROR WHILE OPENING FILE, ${error.toString()}');
+    defaultToast(msg: error.toString());
+  });
+}
+
+//------------------------------------------------------------------------------------------\\
+
+//Generate Random String
+
+const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+
+String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+    length, (_) => _chars.codeUnitAt(Random().nextInt(_chars.length))));
+
+//------------------------------------------------------------------------------------------\\
+
+//Convert the Base64 Back to File
+
+Future<File?> base64ToFile(String base, String type)async
+{
+  Uint8List decodedBytes= base64.decode(base);
+
+  File file= await File('$appDocPath/${getRandomString(10)}.$type').writeAsBytes(decodedBytes);
+  return file;
+
+}

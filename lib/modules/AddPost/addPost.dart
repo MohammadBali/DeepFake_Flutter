@@ -49,6 +49,7 @@ class AddPost extends StatelessWidget {
                 ),
               ),
             ),
+
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(24.0),

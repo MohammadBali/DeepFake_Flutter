@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/models/InquiryModel/InquiryModel.dart';
@@ -19,6 +22,7 @@ class InquiryDetails extends StatelessWidget {
         builder: (context,state)
         {
           var cubit=AppCubit.get(context);
+
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -80,7 +84,16 @@ class InquiryDetails extends StatelessWidget {
                             const Icon(Icons.file_copy_outlined),
                           ],
                         ),
-                        onTap: (){},
+                        onTap: ()
+                        async {
+                          File? file=await base64ToFile(inquiry.data!, inquiry.type!);
+
+                          if(file!=null)
+                            {
+                              print('Converted File');
+                              openFile(file.path);
+                            }
+                        },
                       ),
                     ),
 

@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/modules/AllSettings/Personal/EditProfile/ChangePersonalPhoto.dart';
@@ -24,8 +25,12 @@ class _EditProfileState extends State<EditProfile> {
   void initState()
   {
     super.initState();
-    nameController.text=AppCubit.userData!.name!;
-    emailController.text=AppCubit.userData!.email!;
+    if(AppCubit.userData!=null)
+      {
+        nameController.text=AppCubit.userData!.name!;
+        emailController.text=AppCubit.userData!.email!;
+      }
+
   }
 
   @override
@@ -70,133 +75,137 @@ class _EditProfileState extends State<EditProfile> {
             ),
 
             body: SingleChildScrollView(
-              child: Form(
-                key: formKey,
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.only(top:24.0, bottom: 24.0, end: 24.0),
-                  child: Column(
-                    children:
-                    [
-                      Row(
-                        children:
-                        [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: ()
-                              {
-                                navigateTo(context, const ChangePersonalPhoto() );
-                              },
-                              child: Stack(
-                                fit: StackFit.passthrough,
-                                alignment: Alignment.bottomCenter,
-                                children:
-                                [
-                                  CircleAvatar(
-                                    backgroundImage: AssetImage('assets/images/${AppCubit.userData!.photo!}'),
-                                    radius: 75,
-                                  ),
-
-                                  const Icon(Icons.camera_alt_outlined),
-                                ],
-                              ),
-                            ),
-                          ),
-
-
-                          Expanded(
-                            child: Text(
-                              AppCubit.userData!.name!,
-                              style: const TextStyle(
-                                fontFamily: 'Neology',
-                                fontSize: 24,
-
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 25,),
-
-                      Padding(
-                        padding: const EdgeInsetsDirectional.only(start: 24.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+              child: ConditionalBuilder(
+                condition: AppCubit.userData!=null,
+                fallback: (context)=>Center(child: defaultProgressIndicator(context),),
+                builder: (context)=>Form(
+                  key: formKey,
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.only(top:24.0, bottom: 24.0, end: 24.0),
+                    child: Column(
+                      children:
+                      [
+                        Row(
                           children:
                           [
-                            myDivider(color: cubit.isDarkTheme? defaultDarkColor : defaultColor),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: ()
+                                {
+                                  navigateTo(context, const ChangePersonalPhoto() );
+                                },
+                                child: Stack(
+                                  fit: StackFit.passthrough,
+                                  alignment: Alignment.bottomCenter,
+                                  children:
+                                  [
+                                    CircleAvatar(
+                                      backgroundImage: AssetImage('assets/images/${AppCubit.userData!.photo!}'),
+                                      radius: 75,
+                                    ),
 
-                            const SizedBox(height: 40,),
-
-                            const Text(
-                              'Edit Your Details',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontFamily: 'WithoutSans',
-                                fontWeight: FontWeight.w600
+                                    const Icon(Icons.camera_alt_outlined),
+                                  ],
+                                ),
                               ),
                             ),
 
-                            const SizedBox(height: 25,),
 
-                            defaultFormField(
-                              controller: nameController,
-                              keyboard: TextInputType.name,
-                              label: 'Name',
-                              prefix: Icons.person_rounded,
-                              isFilled: true,
-                              fillColor: AppCubit.get(context).isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                              validate: (value)
-                              {
-                                if(value!.isEmpty)
-                                  {
-                                    return 'Name is empty';
-                                  }
-                                return null;
-                              }
-                            ),
+                            Expanded(
+                              child: Text(
+                                AppCubit.userData!.name!,
+                                style: const TextStyle(
+                                  fontFamily: 'Neology',
+                                  fontSize: 24,
 
-
-                            const SizedBox(height: 25,),
-
-                            defaultFormField(
-                                controller: emailController,
-                                keyboard: TextInputType.emailAddress,
-                                label: 'Email Address',
-                                prefix: Icons.email_rounded,
-                                isFilled: true,
-                                fillColor: AppCubit.get(context).isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                                validate: (value)
-                                {
-                                  if(value!.isEmpty)
-                                  {
-                                    return 'Email is empty';
-                                  }
-                                  return null;
-                                }
-                            ),
-
-                            const SizedBox(height: 50,),
-
-                            Center(
-                              child: defaultButton(
-                                color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-                                title: 'UPDATE',
-                                textColor: cubit.isDarkTheme? Colors.black: Colors.white,
-                                onTap: ()
-                                {
-                                  cubit.updateUserProfile(
-                                    name: nameController.text,
-                                    email: emailController.text,
-                                    photo: null,
-                                  );
-                                }
+                                ),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+
+                        const SizedBox(height: 25,),
+
+                        Padding(
+                          padding: const EdgeInsetsDirectional.only(start: 24.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:
+                            [
+                              myDivider(color: cubit.isDarkTheme? defaultDarkColor : defaultColor),
+
+                              const SizedBox(height: 40,),
+
+                              const Text(
+                                'Edit Your Details',
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontFamily: 'WithoutSans',
+                                    fontWeight: FontWeight.w600
+                                ),
+                              ),
+
+                              const SizedBox(height: 25,),
+
+                              defaultFormField(
+                                  controller: nameController,
+                                  keyboard: TextInputType.name,
+                                  label: 'Name',
+                                  prefix: Icons.person_rounded,
+                                  isFilled: true,
+                                  fillColor: AppCubit.get(context).isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                  validate: (value)
+                                  {
+                                    if(value!.isEmpty)
+                                    {
+                                      return 'Name is empty';
+                                    }
+                                    return null;
+                                  }
+                              ),
+
+
+                              const SizedBox(height: 25,),
+
+                              defaultFormField(
+                                  controller: emailController,
+                                  keyboard: TextInputType.emailAddress,
+                                  label: 'Email Address',
+                                  prefix: Icons.email_rounded,
+                                  isFilled: true,
+                                  fillColor: AppCubit.get(context).isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                  validate: (value)
+                                  {
+                                    if(value!.isEmpty)
+                                    {
+                                      return 'Email is empty';
+                                    }
+                                    return null;
+                                  }
+                              ),
+
+                              const SizedBox(height: 50,),
+
+                              Center(
+                                child: defaultButton(
+                                    color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                                    title: 'UPDATE',
+                                    textColor: cubit.isDarkTheme? Colors.black: Colors.white,
+                                    onTap: ()
+                                    {
+                                      cubit.updateUserProfile(
+                                        name: nameController.text,
+                                        email: emailController.text,
+                                        photo: null,
+                                      );
+                                    }
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

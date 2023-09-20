@@ -65,6 +65,8 @@ class _RegisterState extends State<Register> {
 
                 AppCubit.get(context).getPosts();
 
+                AppCubit.get(context).getInquiries();
+
                 navigateAndFinish(context, const HomeLayout());
 
               }).catchError((error)

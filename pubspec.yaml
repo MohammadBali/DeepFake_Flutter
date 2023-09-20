@@ -50,6 +50,9 @@ dependencies:
   conditional_builder_null_safety: ^0.0.6
   intl: ^0.18.1
   url_launcher: ^6.1.14
+  file_picker: ^5.5.0
+  open_file_plus: ^3.4.1
+  path_provider: ^2.1.1
 
 
 dev_dependencies:
