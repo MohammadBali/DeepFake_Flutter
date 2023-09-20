@@ -152,6 +152,7 @@ class PostDetails extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
                   child:  TextFormField(
+                    controller: addCommentController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       enabledBorder: const OutlineInputBorder(

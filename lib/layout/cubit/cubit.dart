@@ -143,7 +143,8 @@ class AppCubit extends Cubit<AppStates>
           url: userPosts,
           token: token,
         ).then((value) {
-          userPostsModel=PostModel.fromJson(value.data);
+          print('Got User Posts');
+          userPostsModel=PostModel.fromJson(value.data,isOwnerUser: true);
           emit(AppGetUserPostsSuccessState());
         }).catchError((error)
         {
@@ -234,9 +235,7 @@ class AppCubit extends Cubit<AppStates>
           url: posts,
           token: token,
         ).then((value){
-
-          print('Got Posts Data...');
-
+          print('Got Posts Data');
           postModel=PostModel.fromJson(value.data);
 
           emit(AppGetPostsSuccessState());
@@ -249,6 +248,44 @@ class AppCubit extends Cubit<AppStates>
       }
   }
 
+  //Upload a Post
+  void uploadPost({required String inquiryId, required String comment, required String ownerId})
+  {
+    print('In Uploading a Post...');
+    emit(AppUploadPostLoadingState());
+
+    MainDioHelper.postData(
+      url: addPost,
+      isStatusCheck: true,
+      data:
+      {
+        "inquiry":inquiryId,
+        "owner":ownerId,
+        "title":comment
+      },
+      token: token,
+    ).then((value) {
+      print('Got Upload Data...');
+
+      if(value.data['success'] ==0)
+        {
+          print('ERROR WHILE UPLOADING A POST AND SUCCESS=0, ${value.data['message']}');
+          emit(AppUploadPostErrorState(value.data['message']));
+        }
+
+      else
+        {
+          getUserPosts();
+          print('Added Successfully');
+
+          emit(AppUploadPostSuccessState());
+        }
+    }).catchError((error)
+    {
+      print('ERROR WHILE UPLOADING A POST, ${error.toString()}');
+      emit(AppUploadPostErrorState(error.toString()));
+    });
+  }
 
   //Will get the next new posts when scrolled and will add them to postModel
   void getNextPosts({required String? nextPage})
@@ -396,7 +433,7 @@ class AppCubit extends Cubit<AppStates>
       data: {},
       token: token,
     ).then((value) {
-      print('Got Deleted Inquiry Data, ${value.data}');
+      print('Got Deleted Inquiry Data...');
 
       Inquiry? toBeDeleted;
 
@@ -412,6 +449,8 @@ class AppCubit extends Cubit<AppStates>
       {
         inquiryModel!.inquiries!.remove(toBeDeleted);
         print('Deleted inquiry from inquiryModel');
+
+        getUserPosts();
       }
 
       emit(AppDeleteAPostSuccessState());

@@ -65,6 +65,24 @@ class AppGetNewPostsSuccessState extends AppStates{}
 class AppGetNewPostsErrorState extends AppStates{}
 
 
+
+
+//-----------------------------------------------
+
+// UPLOAD A POST
+
+
+class AppUploadPostLoadingState extends AppStates{}
+
+class AppUploadPostSuccessState extends AppStates{}
+
+class AppUploadPostErrorState extends AppStates{
+  final String error;
+
+  AppUploadPostErrorState(this.error);
+}
+
+
 //-----------------------------------------------
 
 // GET INQUIRIES

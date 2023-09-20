@@ -65,6 +65,8 @@ class TextFiles extends StatelessWidget {
                   child: defaultBox(
                     cubit: cubit,
                     boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                    borderColor: cubit.isDarkTheme? defaultSecondaryDarkColor.withOpacity(0.9) : defaultSecondaryColor.withOpacity(0.9),
+                    manualBorderColor: true,
                     child: const Center(
                         child: Icon(
                           Icons.add,

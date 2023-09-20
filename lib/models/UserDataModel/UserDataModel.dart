@@ -14,6 +14,7 @@ class UserData
       id=json['_id'];
       name=json['name'];
       photo=json['photo'];
+      gender=json['gender'];
 
       if(json['birthDate']!=null)
         {

@@ -124,6 +124,48 @@ Widget defaultBox(
 
 
 
+Widget defaultAddPostBox(
+    {
+      required AppCubit cubit,
+      required boxColor,
+      double borderRadius=8,
+      double padding=25,
+      bool paddingOptions=true,
+      required Widget child,
+      required void Function()? onTap,
+      required BuildContext context,
+      bool manualBorderColor=false,
+      Color borderColor=Colors.white,
+
+    })=>GestureDetector(
+  onTap: onTap,
+  child:  Container(
+
+    padding: EdgeInsetsDirectional.only(start: padding, end:padding, bottom:padding, top:0),
+
+    decoration: BoxDecoration(
+
+      color: boxColor,
+
+      borderRadius: BorderRadius.circular(borderRadius),
+
+      border: Border.all(
+          color: manualBorderColor ? borderColor : cubit.isDarkTheme? Colors.white : Colors.black
+      ),
+
+    ),
+
+    constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height/2.5 , minWidth: double.infinity),
+
+    child: child,
+
+  ),
+);
+
+
+//------------------------------------------------------------------------------------------------------\\
+
+
 Widget defaultQueryBox(
     {
       required boxColor,

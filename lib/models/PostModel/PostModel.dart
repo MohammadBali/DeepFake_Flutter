@@ -1,3 +1,4 @@
+import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/models/InquiryModel/InquiryModel.dart';
 import 'package:deepfake_detection/models/UserDataModel/UserDataModel.dart';
 
@@ -6,13 +7,13 @@ class PostModel
   List<Post>? posts=[];
   Pagination? pagination;
 
-  PostModel.fromJson(Map<String,dynamic>json)
+  PostModel.fromJson(Map<String,dynamic>json, {bool isOwnerUser=false})  //isOwnerUser is for GetUserPosts, I don't want to pass the owner data because it's ths user's =>Will match it automatically with the logged in user
   {
     try
     {
       json['posts'].forEach((post)
       {
-        posts!.add(Post.fromJson(post));
+        posts!.add(Post.fromJson(post, isOwnerUser: isOwnerUser));
       });
 
       if(json['pagination'] !=null)
@@ -57,7 +58,7 @@ class Post
 
   List<Comment>? comments=[];
 
-  Post.fromJson(Map<String,dynamic>json)
+  Post.fromJson(Map<String,dynamic>json, {bool isOwnerUser=false})
   {
     try
     {
@@ -65,9 +66,17 @@ class Post
 
       id=json['_id'];
 
-      inquiry=Inquiry.fromJson(json['inquiry']);
+      if(isOwnerUser)
+        {
+          owner=AppCubit.userData;
+        }
 
-      owner=UserData.fromJson(json['inquiry']['owner']);
+      else
+        {
+          owner=UserData.fromJson(json['owner']);
+        }
+
+      inquiry=Inquiry.fromJson(json['inquiry']);
 
       createdAt=json['createdAt'];
 
@@ -83,9 +92,10 @@ class Post
 
 
     }
-    catch(e)
+    catch(e,stackTrace)
     {
       print('ERROR WHILE SETTING POST CLASS MODEL, ${e.toString()}');
+      print('Stack Trace:\n$stackTrace');
     }
   }
 }
@@ -122,3 +132,4 @@ class Comment
     }
   }
 }
+

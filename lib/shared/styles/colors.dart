@@ -11,6 +11,8 @@ Color defaultSecondaryColor= HexColor('3E4E50'); //Like Button, Degree of Teal
 
 Color defaultThirdColor= HexColor('AB5F6D'); //of a Red Pinky Color
 
+Color defaultAlertColor=HexColor('ABABD1');
+
 Color defaultBoxColor= HexColor('ABABD1'); //of a Violet Color
 
 Color defaultBottomNavBarColor= HexColor('C2C3C4'); // Light Grey Color
