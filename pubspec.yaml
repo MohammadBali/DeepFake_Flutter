@@ -55,6 +55,9 @@ dependencies:
   path_provider: ^2.1.1
   lottie: ^2.6.0
   smooth_page_indicator: ^1.1.0
+  animated_splash_screen: ^1.3.0
+  flutter_svg: ^2.0.7
+  page_transition: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +85,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/lottie/
+    - assets/images/splash/
 
 
   fonts:

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/modules/Login/login.dart';
@@ -9,9 +10,12 @@ import 'package:deepfake_detection/shared/components/Localization/Localization.d
 import 'package:deepfake_detection/shared/components/constants.dart';
 import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
 import 'package:deepfake_detection/shared/network/remote/main_dio_helper.dart';
+import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:deepfake_detection/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:path_provider/path_provider.dart';
 import 'layout/home_layout.dart';
 
@@ -101,6 +105,7 @@ class MyApp extends StatelessWidget {
           listener: (context,state){},
           builder: (context,state)
           {
+            var cubit=AppCubit.get(context);
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: lightTheme(context),
@@ -110,7 +115,24 @@ class MyApp extends StatelessWidget {
                   : ThemeMode.light,
               home: Directionality(
                 textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
-                child: homeWidget
+                child: AnimatedSplashScreen(
+                  duration: 3000,
+                  animationDuration: const Duration(milliseconds: 200),
+                  splash: Image(
+                    image: AssetImage(
+                      cubit.isDarkTheme? 'assets/images/splash/dark_logo.png' : 'assets/images/splash/light_logo.png',
+                    ),
+                    fit: BoxFit.contain,
+                    width: 150,
+                    height: 150,
+                  ),
+                  splashIconSize: 150,
+                  nextScreen: homeWidget,
+                  splashTransition: SplashTransition.fadeTransition,
+                  pageTransitionType: PageTransitionType.fade,
+                  backgroundColor: cubit.isDarkTheme? defaultHomeDarkColor : defaultHomeColor,
+
+                ),
               ),
             );
           },
