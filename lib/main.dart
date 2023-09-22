@@ -5,6 +5,7 @@ import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/modules/Login/login.dart';
 import 'package:deepfake_detection/modules/on_boarding/on_boarding_screen.dart';
 import 'package:deepfake_detection/shared/bloc_observer.dart';
+import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/constants.dart';
 import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
 import 'package:deepfake_detection/shared/network/remote/main_dio_helper.dart';
@@ -18,12 +19,15 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized(); //Makes sure that all the await and initializer get done before runApp
 
+
+  //Fire Flutter Errors into Run Terminal
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
   };
 
+  //Set Directory For Files
   Directory appDocDir = await getApplicationDocumentsDirectory();
-
+  //Set The Variable
   appDocPath=appDocDir.path;
 
   Bloc.observer = MyBlocObserver(); //Running Bloc Observer which prints change in states and errors etc...  in console
@@ -31,6 +35,11 @@ void main() async {
   MainDioHelper.init();
 
   await CacheHelper.init(); //Starting CacheHelper, await for it since there is async,await in .init().
+
+  //Load Language
+  AppCubit.language= CacheHelper.getData(key: 'language');
+  AppCubit.language ??= 'en';
+  await Localization.load(Locale(AppCubit.language!)); // Set the initial locale
 
   bool? isDark = CacheHelper.getData(key: 'isDarkTheme'); //Getting the last Cached ThemeMode
   isDark ??= true;
@@ -70,14 +79,13 @@ void main() async {
     widget = const OnBoardingScreen();
   }
 
-  runApp(MyApp(isDark: isDark, homeWidget: widget,));
+  runApp(MyApp(isDark: isDark, homeWidget: widget));
 }
 
 class MyApp extends StatelessWidget {
 
   final bool isDark;        //If the app last theme was dark or light
   final Widget homeWidget;  // Passing the widget to be loaded.
-
 
   const MyApp({super.key, required this.isDark, required this.homeWidget});
 
@@ -100,7 +108,10 @@ class MyApp extends StatelessWidget {
               themeMode: AppCubit.get(context).isDarkTheme   //If the boolean says last used is dark (from Cache Helper) => Then load dark theme
                   ? ThemeMode.dark
                   : ThemeMode.light,
-              home: homeWidget,
+              home: Directionality(
+                textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
+                child: homeWidget
+              ),
             );
           },
         )

@@ -12,9 +12,9 @@ import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:open_file_plus/open_file_plus.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'Localization/Localization.dart';
 import 'constants.dart';
 
 Widget defaultFormField({
@@ -432,7 +432,7 @@ PreferredSizeWidget defaultAppBar({
 })=>AppBar(
 
   title: Text(
-    'Deep Guard',
+    Localization.translate('appBar_title_home'),
     style: TextStyle(
       color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
       fontFamily: 'Neology',

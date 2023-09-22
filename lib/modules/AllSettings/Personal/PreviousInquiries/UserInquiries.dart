@@ -3,6 +3,7 @@ import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/models/InquiryModel/InquiryModel.dart';
 import 'package:deepfake_detection/modules/InquiryDetails/InquiryDetails.dart';
+import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class UserInquiries extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Previous Inquiries',
+              Localization.translate('previous_inquiries_title'),
               style:TextStyle(
                   color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
                   fontFamily: 'WithoutSans',
@@ -45,31 +46,34 @@ class UserInquiries extends StatelessWidget {
               ),
             ),
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                children:
-                [
-                  ConditionalBuilder(
-                    condition: cubit.inquiryModel !=null,
-                    builder: (context)=>ListView.separated(
-                      itemBuilder: (context,index)=>itemBuilder(inquiry: cubit.inquiryModel!.inquiries![index], cubit: cubit, context: context),
-                      separatorBuilder: (context,index)=> Column(
-                        children:
-                        [
-                          const SizedBox(height: 20,),
-                          myDivider(color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor),
-                          const SizedBox(height: 20,),
-                        ],
+          body: Directionality(
+            textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  children:
+                  [
+                    ConditionalBuilder(
+                      condition: cubit.inquiryModel !=null,
+                      builder: (context)=>ListView.separated(
+                        itemBuilder: (context,index)=>itemBuilder(inquiry: cubit.inquiryModel!.inquiries![index], cubit: cubit, context: context),
+                        separatorBuilder: (context,index)=> Column(
+                          children:
+                          [
+                            const SizedBox(height: 20,),
+                            myDivider(color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor),
+                            const SizedBox(height: 20,),
+                          ],
+                        ),
+                        itemCount: cubit.inquiryModel!.inquiries!.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
                       ),
-                      itemCount: cubit.inquiryModel!.inquiries!.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+                      fallback: (context)=> Center(child: defaultProgressIndicator(context)),
                     ),
-                    fallback: (context)=> Center(child: defaultProgressIndicator(context)),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -114,7 +118,7 @@ class UserInquiries extends StatelessWidget {
           children: [
 
             Text(
-              inquiry.result!.toUpperCase(),
+              inquiry.result!.toUpperCase() =='CORRECT' ? Localization.translate('correct_your_inquiries') : Localization.translate('fake_your_inquiries') ,
               style: TextStyle(
                 color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
                 fontSize: 14,
@@ -133,7 +137,7 @@ class UserInquiries extends StatelessWidget {
                     {
                       return defaultAlertDialog(
                           context: dialogContext,
-                          title: 'DELETE INQUIRY',
+                          title: Localization.translate('delete_title_previous_inquiries'),
                           content: SingleChildScrollView(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -141,7 +145,7 @@ class UserInquiries extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children:
                               [
-                                const Text('Do you want to delete this inquiry ?',),
+                                Text(Localization.translate('delete_secondary_title_previous_inquiries')),
 
                                 const SizedBox(height: 5,),
 
@@ -154,7 +158,7 @@ class UserInquiries extends StatelessWidget {
                                           cubit.deleteInquiry(inquiry.id!);
                                           Navigator.pop(dialogContext);
                                         },
-                                        child: const Text('YES')
+                                        child: Text(Localization.translate('yes_your_inquiries'))
                                     ),
 
                                     const Spacer(),
@@ -164,7 +168,7 @@ class UserInquiries extends StatelessWidget {
                                       {
                                         Navigator.pop(dialogContext);
                                       },
-                                      child: const Text('NO'),
+                                      child: Text(Localization.translate('no_your_inquiries')),
                                     ),
                                   ],
                                 ),

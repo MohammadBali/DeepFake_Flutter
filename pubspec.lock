@@ -488,6 +488,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  phoenix_native:
+    dependency: "direct main"
+    description:
+      name: phoenix_native
+      sha256: abbccbb097b4815019558c99b78988f73fa49f9ecee54cedd6f2d7910def6539
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   platform:
     dependency: transitive
     description:

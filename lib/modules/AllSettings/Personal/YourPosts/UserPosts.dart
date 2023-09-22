@@ -3,6 +3,7 @@ import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/modules/PostDetails/postDetails.dart';
+import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class UserPosts extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Posts',
+              Localization.translate('appBar_title_your_posts'),
               style:TextStyle(
                   color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
                   fontFamily: 'WithoutSans',
@@ -47,31 +48,34 @@ class UserPosts extends StatelessWidget {
             ),
           ),
 
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                children:
-                [
-                  ConditionalBuilder(
-                    condition: cubit.userPostsModel !=null,
-                    builder: (context)=>ListView.separated(
-                        itemBuilder: (context,index)=>itemBuilder(post: cubit.userPostsModel!.posts![index], cubit: cubit, context: context),
-                        separatorBuilder: (context,index)=> Column(
-                          children:
-                          [
-                            const SizedBox(height: 20,),
-                            myDivider(color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor),
-                            const SizedBox(height: 20,),
-                          ],
-                        ),
-                        itemCount: cubit.userPostsModel!.posts!.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
+          body: Directionality(
+            textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  children:
+                  [
+                    ConditionalBuilder(
+                      condition: cubit.userPostsModel !=null,
+                      builder: (context)=>ListView.separated(
+                          itemBuilder: (context,index)=>itemBuilder(post: cubit.userPostsModel!.posts![index], cubit: cubit, context: context),
+                          separatorBuilder: (context,index)=> Column(
+                            children:
+                            [
+                              const SizedBox(height: 20,),
+                              myDivider(color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor),
+                              const SizedBox(height: 20,),
+                            ],
+                          ),
+                          itemCount: cubit.userPostsModel!.posts!.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                      ),
+                      fallback: (context)=> Center(child: defaultProgressIndicator(context)),
                     ),
-                    fallback: (context)=> Center(child: defaultProgressIndicator(context)),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -124,7 +128,7 @@ class UserPosts extends StatelessWidget {
                   {
                     return defaultAlertDialog(
                       context: dialogContext,
-                      title: 'DELETE POST',
+                      title: Localization.translate('delete_title_your_posts'),
                         content: SingleChildScrollView(
                         child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -132,7 +136,7 @@ class UserPosts extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children:
                         [
-                          const Text('Do you want to delete this post ?',),
+                          Text(Localization.translate('delete_secondary_title_your_posts'),),
 
                           const SizedBox(height: 5,),
 
@@ -145,7 +149,7 @@ class UserPosts extends StatelessWidget {
                                   cubit.deletePost(post.id!);
                                   Navigator.pop(dialogContext);
                                 },
-                                child: const Text('YES')
+                                child: Text(Localization.translate('yes_your_posts'))
                               ),
 
                               const Spacer(),
@@ -155,7 +159,7 @@ class UserPosts extends StatelessWidget {
                                   {
                                     Navigator.pop(dialogContext);
                                   },
-                                  child: const Text('NO'),
+                                  child:  Text(Localization.translate('no_your_posts')),
                               ),
                             ],
                           ),

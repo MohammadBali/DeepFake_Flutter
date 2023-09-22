@@ -1,5 +1,6 @@
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
+import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class ChangePersonalPhoto extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
                 title: Text(
-                  'Choose a Photo',
+                  Localization.translate('appBar_title_choose_photo'),
                   style:TextStyle(
                       color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
                       fontFamily: 'WithoutSans',
@@ -68,25 +69,28 @@ class ChangePersonalPhoto extends StatelessWidget {
                   ),
                 )
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  children:
-                  [
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 25,
-                      crossAxisSpacing: 25,
-                      childAspectRatio: 1.19,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: List.generate(
-                          list.length,
-                              (index) => itemBuilder(cubit, list[index])
+            body: Directionality(
+              textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    children:
+                    [
+                      GridView.count(
+                        shrinkWrap: true,
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 25,
+                        crossAxisSpacing: 25,
+                        childAspectRatio: 1.19,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: List.generate(
+                            list.length,
+                                (index) => itemBuilder(cubit, list[index])
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -6,6 +6,8 @@ class AppChangeBottomNavBar extends AppStates{}
 
 class AppChangeThemeModeState extends AppStates{}
 
+class AppChangeLanguageState extends AppStates{}
+
 //-----------------------------------------------
 
 //GET USER DATA

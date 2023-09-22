@@ -23,6 +23,9 @@ class AppCubit extends Cubit<AppStates>
 
   static AppCubit get(context)=> BlocProvider.of(context);
 
+
+  //GLOBAL SETTINGS
+
   List<Widget> bottomBarWidgets=
   [
     Home(),
@@ -39,6 +42,7 @@ class AppCubit extends Cubit<AppStates>
     emit(AppChangeBottomNavBar());
   }
 
+  //DARK MODE
   bool isDarkTheme = false; //Check if the theme is Dark.
 
   void changeTheme({bool? themeFromState}) {
@@ -56,6 +60,19 @@ class AppCubit extends Cubit<AppStates>
     }
   }
 
+  //-----------------------------------
+
+
+  //Current Language Code
+
+  static String? language='';
+
+  //Change Language
+  void changeLanguage(String lang) async
+  {
+    language=lang;
+    emit(AppChangeLanguageState());
+  }
 
   //USER APIS
 
@@ -203,7 +220,7 @@ class AppCubit extends Cubit<AppStates>
   //Get Posts
   static PostModel? postModel;
 
-  //Check for New Posts & Merge Together
+  //Check for New Posts & Merge Together => Guess Need to ask for all posts and keep them, maybe some posts got deleted ?
   PostModel? newPostModel;
   Future<void> checkForNewPosts()async
   {

@@ -53,7 +53,7 @@ dependencies:
   file_picker: ^5.5.0
   open_file_plus: ^3.4.1
   path_provider: ^2.1.1
-
+  phoenix_native: ^0.0.2
 
 dev_dependencies:
   flutter_test:

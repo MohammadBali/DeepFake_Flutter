@@ -4,10 +4,13 @@ import 'package:deepfake_detection/modules/AllSettings/General/Appearance/appear
 import 'package:deepfake_detection/modules/AllSettings/Personal/EditProfile/editProfile.dart';
 import 'package:deepfake_detection/modules/AllSettings/Personal/PreviousInquiries/UserInquiries.dart';
 import 'package:deepfake_detection/modules/AllSettings/Personal/YourPosts/UserPosts.dart';
+import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../AllSettings/General/GeneralSettings/GeneralSettings.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -19,142 +22,289 @@ class Profile extends StatelessWidget {
       builder: (context,state)
       {
         var cubit=AppCubit.get(context);
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(42.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children:
-              [
-                defaultBox(
-                  padding: 15,
-                  paddingOptions: false,
-                  cubit: cubit,
-                  boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                  child: Column(
-                    children:
-                    [
-                      itemBuilder(
-                        icon: Icons.person_outline_rounded,
-                        text: 'Edit Profile',
-                        onTap: ()
-                        {
-                          navigateTo(context, EditProfile());
-                        }
-                      ),
+        return OrientationBuilder(
+            builder: (context,orientation)
+                {
+                  if(orientation == Orientation.portrait)
+                    {
+                      return Padding(
+                        padding: const EdgeInsets.all(42.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children:
+                          [
+                            defaultBox(
+                                padding: 15,
+                                paddingOptions: false,
+                                cubit: cubit,
+                                boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                child: Column(
+                                  children:
+                                  [
+                                    itemBuilder(
+                                        icon: Icons.person_outline_rounded,
+                                        text: Localization.translate('edit_profile_profile'),
+                                        onTap: ()
+                                        {
+                                          navigateTo(context, EditProfile());
+                                        }
+                                    ),
 
-                      const SizedBox(height: 5),
+                                    const SizedBox(height: 5),
 
-                      myDivider(color: Colors.white),
+                                    myDivider(color: Colors.white),
 
-                      itemBuilder(
-                        icon: Icons.favorite_border_outlined,
-                        text: 'Your Posts',
-                        onTap: ()
-                        {
-                          navigateTo(context, const UserPosts());
-                        }
-                      ),
+                                    itemBuilder(
+                                        icon: Icons.favorite_border_outlined,
+                                        text: Localization.translate('your_posts_profile'),
+                                        onTap: ()
+                                        {
+                                          navigateTo(context, const UserPosts());
+                                        }
+                                    ),
 
-                      const SizedBox(height: 5),
+                                    const SizedBox(height: 5),
 
-                      myDivider(color: Colors.white),
+                                    myDivider(color: Colors.white),
 
-                      itemBuilder(
-                        icon: Icons.timelapse_rounded,
-                        text: 'Previous Inquiries',
-                        onTap: ()
-                        {
-                          navigateTo(context, const UserInquiries());
-                        }
-                      ),
-                    ],
-                  ),
-                  onTap: (){},
-                  manualBorderColor: true,
-                  borderColor: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor
-                ),
+                                    itemBuilder(
+                                        icon: Icons.timelapse_rounded,
+                                        text: Localization.translate('previous_inquiries_profile'),
+                                        onTap: ()
+                                        {
+                                          navigateTo(context, const UserInquiries());
+                                        }
+                                    ),
+                                  ],
+                                ),
+                                onTap: (){},
+                                manualBorderColor: true,
+                                borderColor: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor
+                            ),
 
-                const SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
 
-                defaultBox(
-                    padding: 15,
-                    paddingOptions: false,
-                    cubit: cubit,
-                    boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                    child: Column(
-                      children:
-                      [
-                        itemBuilder(
-                            icon: Icons.light_outlined,
-                            text: 'Appearance',
-                            onTap: ()
-                            {
-                              navigateTo(context, const Appearance());
-                            }
+                            defaultBox(
+                                padding: 15,
+                                paddingOptions: false,
+                                cubit: cubit,
+                                boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                child: Column(
+                                  children:
+                                  [
+                                    itemBuilder(
+                                        icon: Icons.light_outlined,
+                                        text: Localization.translate('appearance_profile'),
+                                        onTap: ()
+                                        {
+                                          navigateTo(context, const Appearance());
+                                        }
+                                    ),
+
+                                    const SizedBox(height: 5),
+
+                                    myDivider(color: Colors.white),
+
+                                    itemBuilder(
+                                        icon: Icons.settings_outlined,
+                                        text: Localization.translate('general_settings_profile'),
+                                        onTap: ()
+                                        {
+                                          navigateTo(context, GeneralSettings() );
+                                        }
+                                    ),
+
+                                  ],
+                                ),
+                                onTap: (){},
+                                manualBorderColor: true,
+                                borderColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor
+                            ),
+
+                            const SizedBox(height: 20,),
+
+                            defaultBox(
+                              padding: 15,
+                              paddingOptions: false,
+                              cubit: cubit,
+                              boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                              child: Column(
+                                children:
+                                [
+                                  itemBuilder(
+                                      icon: Icons.question_mark_outlined,
+                                      text: Localization.translate('learn_more_profile'),
+                                      onTap: ()
+                                      {
+
+                                      }
+                                  ),
+
+                                  const SizedBox(height: 5),
+
+                                  myDivider(color: Colors.white),
+
+                                  itemBuilder(
+                                      icon: Icons.logout_outlined,
+                                      text: Localization.translate('logout_profile'),
+                                      onTap: ()
+                                      {
+                                        cubit.logout(context: context);
+                                      }
+                                  ),
+
+                                ],
+                              ),
+                              onTap: ()
+                              {},
+                            ),
+                          ],
                         ),
+                      );
+                    }
 
-                        const SizedBox(height: 5),
+                  else
+                    {
+                      return SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(42.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children:
+                            [
+                              defaultBox(
+                                  padding: 15,
+                                  paddingOptions: false,
+                                  cubit: cubit,
+                                  boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                  child: Column(
+                                    children:
+                                    [
+                                      itemBuilder(
+                                          icon: Icons.person_outline_rounded,
+                                          text: Localization.translate('edit_profile_profile'),
+                                          onTap: ()
+                                          {
+                                            navigateTo(context, EditProfile());
+                                          }
+                                      ),
 
-                        myDivider(color: Colors.white),
+                                      const SizedBox(height: 5),
 
-                        itemBuilder(
-                            icon: Icons.settings_outlined,
-                            text: 'General Settings',
-                            onTap: ()
-                            {
+                                      myDivider(color: Colors.white),
 
-                            }
+                                      itemBuilder(
+                                          icon: Icons.favorite_border_outlined,
+                                          text: Localization.translate('your_posts_profile'),
+                                          onTap: ()
+                                          {
+                                            navigateTo(context, const UserPosts());
+                                          }
+                                      ),
+
+                                      const SizedBox(height: 5),
+
+                                      myDivider(color: Colors.white),
+
+                                      itemBuilder(
+                                          icon: Icons.timelapse_rounded,
+                                          text: Localization.translate('previous_inquiries_profile'),
+                                          onTap: ()
+                                          {
+                                            navigateTo(context, const UserInquiries());
+                                          }
+                                      ),
+                                    ],
+                                  ),
+                                  onTap: (){},
+                                  manualBorderColor: true,
+                                  borderColor: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor
+                              ),
+
+                              const SizedBox(height: 20,),
+
+                              defaultBox(
+                                  padding: 15,
+                                  paddingOptions: false,
+                                  cubit: cubit,
+                                  boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                  child: Column(
+                                    children:
+                                    [
+                                      itemBuilder(
+                                          icon: Icons.light_outlined,
+                                          text: Localization.translate('appearance_profile'),
+                                          onTap: ()
+                                          {
+                                            navigateTo(context, const Appearance());
+                                          }
+                                      ),
+
+                                      const SizedBox(height: 5),
+
+                                      myDivider(color: Colors.white),
+
+                                      itemBuilder(
+                                          icon: Icons.settings_outlined,
+                                          text: Localization.translate('general_settings_profile'),
+                                          onTap: ()
+                                          {
+
+                                          }
+                                      ),
+
+                                    ],
+                                  ),
+                                  onTap: (){},
+                                  manualBorderColor: true,
+                                  borderColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor
+                              ),
+
+
+                              const SizedBox(height: 20,),
+
+                              defaultBox(
+                                padding: 15,
+                                paddingOptions: false,
+                                cubit: cubit,
+                                boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                child: Column(
+                                  children:
+                                  [
+                                    itemBuilder(
+                                        icon: Icons.question_mark_outlined,
+                                        text: Localization.translate('learn_more_profile'),
+                                        onTap: ()
+                                        {
+
+                                        }
+                                    ),
+
+                                    const SizedBox(height: 5),
+
+                                    myDivider(color: Colors.white),
+
+                                    itemBuilder(
+                                        icon: Icons.logout_outlined,
+                                        text: Localization.translate('logout_profile'),
+                                        onTap: ()
+                                        {
+                                          cubit.logout(context: context);
+                                        }
+                                    ),
+
+                                  ],
+                                ),
+                                onTap: ()
+                                {},
+                              ),
+                            ],
+                          ),
                         ),
-
-                      ],
-                    ),
-                    onTap: (){},
-                    manualBorderColor: true,
-                    borderColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor
-                ),
-
-
-                const SizedBox(height: 20,),
-
-                defaultBox(
-                    padding: 15,
-                    paddingOptions: false,
-                    cubit: cubit,
-                    boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                    child: Column(
-                      children:
-                      [
-                        itemBuilder(
-                            icon: Icons.question_mark_outlined,
-                            text: 'Learn More',
-                            onTap: ()
-                            {
-
-                            }
-                        ),
-
-                        const SizedBox(height: 5),
-
-                        myDivider(color: Colors.white),
-
-                        itemBuilder(
-                            icon: Icons.logout_outlined,
-                            text: 'Logout',
-                            onTap: ()
-                            {
-                              cubit.logout(context: context);
-                            }
-                        ),
-
-                      ],
-                    ),
-                    onTap: ()
-                    {},
-                ),
-              ],
-            ),
-          ),
+                      );
+                    }
+                }
         );
       },
     );
@@ -199,54 +349,3 @@ class Profile extends StatelessWidget {
     ],
   );
 }
-
-
-/*
-
-                Row(
-                  children:
-                  [
-                    Icon(
-                      cubit.isDarkTheme? Icons.sunny : Icons.brightness_3_rounded,
-                      size: 22,
-                    ),
-
-                    const SizedBox(width: 10,),
-
-                    const Text(
-                      'Dark Mode',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500
-                      ),
-                    ),
-
-                    const Spacer(),
-
-                    Switch(
-                      value: cubit.isDarkTheme,
-                      onChanged: (bool newValue)
-                      {
-                        cubit.changeTheme();
-                      },
-                      activeColor: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-                      inactiveTrackColor: cubit.isDarkTheme? Colors.white: null,
-                      activeTrackColor: cubit.isDarkTheme? defaultDarkColor.withOpacity(0.5) : defaultColor.withOpacity(0.5),
-                    ),
-                  ],
-                ),
-
-                TextButton(
-                  onPressed: ()
-                  {
-                    CacheHelper.saveData(key: 'token', value: '').then((value)
-                    {
-                      token='';
-                      print('set token to zero');
-                    });
-
-                  },
-                  child: const Text('Logout'),
-                ),
-
- */

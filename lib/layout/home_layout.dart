@@ -1,5 +1,6 @@
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
+import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,14 +39,14 @@ class HomeLayout extends StatelessWidget {
               },
 
               items:
-              const [
-                BottomNavigationBarItem(label: 'Home' , icon: Icon(Icons.rss_feed_rounded)),
+              [
+                BottomNavigationBarItem(label: Localization.translate('home_bnb'), icon: const Icon(Icons.rss_feed_rounded)),
 
-                BottomNavigationBarItem(label: 'Text' , icon: Icon(Icons.file_present_rounded)),
+                BottomNavigationBarItem(label: Localization.translate('text_bnb') , icon: const Icon(Icons.file_present_rounded)),
 
-                BottomNavigationBarItem(label: 'Bot' ,icon: Icon(Icons.person_4_rounded)),
+                BottomNavigationBarItem(label: Localization.translate('bot_bnb') ,icon: const Icon(Icons.person_4_rounded)),
 
-                BottomNavigationBarItem(label: 'Profile' , icon: Icon(Icons.person_rounded)),
+                BottomNavigationBarItem(label: Localization.translate('profile_bnb') , icon: const Icon(Icons.person_rounded)),
               ],
 
             ),

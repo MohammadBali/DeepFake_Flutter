@@ -3,6 +3,7 @@ import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/models/NewsModel/NewsModel.dart';
 import 'package:deepfake_detection/modules/NewsPage/newsPage.dart';
+import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -139,7 +140,7 @@ class _HomeState extends State<Home> {
           Align(
             alignment:AlignmentDirectional.bottomStart,
             child: Text(
-              'AI News',
+              Localization.translate('news_title'),
               style: TextStyle(
                 fontSize: 26,
                 fontStyle: FontStyle.normal,
