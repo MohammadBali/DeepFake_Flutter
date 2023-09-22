@@ -44,6 +44,7 @@ const Map<String,String> ar={
   'password_reg_tfm_error':'كلمة السر لا يمكن أن تكون فارغةً',
 
 
+
   //AppBar Application Name:
 
   'appBar_title_home':'الحماية العميقة',
@@ -157,6 +158,7 @@ const Map<String,String> ar={
   'language_general_Settings':'اللغة الافتراضية',
 
   'language_name_general_settings':'اللغة',
+
 
 };
 

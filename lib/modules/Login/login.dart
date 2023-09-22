@@ -100,7 +100,7 @@ class Login extends StatelessWidget {
 
                                   ),
 
-                                  //const SizedBox(height: 40,),
+                                  const SizedBox(height: 5,),
 
                                   Text(
                                     Localization.translate('login_second_title'),//'Login Now and Start Revealing the Truth',

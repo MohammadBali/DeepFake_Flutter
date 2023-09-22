@@ -1,8 +1,15 @@
+import 'package:deepfake_detection/layout/cubit/cubit.dart';
+import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/modules/Login/login.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../shared/styles/colors.dart';
 
 
 
@@ -31,28 +38,29 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List<OnBoardingModel> list=
   [
     OnBoardingModel(
-        image: 'assets/json/on_board_1.json',
-        title: 'Bored from Classic old Learning?',
-        body: 'Reading grammar books and listening to teachers lecture can be quiet a drag.'
+        image: 'assets/images/lottie/Two_Persons_Watch_Laptop_Statistics.json',
+        title: "Can't Be Sure What's Wrong and What's Right?",
+        body: 'With the huge amount of data, it can be hard to detect the truth today.'
     ),
 
     OnBoardingModel(
-        image: 'assets/json/on_board_2.json',
-        title: 'Learn with Videos is The New Way of Learning !',
-        body: 'Scientific researches has proven that videos contributes to a much more efficient learning than plain text'
+        image: 'assets/images/lottie/Scroll_and_Set_Likes.json',
+        title: 'DeepGuard Will Put your Mind at Ease',
+        body: 'Just upload the data and let us handle it.'
     ),
 
     OnBoardingModel(
-        image: 'assets/json/on_board_3.json',
-        title: 'A Revolution in Language Learning',
-        body: 'We offer a variety of video types to learn from, including movie scenes, songs, interviews and much more fun content!'
+        image: 'assets/images/lottie/People_Waving_Community.json',
+        title: 'Introducing Community',
+        body: 'Share Your Inquiries as Posts and interact with All Users!'
     ),
 
     OnBoardingModel(
-        image: 'assets/json/on_board_4.json',
-        title: 'Are You Ready ?',
-        body: ''
+        image: 'assets/images/lottie/Person_and_Scroll_Posts.json',
+        title: 'See What Others Have Found!',
+        body: 'Likes and Comments, just interact with everyone at anytime!'
     ),
+
   ];
 
   var pageViewController= PageController();
@@ -89,17 +97,179 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       DeviceOrientation.portraitDown,
     ]);
 
-    return Scaffold(
-      appBar: AppBar(
-        actions:
-        [
-          TextButton(
-            onPressed: () => submit(),
-            child: const Text('SKIP'),
-          )
-        ],
-      ),
-      body: Container(),
+    return BlocConsumer<AppCubit,AppStates>(
+      listener: (context,state){},
+      builder: (context,state)
+      {
+        var cubit=AppCubit.get(context);
+        return Scaffold(
+          appBar: AppBar(
+            actions:
+            [
+              TextButton(
+                onPressed: () => submit(),
+                child: Text(
+                  'SKIP',
+                  style: TextStyle(
+                    color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                  ),
+                ),
+              )
+            ],
+          ),
+
+          body: Padding(
+            padding: const EdgeInsets.all(30.0),
+
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height /1),
+              child: Column(
+                children:
+                [
+                  Expanded(
+                    child: PageView.builder(
+                      controller: pageViewController,
+                      physics: const BouncingScrollPhysics(),
+
+                      onPageChanged: (int index)
+                      {
+                        if(index==list.length-1)  //if it is the last Screen => set IsLast to true
+                            {
+                          print('Last on_boarding screen');
+
+                          setState(()
+                          {
+                            isLast=true;
+                          }
+                          );
+                        }
+                        else
+                        {
+                          print('not last on_boarding screen');
+
+                          setState(()
+                          {
+                            isLast=false;
+                          }
+                          );
+                        }
+                      },
+
+                      itemBuilder:(context,index)
+                      {
+                        // if(index==3)
+                        // {
+                        //   return buildBoardingItem(list[index],titlePlace: AlignmentDirectional.center, heightFromPicture: 15);
+                        // }
+                        return buildBoardingItem(list[index]);
+                      },
+                      itemCount: list.length,
+                    ),
+                  ),
+
+                  // const SizedBox(height: 20,),
+
+                  Align(
+                    alignment: AlignmentDirectional.center,
+                    child: SmoothPageIndicator(
+                      controller: pageViewController,
+                      count: list.length,
+                      effect:  ExpandingDotsEffect
+                        (
+                        dotColor: Colors.grey,
+                        activeDotColor: cubit.isDarkTheme? defaultDarkColor: defaultColor,
+                        dotHeight: 10,
+                        dotWidth: 10,
+                        expansionFactor: 3,
+                        spacing: 5,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20,),
+
+                  SizedBox(
+                    height: 45,
+                    child: defaultButton(
+                      color: cubit.isDarkTheme? defaultDarkColor:defaultColor,
+                      onTap: ()
+                      {
+                        if(isLast)
+                        {
+                          submit();
+                        }
+                        else
+                        {
+                          pageViewController.nextPage(
+                            duration: const Duration(milliseconds: 950),
+                            curve: Curves.fastOutSlowIn,
+
+                          );
+
+                        }
+                      },
+                      title: isLast? 'Let\'s Go' : 'Next',
+                      width: MediaQuery.of(context).size.width /2.2,
+                      borderRadius: 10,
+                      textColor: cubit.isDarkTheme?Colors.black :Colors.white,
+                    ),
+                  ),
+
+                  const SizedBox(height: 5,),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
+
+  Widget  buildBoardingItem(OnBoardingModel list,{AlignmentGeometry titlePlace=AlignmentDirectional.topStart, double heightFromPicture=2}) =>
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children:
+        [
+          Lottie.asset(
+            list.image,
+            width: 500,
+            height: 250,
+            repeat: true,
+            filterQuality: FilterQuality.high,
+            errorBuilder: (context,error,stackTrace)
+            {
+              print('Error in onBoarding Screen, ${error.toString()}');
+              return const Center (child: Icon(Icons.error, size: 100,));
+            },
+          ),
+
+          SizedBox(height: heightFromPicture),
+
+          Align(
+            alignment: titlePlace,
+            child: Text(
+              list.title,
+              style: const TextStyle(
+                  fontSize: 22.0,
+                  fontFamily: 'WithoutSans',
+                  fontWeight: FontWeight.w600
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          Expanded(
+            child: Text(
+              list.body,
+              // overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontFamily: 'WithoutSans',
+              ),
+            ),
+          ),
+        ],
+      );
 }

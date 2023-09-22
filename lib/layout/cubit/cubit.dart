@@ -224,43 +224,45 @@ class AppCubit extends Cubit<AppStates>
   PostModel? newPostModel;
   Future<void> checkForNewPosts()async
   {
-    print('In Check For New Posts...');
-    emit(AppCheckNewPostsLoadingState());
 
-    MainDioHelper.getData(
-      url: posts,
-      token: token,
-    ).then((value){
-
-      print('Got Check For New Posts Data...');
-
-      newPostModel=PostModel.fromJson(value.data);
-
-      bool isFound=false;
-      for (var newPost in newPostModel!.posts!)
-      {
-        for(var oldPost in postModel!.posts!)
-          {
-            if(newPost.id! == oldPost.id!)
-              {
-                isFound=true;
-              }
-          }
-
-        if(isFound==false)
-          {
-            postModel!.posts!.add(newPost);
-          }
-        isFound=false;
-      }
-
-      emit(AppCheckNewPostsSuccessState());
-    }).catchError((error)
-    {
-      print('ERROR WHILE CHECKING FOR NEW POSTS, ${error.toString()}');
-
-      emit(AppCheckNewPostsErrorState());
-    });
+    getPosts();
+    // print('In Check For New Posts...');
+    // emit(AppCheckNewPostsLoadingState());
+    //
+    // MainDioHelper.getData(
+    //   url: posts,
+    //   token: token,
+    // ).then((value){
+    //
+    //   print('Got Check For New Posts Data...');
+    //
+    //   newPostModel=PostModel.fromJson(value.data);
+    //
+    //   bool isFound=false;
+    //   for (var newPost in newPostModel!.posts!)
+    //   {
+    //     for(var oldPost in postModel!.posts!)
+    //       {
+    //         if(newPost.id! == oldPost.id!)
+    //           {
+    //             isFound=true;
+    //           }
+    //       }
+    //
+    //     if(isFound==false)
+    //       {
+    //         postModel!.posts!.add(newPost);
+    //       }
+    //     isFound=false;
+    //   }
+    //
+    //   emit(AppCheckNewPostsSuccessState());
+    // }).catchError((error)
+    // {
+    //   print('ERROR WHILE CHECKING FOR NEW POSTS, ${error.toString()}');
+    //
+    //   emit(AppCheckNewPostsErrorState());
+    // });
 
   }
 

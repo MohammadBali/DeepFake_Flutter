@@ -11,43 +11,53 @@ class ChangePersonalPhoto extends StatelessWidget {
 
   static const List<Map<String,String>> list= [
     {
-      'name':'avatar1.png',
-      'link':'assets/images/avatar1.png'
+      'name':'geometric_1.jpg',
+      'link':'assets/images/geometric_1.jpg'
     },
 
     {
-      'name':'avatar2.png',
-      'link':'assets/images/avatar2.png'
+      'name':'geometric_2.jpg',
+      'link':'assets/images/geometric_2.jpg'
     },
 
     {
-      'name':'avatar3.png',
-      'link':'assets/images/avatar3.png'
+      'name':'geometric_3.jpg',
+      'link':'assets/images/geometric_3.jpg'
     },
 
     {
-      'name':'avatar4.png',
-      'link':'assets/images/avatar4.png'
+      'name':'man_1.jpg',
+      'link':'assets/images/man_1.jpg'
     },
 
     {
-      'name':'avatar5.png',
-      'link':'assets/images/avatar5.png'
+      'name':'man_2.jpg',
+      'link':'assets/images/man_2.jpg'
     },
 
     {
-      'name':'avatar6.png',
-      'link':'assets/images/avatar6.png'
+      'name':'others_1.jpg',
+      'link':'assets/images/others_1.jpg'
     },
 
     {
-      'name':'avatar7.png',
-      'link':'assets/images/avatar7.png'
+      'name':'others_2.jpg',
+      'link':'assets/images/others_2.jpg'
     },
 
     {
-      'name':'avatar8.png',
-      'link':'assets/images/avatar8.png'
+      'name':'robot_1.jpg',
+      'link':'assets/images/robot_1.jpg'
+    },
+
+    {
+      'name':'robot_2.jpg',
+      'link':'assets/images/robot_2.jpg'
+    },
+
+    {
+      'name':'woman_1.jpg',
+      'link':'assets/images/woman_1.jpg'
     },
   ];
 

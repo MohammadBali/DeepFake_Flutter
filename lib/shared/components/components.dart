@@ -209,6 +209,7 @@ Widget defaultButton(
   required Color color,
   Color textColor=Colors.black,
   required void Function()? onTap,
+  double width=185,
 
 })
 {
@@ -216,7 +217,7 @@ Widget defaultButton(
     onTap: onTap,
     child: Container(
       alignment: childAlignment,
-      width: 185,
+      width: width,
       height: 45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius),
