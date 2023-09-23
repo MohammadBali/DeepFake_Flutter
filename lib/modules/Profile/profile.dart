@@ -310,42 +310,47 @@ class Profile extends StatelessWidget {
     );
   }
 
-  Widget itemBuilder({required IconData icon, required String text, required void Function()? onTap}) => Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children:
-    [
-      Icon(icon),
+  Widget itemBuilder({required IconData icon, required String text, required void Function()? onTap}) => GestureDetector(
 
-      Expanded(
-        child: Padding(
-          padding: const EdgeInsetsDirectional.only(start: 15.0),
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'GabrielSans',
+    onTap: onTap,
+
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children:
+      [
+        Icon(icon),
+
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsetsDirectional.only(start: 15.0),
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'GabrielSans',
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
           ),
         ),
-      ),
 
-      //const Spacer(),
+        //const Spacer(),
 
-      Align(
-        alignment: AlignmentDirectional.topEnd,
-        child: IconButton(
-          onPressed: onTap,
-          icon: const Icon(
-            Icons.arrow_forward_ios_rounded,
-            size: 20,
+        Align(
+          alignment: AlignmentDirectional.topEnd,
+          child: IconButton(
+            onPressed: onTap,
+            icon: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 20,
+            ),
+            iconSize: 20,
           ),
-          iconSize: 20,
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }

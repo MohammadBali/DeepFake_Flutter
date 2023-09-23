@@ -24,31 +24,34 @@ class HomeLayout extends StatelessWidget {
         builder: (context,state)
         {
           var cubit= AppCubit.get(context);
-          return Scaffold(
-            appBar: defaultAppBar(cubit: cubit),
+          return Directionality(
+            textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
+            child: Scaffold(
+              appBar: defaultAppBar(cubit: cubit),
 
-            body: cubit.bottomBarWidgets[cubit.currentBottomBarIndex],
+              body: cubit.bottomBarWidgets[cubit.currentBottomBarIndex],
 
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: cubit.currentBottomBarIndex,
+              bottomNavigationBar: BottomNavigationBar(
+                currentIndex: cubit.currentBottomBarIndex,
 
-              onTap: (index)
-              {
-                const Duration(milliseconds: 800);
-                cubit.changeBottomNavBar(index);
-              },
+                onTap: (index)
+                {
+                  const Duration(milliseconds: 800);
+                  cubit.changeBottomNavBar(index);
+                },
 
-              items:
-              [
-                BottomNavigationBarItem(label: Localization.translate('home_bnb'), icon: const Icon(Icons.rss_feed_rounded)),
+                items:
+                [
+                  BottomNavigationBarItem(label: Localization.translate('home_bnb'), icon: const Icon(Icons.rss_feed_rounded)),
 
-                BottomNavigationBarItem(label: Localization.translate('text_bnb') , icon: const Icon(Icons.file_present_rounded)),
+                  BottomNavigationBarItem(label: Localization.translate('text_bnb') , icon: const Icon(Icons.file_present_rounded)),
 
-                BottomNavigationBarItem(label: Localization.translate('bot_bnb') ,icon: const Icon(Icons.person_4_rounded)),
+                  BottomNavigationBarItem(label: Localization.translate('bot_bnb') ,icon: const Icon(Icons.person_4_rounded)),
 
-                BottomNavigationBarItem(label: Localization.translate('profile_bnb') , icon: const Icon(Icons.person_rounded)),
-              ],
+                  BottomNavigationBarItem(label: Localization.translate('profile_bnb') , icon: const Icon(Icons.person_rounded)),
+                ],
 
+              ),
             ),
           );
         },

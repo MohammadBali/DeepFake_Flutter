@@ -73,6 +73,7 @@ class _HomeState extends State<Home> {
                           itemCount: cubit.newsModel!.articles!.length,
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
+                          //reverse: AppCubit.language == 'en' ? false : true,
                         ),
                       ),
                       fallback: (context)=> progressNewsBuilder(cubit, context),

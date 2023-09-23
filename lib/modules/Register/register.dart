@@ -10,6 +10,7 @@ import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart' as int;
 
 class Register extends StatefulWidget {
@@ -27,6 +28,8 @@ class _RegisterState extends State<Register> {
   TextEditingController nameController=TextEditingController();
 
   TextEditingController birthDateController=TextEditingController();
+
+  TextEditingController lastNameController=TextEditingController();
 
   var formKey=GlobalKey<FormState>();
 
@@ -51,7 +54,15 @@ class _RegisterState extends State<Register> {
           {
             if(state.registerModel.success ==0)
             {
-              defaultToast(msg: "Couldn't Sign you in", state: ToastStates.error);
+
+              if(state.registerModel.message!=null)
+                {
+                  defaultToast(msg: state.registerModel.message!.message!, state: ToastStates.error, length: Toast.LENGTH_LONG);
+                }
+              else
+                {
+                  defaultToast(msg: "Couldn't Sign you in", state: ToastStates.error);
+                }
             }
 
             if(state.registerModel.user !=null)
@@ -84,12 +95,11 @@ class _RegisterState extends State<Register> {
         {
           var cubit=RegisterCubit.get(context);
 
-          return Scaffold(
-            appBar: AppBar(),
-
-            body: Directionality(
-              textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
-              child: SingleChildScrollView(
+          return Directionality(
+            textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
+            child: Scaffold(
+              appBar: AppBar(),
+              body: SingleChildScrollView(
                   child: Form(
                     key: formKey,
                     child: Padding(
@@ -143,6 +153,24 @@ class _RegisterState extends State<Register> {
                           const SizedBox(height: 40,),
 
 
+                          defaultFormField(
+                              controller: lastNameController,
+                              keyboard: TextInputType.name,
+                              label: Localization.translate('lastName_reg_tfm'),
+                              prefix: Icons.person_rounded,
+                              isFilled: true,
+                              fillColor: AppCubit.get(context).isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                              validate: (value)
+                              {
+                                if(value!.isEmpty)
+                                {
+                                  return Localization.translate('name_reg_tfm_error');
+                                }
+                                return null;
+                              }
+                          ),
+
+                          const SizedBox(height: 40,),
 
                           //Gender Drop Down List.
                           FormField<String>(
@@ -275,7 +303,7 @@ class _RegisterState extends State<Register> {
                               child: defaultButton(
                                 color: AppCubit.get(context).isDarkTheme? defaultDarkColor : defaultColor,
                                 textColor: AppCubit.get(context).isDarkTheme? Colors.black : Colors.white,
-                                title: Localization.translate('submit_button'),
+                                title: Localization.translate('submit_button_register'),
                                 letterSpacing:2,
                                 onTap: ()
                                 {
@@ -283,6 +311,7 @@ class _RegisterState extends State<Register> {
                                   {
                                     cubit.registerUser(
                                       name: nameController.text,
+                                      lastName: lastNameController.text,
                                       birthDate: birthDateController.text,
                                       gender: currentGender,
                                       email:emailController.text,

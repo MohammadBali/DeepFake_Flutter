@@ -18,7 +18,9 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   TextEditingController emailController=TextEditingController();
 
-  TextEditingController nameController=TextEditingController();
+  TextEditingController firstNameController=TextEditingController();
+
+  TextEditingController lastNameController=TextEditingController();
 
   var formKey=GlobalKey<FormState>();
 
@@ -28,7 +30,8 @@ class _EditProfileState extends State<EditProfile> {
     super.initState();
     if(AppCubit.userData!=null)
       {
-        nameController.text=AppCubit.userData!.name!;
+        firstNameController.text=AppCubit.userData!.name!;
+        lastNameController.text=AppCubit.userData!.lastName!;
         emailController.text=AppCubit.userData!.email!;
       }
 
@@ -63,21 +66,21 @@ class _EditProfileState extends State<EditProfile> {
         builder: (context,state)
         {
           var cubit=AppCubit.get(context);
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                Localization.translate('appBar_title_edit_profile_page'),
-                style:TextStyle(
-                    color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
-                    fontFamily: 'WithoutSans',
-                    fontWeight: FontWeight.w600
+          return Directionality(
+            textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  Localization.translate('appBar_title_edit_profile_page'),
+                  style:TextStyle(
+                      color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
+                      fontFamily: 'WithoutSans',
+                      fontWeight: FontWeight.w600
+                  ),
                 ),
               ),
-            ),
 
-            body: Directionality(
-              textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
-              child: SingleChildScrollView(
+              body: SingleChildScrollView(
                 child: ConditionalBuilder(
                   condition: AppCubit.userData!=null,
                   fallback: (context)=>Center(child: defaultProgressIndicator(context),),
@@ -103,7 +106,7 @@ class _EditProfileState extends State<EditProfile> {
                                     children:
                                     [
                                       CircleAvatar(
-                                        backgroundImage: AssetImage('assets/images/${AppCubit.userData!.photo!}'),
+                                        backgroundImage: AssetImage('assets/images/profile/${AppCubit.userData!.photo!}'),
                                         radius: 75,
                                       ),
 
@@ -116,7 +119,7 @@ class _EditProfileState extends State<EditProfile> {
 
                               Expanded(
                                 child: Text(
-                                  AppCubit.userData!.name!,
+                                  '${AppCubit.userData!.name!} ${AppCubit.userData!.lastName!}',
                                   style: const TextStyle(
                                     fontFamily: 'Neology',
                                     fontSize: 24,
@@ -151,9 +154,30 @@ class _EditProfileState extends State<EditProfile> {
                                 const SizedBox(height: 25,),
 
                                 defaultFormField(
-                                    controller: nameController,
+                                    controller: firstNameController,
                                     keyboard: TextInputType.name,
                                     label: Localization.translate('name_reg_tfm'),
+                                    prefix: Icons.person_rounded,
+                                    isFilled: true,
+                                    fillColor: AppCubit.get(context).isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                    validate: (value)
+                                    {
+                                      if(value!.isEmpty)
+                                      {
+                                        return Localization.translate('name_reg_tfm_error');
+                                      }
+                                      return null;
+                                    }
+                                ),
+
+
+
+                                const SizedBox(height: 25,),
+
+                                defaultFormField(
+                                    controller: lastNameController,
+                                    keyboard: TextInputType.name,
+                                    label: Localization.translate('lastName_reg_tfm'),
                                     prefix: Icons.person_rounded,
                                     isFilled: true,
                                     fillColor: AppCubit.get(context).isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
@@ -197,7 +221,8 @@ class _EditProfileState extends State<EditProfile> {
                                       onTap: ()
                                       {
                                         cubit.updateUserProfile(
-                                          name: nameController.text,
+                                          firstName: firstNameController.text,
+                                          lastName: lastNameController.text,
                                           email: emailController.text,
                                           photo: null,
                                         );

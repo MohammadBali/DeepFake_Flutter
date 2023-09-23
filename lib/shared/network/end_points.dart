@@ -41,6 +41,8 @@ const getUserLikedPosts='likedPosts';
 
 const deleteAPost='deletePost'; // pass Post's ID
 
+const getSomeUserPosts ='users/getAUserProfile';
+
 
 //NEWS ENDPOINTS
 

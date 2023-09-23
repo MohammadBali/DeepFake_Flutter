@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:deepfake_detection/models/PostModel/PostModel.dart';
+import 'package:deepfake_detection/modules/AUserProfile/AUserProfile.dart';
 import 'package:deepfake_detection/modules/PostDetails/postDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,8 @@ import 'package:material_dialogs/dialogs.dart';
 import 'package:open_file_plus/open_file_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../models/AUserPostsModel/AUserPostsModel.dart';
+import '../../models/UserDataModel/UserDataModel.dart';
 import 'Localization/Localization.dart';
 import 'constants.dart';
 
@@ -451,7 +454,7 @@ PreferredSizeWidget defaultAppBar({
 
 //Post Item Builder
 
-Widget postItemBuilder({required AppCubit cubit, required Post post, required BuildContext context, bool isCommentClickable =true, bool isBoxClickable=true})=>defaultBox(
+Widget postItemBuilder({required AppCubit cubit, required Post post, required BuildContext context, bool isCommentClickable =true, bool isBoxClickable=true, bool isPhotoClickable=true})=>defaultBox(
     cubit: cubit,
     boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
     child: Column(
@@ -468,10 +471,20 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
               children:
               [
 
-                 CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/${post.owner!.photo!}'),
-                  radius: 22,
+                 GestureDetector(
+                   onTap: ()
+                   {
+                     if(isPhotoClickable)
+                       {
+                         cubit.getAUserPosts(post.owner!.id!);
+                         navigateTo(context, AUserProfile(user: post.owner!));
+                       }
+                   },
+                   child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/profile/${post.owner!.photo!}'),
+                    radius: 22,
                 ),
+                 ),
 
                 const SizedBox(height: 8,),
 
@@ -592,6 +605,21 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
             ],
           ),
         ),
+
+        const SizedBox(height: 15,),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(Localization.translate('post_date')),
+
+            const SizedBox(width: 5,),
+
+            Text(
+              dateFormatter(post.createdAt!),
+            ),
+          ],
+        ),
       ],
     ),
 
@@ -615,46 +643,74 @@ Widget commentItemBuilder({required AppCubit cubit, required Comment comment, re
 
   children:
   [
-    Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children:
-      [
-        Column(
+    Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children:
           [
-             CircleAvatar(
-              backgroundImage: AssetImage('assets/images/${comment.owner!.photo!}'),
-              radius: 22,
+            Column(
+              children:
+              [
+
+                 GestureDetector(
+                   onTap: ()
+                   {
+                     print(comment.owner!.lastName!);
+                     if(comment.owner !=null)
+                       {
+                         cubit.getAUserPosts(comment.owner!.id!);
+                         navigateTo(context, AUserProfile(user: comment.owner!));
+                       }
+
+                   },
+                   child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/profile/${comment.owner!.photo!}'),
+                    radius: 22,
+                ),
+                 ),
+
+                const SizedBox(height: 8,),
+
+                Text(
+                  comment.owner!.name!.length >10 ? '${comment.owner!.name!.substring(0,10)}...' : comment.owner!.name!  ,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+
+              ],
             ),
 
-            const SizedBox(height: 8,),
+            const SizedBox(width: 10,),
 
-            Text(
-              comment.owner!.name!.length >10 ? '${comment.owner!.name!.substring(0,10)}...' : comment.owner!.name!  ,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
+                child: Text(
+                  comment.comment!,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
-
           ],
         ),
 
-        const SizedBox(width: 10,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(Localization.translate('comment_date')),
 
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
-            child: Text(
-              comment.comment!,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+            const SizedBox(width: 5,),
+
+            Text(
+              comment.createdAt !=null ? dateFormatter(comment.createdAt!) : '',
             ),
-          ),
+          ],
         ),
-
-
       ],
     ),
   ],

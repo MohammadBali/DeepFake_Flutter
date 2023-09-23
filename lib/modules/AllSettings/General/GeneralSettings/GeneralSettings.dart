@@ -28,21 +28,21 @@ class _GeneralSettingsState extends State<GeneralSettings> {
         builder: (context,state)
         {
           var cubit= AppCubit.get(context);
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                Localization.translate('appBar_title_general_settings'),
-                style:TextStyle(
-                    color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
-                    fontFamily: 'WithoutSans',
-                    fontWeight: FontWeight.w600
+          return Directionality(
+            textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  Localization.translate('appBar_title_general_settings'),
+                  style:TextStyle(
+                      color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
+                      fontFamily: 'WithoutSans',
+                      fontWeight: FontWeight.w600
+                  ),
                 ),
               ),
-            ),
 
-            body: Directionality(
-              textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
-              child: SingleChildScrollView(
+              body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Column(

@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
@@ -42,22 +43,22 @@ class TextFiles extends StatelessWidget {
                               ),
                             ),
 
-                            const Spacer(),
-
-                            Visibility(
-                              visible: cubit.chosenFile !=null,
-                              child: IconButton(
-                                  onPressed: ()
-                                  {
-                                    cubit.removeFile();
-                                  },
-                                  icon: Icon(
-                                    Icons.remove,
-                                    color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-
-                                  )
-                              ),
-                            ),
+                            // const Spacer(),
+                            //
+                            // Visibility(
+                            //   visible: cubit.chosenFile !=null,
+                            //   child: IconButton(
+                            //       onPressed: ()
+                            //       {
+                            //         cubit.removeFile();
+                            //       },
+                            //       icon: Icon(
+                            //         Icons.remove,
+                            //         color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                            //
+                            //       )
+                            //   ),
+                            // ),
                           ],
                         ),
 
@@ -125,8 +126,22 @@ class TextFiles extends StatelessWidget {
 
                                       const SizedBox(width: 5,),
 
-                                      const Icon(Icons.file_copy_outlined),
+                                      ConditionalBuilder(
+                                        condition: cubit.chosenFile !=null,
+
+                                        fallback: (context)=> const Icon(Icons.folder_open_rounded),
+
+                                        builder: (context)=>GestureDetector(
+                                          child: const Icon(Icons.remove, color: Colors.redAccent,),
+                                          onTap: ()
+                                          {
+                                            cubit.removeFile();
+                                          },
+                                        ),
+                                      ),
                                     ],
+
+
                                   ),
                                   onTap: ()
                                   async {
@@ -164,7 +179,7 @@ class TextFiles extends StatelessWidget {
                   );
                 }
                 else
-                  {
+                {
                     return SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(24.0),
@@ -185,22 +200,22 @@ class TextFiles extends StatelessWidget {
                                   ),
                                 ),
 
-                                const Spacer(),
-
-                                Visibility(
-                                  visible: cubit.chosenFile !=null,
-                                  child: IconButton(
-                                      onPressed: ()
-                                      {
-                                        cubit.removeFile();
-                                      },
-                                      icon: Icon(
-                                        Icons.remove,
-                                        color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-
-                                      )
-                                  ),
-                                ),
+                                // const Spacer(),
+                                //
+                                // Visibility(
+                                //   visible: cubit.chosenFile !=null,
+                                //   child: IconButton(
+                                //       onPressed: ()
+                                //       {
+                                //         cubit.removeFile();
+                                //       },
+                                //       icon: Icon(
+                                //         Icons.remove,
+                                //         color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                                //
+                                //       )
+                                //   ),
+                                // ),
                               ],
                             ),
 
@@ -269,7 +284,19 @@ class TextFiles extends StatelessWidget {
 
                                         const SizedBox(width: 5,),
 
-                                        const Icon(Icons.file_copy_outlined),
+                                        ConditionalBuilder(
+                                          condition: cubit.chosenFile !=null,
+
+                                          fallback: (context)=> const Icon(Icons.folder_open_rounded),
+
+                                          builder: (context)=>GestureDetector(
+                                            child: const Icon(Icons.remove, color: Colors.redAccent,),
+                                            onTap: ()
+                                            {
+                                              cubit.removeFile();
+                                            },
+                                          ),
+                                        ),
                                       ],
                                     ),
                                     onTap: ()

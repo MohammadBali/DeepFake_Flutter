@@ -154,7 +154,7 @@ class AppDeleteAPostErrorState extends AppStates
 //-----------------------------------------------
 
 
-// GET POSTS
+// CHECK NEW POSTS
 
 
 class AppCheckNewPostsLoadingState extends AppStates{}
@@ -162,6 +162,20 @@ class AppCheckNewPostsLoadingState extends AppStates{}
 class AppCheckNewPostsSuccessState extends AppStates{}
 
 class AppCheckNewPostsErrorState extends AppStates {}
+
+
+
+//-----------------------------------------------
+
+
+// GET A USER POSTS
+
+
+class AppGetAUserPostsLoadingState extends AppStates{}
+
+class AppGetAUserPostsSuccessState extends AppStates{}
+
+class AppGetAUserPostsErrorState extends AppStates {}
 
 
 //-----------------------------------------------

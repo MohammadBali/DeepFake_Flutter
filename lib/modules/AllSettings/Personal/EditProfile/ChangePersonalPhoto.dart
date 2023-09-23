@@ -12,52 +12,52 @@ class ChangePersonalPhoto extends StatelessWidget {
   static const List<Map<String,String>> list= [
     {
       'name':'geometric_1.jpg',
-      'link':'assets/images/geometric_1.jpg'
+      'link':'assets/images/profile/geometric_1.jpg'
     },
 
     {
       'name':'geometric_2.jpg',
-      'link':'assets/images/geometric_2.jpg'
+      'link':'assets/images/profile/geometric_2.jpg'
     },
 
     {
       'name':'geometric_3.jpg',
-      'link':'assets/images/geometric_3.jpg'
+      'link':'assets/images/profile/geometric_3.jpg'
     },
 
     {
       'name':'man_1.jpg',
-      'link':'assets/images/man_1.jpg'
+      'link':'assets/images/profile/man_1.jpg'
     },
 
     {
       'name':'man_2.jpg',
-      'link':'assets/images/man_2.jpg'
+      'link':'assets/images/profile/man_2.jpg'
     },
 
     {
       'name':'others_1.jpg',
-      'link':'assets/images/others_1.jpg'
+      'link':'assets/images/profile/others_1.jpg'
     },
 
     {
       'name':'others_2.jpg',
-      'link':'assets/images/others_2.jpg'
+      'link':'assets/images/profile/others_2.jpg'
     },
 
     {
       'name':'robot_1.jpg',
-      'link':'assets/images/robot_1.jpg'
+      'link':'assets/images/profile/robot_1.jpg'
     },
 
     {
       'name':'robot_2.jpg',
-      'link':'assets/images/robot_2.jpg'
+      'link':'assets/images/profile/robot_2.jpg'
     },
 
     {
       'name':'woman_1.jpg',
-      'link':'assets/images/woman_1.jpg'
+      'link':'assets/images/profile/woman_1.jpg'
     },
   ];
 
@@ -68,20 +68,20 @@ class ChangePersonalPhoto extends StatelessWidget {
         builder: (context,state)
         {
           var cubit= AppCubit.get(context);
-          return Scaffold(
-            appBar: AppBar(
-                title: Text(
-                  Localization.translate('appBar_title_choose_photo'),
-                  style:TextStyle(
-                      color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
-                      fontFamily: 'WithoutSans',
-                      fontWeight: FontWeight.w600
-                  ),
-                )
-            ),
-            body: Directionality(
-              textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
-              child: SingleChildScrollView(
+          return Directionality(
+            textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
+            child: Scaffold(
+              appBar: AppBar(
+                  title: Text(
+                    Localization.translate('appBar_title_choose_photo'),
+                    style:TextStyle(
+                        color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
+                        fontFamily: 'WithoutSans',
+                        fontWeight: FontWeight.w600
+                    ),
+                  )
+              ),
+              body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Column(
@@ -126,7 +126,8 @@ class ChangePersonalPhoto extends StatelessWidget {
           {
             cubit.updateUserProfile(
               photo: image['name'],
-              name: null,
+              firstName: null,
+              lastName: null,
               email: null,
             );
           },

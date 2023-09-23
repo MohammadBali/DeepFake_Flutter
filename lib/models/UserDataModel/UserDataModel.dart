@@ -2,6 +2,7 @@ class UserData
 {
   String? id;
   String? name;
+  String? lastName;
   String? gender;
   String? birthDate;
   String? email;
@@ -13,6 +14,7 @@ class UserData
     {
       id=json['_id'];
       name=json['name'];
+      lastName=json['last_name'];
       photo=json['photo'];
       gender=json['gender'];
 

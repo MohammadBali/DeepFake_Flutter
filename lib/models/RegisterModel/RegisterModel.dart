@@ -5,6 +5,8 @@ class RegisterModel
   LoginUser? user;
   String? token;
   int? success;
+  RegisterErrorMessage? message; //On Errors
+
   RegisterModel.fromJson(Map<String,dynamic>json)
   {
     if(json['user']!=null)
@@ -21,5 +23,22 @@ class RegisterModel
     {
       success=json['success'];
     }
+    if(json['message']!=null)
+    {
+      message=RegisterErrorMessage.fromJson(json['message']);
+    }
+  }
+}
+
+class RegisterErrorMessage
+{
+  String? globalMessage;
+  String? name;
+  String? message;
+  RegisterErrorMessage.fromJson(Map<String,dynamic>json)
+  {
+    globalMessage=json['_message'];
+    name=json['name'];
+    message=json['message'];
   }
 }

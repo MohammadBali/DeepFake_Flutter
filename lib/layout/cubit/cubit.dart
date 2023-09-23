@@ -1,4 +1,5 @@
 import 'package:deepfake_detection/layout/cubit/states.dart';
+import 'package:deepfake_detection/models/AUserPostsModel/AUserPostsModel.dart';
 import 'package:deepfake_detection/models/InquiryModel/InquiryModel.dart';
 import 'package:deepfake_detection/models/NewsModel/NewsModel.dart';
 import 'package:deepfake_detection/models/PostModel/PostModel.dart';
@@ -106,10 +107,12 @@ class AppCubit extends Cubit<AppStates>
 
 
   //Update User Profile
-  void updateUserProfile({String? name, String? email, String? photo})
+  void updateUserProfile({String? firstName, String? lastName , String? email, String? photo})
   {
-    String? n,e,p;
-    name==null || name=='' ? n=null : name==userData!.name! ? n=null : n=name ; //If passed Name is null => store null in n and don't pass it to API, otherwise put the data
+    String? n, ln, e, p;
+    firstName==null || firstName=='' ? n=null : firstName==userData!.name! ? n=null : n=firstName ; //If passed Name is null => store null in n and don't pass it to API, otherwise put the data
+
+    lastName==null || lastName=='' ? ln=null : lastName==userData!.lastName! ? ln=null : ln=lastName ;
 
     email==null || email=='' ? e=null : email==userData!.email! ? e=null : e=email;
 
@@ -117,7 +120,7 @@ class AppCubit extends Cubit<AppStates>
 
     print('Data to update name: $n  email: $e  photo: $p');
 
-    if(n==null && e==null && p==null)
+    if(n==null && ln==null && e==null && p==null)
       {
         defaultToast(msg: 'No Data to Update');
       }
@@ -131,6 +134,7 @@ class AppCubit extends Cubit<AppStates>
           token: token,
           data: {
             if(n!=null) 'name':n,
+            if(ln!=null) 'last_name':ln,
             if(e!=null) 'email':e,
             if(p!=null) 'photo':p,
           },
@@ -415,6 +419,33 @@ class AppCubit extends Cubit<AppStates>
         emit(AppGetUserPostsErrorState());
       });
     }
+  }
+  
+  
+  //Got Some User Posts Through his ID
+  AUserPostsModel? aUserPostsModel;
+  
+  void getAUserPosts(String userId)
+  {
+    print('In Getting A User Posts');
+    
+    emit(AppGetAUserPostsLoadingState());
+    
+    MainDioHelper.getData(
+      url: '$getSomeUserPosts/$userId',
+      token: token,
+    ).then((value) {
+
+      print('Got A User Data...');
+
+      aUserPostsModel=AUserPostsModel.fromJson(value.data);
+
+      emit(AppGetAUserPostsSuccessState());
+    }).catchError((error)
+    {
+      print('ERROR WHILE GETTING A USER POSTS, ${error.toString()}');
+      emit(AppGetAUserPostsErrorState());
+    });
   }
 
   //Send API to delete from Back-end and then delete it from userPostsModel.

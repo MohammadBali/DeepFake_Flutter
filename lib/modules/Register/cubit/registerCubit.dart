@@ -20,7 +20,7 @@ class RegisterCubit extends Cubit<RegisterStates>
   }
 
   RegisterModel? registerModel;
-  void registerUser({required String name, required String gender, required String birthDate, required String password, required String email})
+  void registerUser({required String name, required String lastName, required String gender, required String birthDate, required String password, required String email})
   {
     print('In RegisterUser...');
 
@@ -31,6 +31,7 @@ class RegisterCubit extends Cubit<RegisterStates>
       isStatusCheck: true,
       data: {
         'name':name,
+        'last_name':lastName,
         'gender':gender,
         'birthDate':birthDate,
         'password':password,

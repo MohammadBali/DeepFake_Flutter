@@ -25,12 +25,17 @@ const Map<String,String> ar={
   'email_login_tfm_error':'الإيميل لا يمكن أن يكون فارغاً',
   'password_login_tfm_error':'كلمة السر لا يمكن أن تكون فارغةً',
 
+  'submit_button_login':'سجل الدخول',
+
   //Register:
 
   'register_title':'إنشاء حساب',
   'register_second_title':'أنشئ حساباً الآن وابدأ باكتشاف الحقيقة',
 
-  'name_reg_tfm':'الاسم',
+  'name_reg_tfm':'الاسم الأول',
+
+  'lastName_reg_tfm':'الاسم الأخير',
+
   'gender_reg_tfm':'الجنس',
   'birth_reg_tfm':'الميلاد',
   'email_reg_tfm':'الإيميل',
@@ -44,6 +49,7 @@ const Map<String,String> ar={
   'password_reg_tfm_error':'كلمة السر لا يمكن أن تكون فارغةً',
 
 
+  'submit_button_register':'سجل حسابك',
 
   //AppBar Application Name:
 
@@ -105,6 +111,10 @@ const Map<String,String> ar={
   'post_details_title':'المنشور',
   'add_comment_post_details':'أضف تعليقاً',
 
+  'post_date':'نُشر بتاريخ ',
+
+  'comment_date':'أُضيف بتاريخ  ',
+
   //Previous Inquiries Page:
 
   'previous_inquiries_title':'مرفوعاتك الخاصة',
@@ -159,6 +169,11 @@ const Map<String,String> ar={
 
   'language_name_general_settings':'اللغة',
 
+  // A USER PROFILE PAGE:
+
+  'appBar_title_a_user_profile':'صفحة المستخدم',
+
+  'shared_posts_a_user_profile':'المنشورات',
 
 };
 
@@ -190,12 +205,15 @@ const Map<String,String> en={
   'email_login_tfm_error':'Email Can\'t be Empty',
   'password_login_tfm_error':'Password Can\'t be Empty',
 
+  'submit_button_login':'LOGIN',
+
   //Register:
 
   'register_title':'Register',
   'register_second_title':'Register now and Start Revealing the Truth',
 
-  'name_reg_tfm':'Name',
+  'name_reg_tfm':'First Name',
+  'lastName_reg_tfm':'Last Name',
   'gender_reg_tfm':'Gender',
   'birth_reg_tfm':'Birth Date',
   'email_reg_tfm':'Email Address',
@@ -207,6 +225,8 @@ const Map<String,String> en={
   'birth_reg_tfm_error':'Birth Can\'t be Empty',
   'email_reg_tfm_error':'Email Can\'t be Empty',
   'password_reg_tfm_error':'Password Can\'t be Empty',
+
+  'submit_button_register':'REGISTER',
 
 
   //AppBar Application Name:
@@ -246,7 +266,7 @@ const Map<String,String> en={
 
   'appBar_title_edit_profile_page':'Edit Profile',
   'edit_your_details_profile_page':'Edit Your Details',
-  'update_button_profile_page':'UPLOAD',
+  'update_button_profile_page':'UPDATE',
 
   'appBar_title_choose_photo':'Choose a Photo',
 
@@ -268,6 +288,10 @@ const Map<String,String> en={
 
   'post_details_title':'Post Details',
   'add_comment_post_details':'Add Comment',
+
+  'post_date':'Shared at: ',
+
+  'comment_date':'Added at: ',
 
   //Previous Inquiries Page:
 
@@ -323,4 +347,11 @@ const Map<String,String> en={
   'language_general_Settings':'Main Language',
 
   'language_name_general_settings':'Language',
+
+
+  // A USER PROFILE PAGE:
+
+  'appBar_title_a_user_profile':'User Profile',
+
+  'shared_posts_a_user_profile':'Shared Posts',
 };

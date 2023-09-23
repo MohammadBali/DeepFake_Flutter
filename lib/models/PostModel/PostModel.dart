@@ -58,7 +58,7 @@ class Post
 
   List<Comment>? comments=[];
 
-  Post.fromJson(Map<String,dynamic>json, {bool isOwnerUser=false})
+  Post.fromJson(Map<String,dynamic>json, {bool isOwnerUser=false, UserData? user})
   {
     try
     {
@@ -66,7 +66,12 @@ class Post
 
       id=json['_id'];
 
-      if(isOwnerUser)
+      if(user!=null)
+        {
+          owner =user;
+        }
+
+      else if(isOwnerUser)
         {
           owner=AppCubit.userData;
         }
@@ -117,7 +122,7 @@ class Comment
   String? comment;
   UserData? owner;
   String? id;
-
+  String? createdAt;
   Comment.fromJson(Map<String,dynamic> json)
   {
     try
@@ -125,10 +130,11 @@ class Comment
       comment=json['comment'];
       owner=UserData.fromJson(json['owner']);
       id=json['_id'];
+      createdAt=json['createdAt'];
     }
-    catch(e)
+    catch(e,stackTrace)
     {
-      print('ERROR WHILE SETTING DATA IN COMMENT CLASS MODEL, ${e.toString()}');
+      print('ERROR WHILE SETTING DATA IN COMMENT CLASS MODEL, ${e.toString()} $stackTrace');
     }
   }
 }

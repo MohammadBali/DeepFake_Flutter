@@ -23,27 +23,26 @@ class PostDetails extends StatelessWidget {
         {
           var cubit =AppCubit.get(context);
 
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                Localization.translate('post_details_title'),
-                style:TextStyle(
-                  color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
-                  fontFamily: 'WithoutSans',
-                  fontWeight: FontWeight.w600
+          return Directionality(
+            textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  Localization.translate('post_details_title'),
+                  style:TextStyle(
+                    color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
+                    fontFamily: 'WithoutSans',
+                    fontWeight: FontWeight.w600
+                  ),
                 ),
               ),
-            ),
 
-            body: Directionality(
-              textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
-              child: SingleChildScrollView(
+              body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsetsDirectional.only(start: 28.0, end:28.0, top:28.0, bottom: 10.0),
                   child: Center(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-
                       children:
                       [
                         postItemBuilder(
@@ -108,9 +107,9 @@ class PostDetails extends StatelessWidget {
                   ),
                 ),
               ),
+
+
             ),
-
-
           );
         },
     );
@@ -133,7 +132,7 @@ class PostDetails extends StatelessWidget {
                 children:
                 [
                   CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/${AppCubit.userData!.photo!}'),
+                    backgroundImage: AssetImage('assets/images/profile/${AppCubit.userData!.photo!}'),
                     radius: 22,
                   ),
 

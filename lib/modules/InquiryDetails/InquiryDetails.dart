@@ -22,31 +22,31 @@ class InquiryDetails extends StatelessWidget {
         {
           var cubit=AppCubit.get(context);
 
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                Localization.translate('appBar_title_inquiry_details'),
-                style: TextStyle(
-                  color: cubit.isDarkTheme? defaultDarkFontColor: defaultFontColor,
-                  fontFamily: 'WithoutSans',
-                  fontWeight: FontWeight.w600
+          return Directionality(
+            textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  Localization.translate('appBar_title_inquiry_details'),
+                  style: TextStyle(
+                    color: cubit.isDarkTheme? defaultDarkFontColor: defaultFontColor,
+                    fontFamily: 'WithoutSans',
+                    fontWeight: FontWeight.w600
+                  ),
                 ),
+                actions:
+                [
+                  IconButton(
+                    onPressed: ()
+                    {
+                      navigateTo(context, AddPost(inquiry: inquiry,));
+                    },
+                    icon: const Icon(Icons.share_rounded)
+                  ),
+                ],
               ),
-              actions:
-              [
-                IconButton(
-                  onPressed: ()
-                  {
-                    navigateTo(context, AddPost(inquiry: inquiry,));
-                  },
-                  icon: const Icon(Icons.share_rounded)
-                ),
-              ],
-            ),
 
-            body: Directionality(
-              textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
-              child: SingleChildScrollView(
+              body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsetsDirectional.all(24),
                   child: Column(
@@ -82,7 +82,7 @@ class InquiryDetails extends StatelessWidget {
 
                               const SizedBox(width: 5,),
 
-                              const Icon(Icons.file_copy_outlined),
+                              const Icon(Icons.folder_open_rounded),
                             ],
                           ),
                           onTap: ()
