@@ -800,3 +800,19 @@ Future<File?> base64ToFile(String base, String type)async
   return file;
 
 }
+
+//------------------------------------------------------------------------------------------\\
+
+//Returns True/False for if a User is subscribed to another or not
+
+bool isSubscribed({required String userId, required AppCubit cubit})
+{
+  for (var element in cubit.subscriptionsModel!.subscriptions!)
+  {
+    if(element.ownerId! == userId)
+      {
+        return true;
+      }
+  }
+  return false;
+}

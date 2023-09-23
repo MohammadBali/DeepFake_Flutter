@@ -3,6 +3,7 @@ import 'package:deepfake_detection/models/AUserPostsModel/AUserPostsModel.dart';
 import 'package:deepfake_detection/models/InquiryModel/InquiryModel.dart';
 import 'package:deepfake_detection/models/NewsModel/NewsModel.dart';
 import 'package:deepfake_detection/models/PostModel/PostModel.dart';
+import 'package:deepfake_detection/models/SubscriptionsModel/SubscriptionsModel.dart';
 import 'package:deepfake_detection/models/UserDataModel/UserDataModel.dart';
 import 'package:deepfake_detection/modules/ChatBot/chatBot.dart';
 import 'package:deepfake_detection/modules/Home/home.dart';
@@ -154,6 +155,56 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  SubscriptionsModel? subscriptionsModel;
+  void getSubscriptions()
+  {
+    if(token!='')
+      {
+        print('In Getting Subscriptions');
+        emit(AppGetUserSubscriptionsLoadingState());
+
+        MainDioHelper.getData(
+          url: subscriptions,
+          token: token,
+        ).then((value) {
+          print('Got Subscriptions Data...');
+
+          subscriptionsModel=SubscriptionsModel.fromJson(value.data);
+
+          emit(AppGetUserSubscriptionsSuccessState());
+        }).catchError((error,stackTrace)
+        {
+          print('ERROR WHILE GETTING SUBSCRIPTIONS, ${error.toString()} $stackTrace');
+          print(AppGetUserSubscriptionsErrorState);
+        });
+      }
+  }
+
+
+
+  void manageSubscriptions(String userId)
+  {
+    print('In Managing Subscriptions...');
+    emit(AppManageSubscriptionsLoadingState());
+    
+    MainDioHelper.postData(
+      url: '$manageSubs/$userId',
+      data: {},
+      token: token
+    ).then((value) {
+      print('Got Managing Subscriptions Data..., ${value.data}');
+
+      subscriptionsModel=SubscriptionsModel.fromJson(value.data['user']);
+
+      emit(AppManageSubscriptionsSuccessState());
+
+    }).catchError((error)
+    {
+      print('ERROR WHILE MANAGING SUBSCRIPTIONS, ${error.toString()}');
+      emit(AppManageSubscriptionsErrorState());
+    });
+  }
+
   //Logout User
   bool logout({required BuildContext context})
   {
@@ -230,6 +281,9 @@ class AppCubit extends Cubit<AppStates>
   {
 
     getPosts();
+
+    getSubscriptionsPosts();
+
     // print('In Check For New Posts...');
     // emit(AppCheckNewPostsLoadingState());
     //
@@ -420,7 +474,32 @@ class AppCubit extends Cubit<AppStates>
       });
     }
   }
-  
+
+
+  PostModel? subscriptionsPostsModel;
+  void getSubscriptionsPosts()
+  {
+    if(token!='')
+      {
+        print('In Getting Subscriptions Posts..');
+        emit(AppGetSubscriptionsLoadingState());
+
+        MainDioHelper.getData(
+            url: subscriptionsPosts,
+            token:token
+        ).then((value) {
+
+          print('Got Subscriptions Data...');
+
+          subscriptionsPostsModel=PostModel.fromJson(value.data);
+          emit(AppGetSubscriptionsSuccessState());
+        }).catchError((error)
+        {
+          print('ERROR WHILE GETTING SUBSCRIPTIONS POSTS, ${error.toString()}');
+          emit(AppGetSubscriptionsErrorState());
+        });
+      }
+  }
   
   //Got Some User Posts Through his ID
   AUserPostsModel? aUserPostsModel;

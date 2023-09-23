@@ -22,8 +22,6 @@ class AppGetUserDataErrorState extends AppStates{}
 //-----------------------------------------------
 
 
-
-
 //GET USER POSTS
 
 class AppGetUserPostsLoadingState extends AppStates{}
@@ -31,6 +29,31 @@ class AppGetUserPostsLoadingState extends AppStates{}
 class AppGetUserPostsSuccessState extends AppStates{}
 
 class AppGetUserPostsErrorState extends AppStates{}
+
+
+//-----------------------------------------------
+
+
+
+//GET USER SUBSCRIPTIONS
+
+class AppGetUserSubscriptionsLoadingState extends AppStates{}
+
+class AppGetUserSubscriptionsSuccessState extends AppStates{}
+
+class AppGetUserSubscriptionsErrorState extends AppStates{}
+
+
+//-----------------------------------------------
+
+
+//MANAGE SUBSCRIPTIONS
+
+class AppManageSubscriptionsLoadingState extends AppStates{}
+
+class AppManageSubscriptionsSuccessState extends AppStates{}
+
+class AppManageSubscriptionsErrorState extends AppStates{}
 
 
 //-----------------------------------------------
@@ -65,6 +88,22 @@ class AppGetNewPostsLoadingState extends AppStates{}
 class AppGetNewPostsSuccessState extends AppStates{}
 
 class AppGetNewPostsErrorState extends AppStates{}
+
+
+
+
+//-----------------------------------------------
+
+
+
+// GET SUBSCRIPTIONS POSTS
+
+
+class AppGetSubscriptionsLoadingState extends AppStates{}
+
+class AppGetSubscriptionsSuccessState extends AppStates{}
+
+class AppGetSubscriptionsErrorState extends AppStates{}
 
 
 

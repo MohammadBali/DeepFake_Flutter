@@ -64,7 +64,31 @@ class AUserProfile extends StatelessWidget {
                         ],
                       ),
 
-                      const SizedBox(height: 25,),
+                      Visibility(
+                        visible: AppCubit.userData!.id! != user.id!,
+                        child: Align(
+                          alignment: AlignmentDirectional.bottomEnd,
+                          child: TextButton(
+
+                            child: Text(
+                              isSubscribed(userId: user.id!, cubit: cubit)? Localization.translate('un_subscribe_a_user_profile') : Localization.translate('subscribe_a_user_profile') ,
+                              style: TextStyle(
+                                  color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600
+                              ),
+                            ),
+
+                            onPressed: ()
+                            {
+                              cubit.manageSubscriptions(user.id!);
+                            },
+                          ),
+                        ),
+                      ),
+
+
+                      const SizedBox(height: 15,),
 
                       Padding(
                         padding: const EdgeInsetsDirectional.only(start: 24.0),

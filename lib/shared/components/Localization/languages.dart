@@ -55,7 +55,9 @@ const Map<String,String> ar={
 
   'appBar_title_home':'الحماية العميقة',
 
+  'feed_home':'المحتوى',
 
+  'my_feed_home':'المحتوى المشترك به',
 
   //NEWS:
 
@@ -175,6 +177,10 @@ const Map<String,String> ar={
 
   'shared_posts_a_user_profile':'المنشورات',
 
+  'subscribe_a_user_profile':'إشترك',
+
+  'un_subscribe_a_user_profile':'إلغاء الإشتراك',
+
 };
 
 
@@ -233,7 +239,9 @@ const Map<String,String> en={
 
   'appBar_title_home':'Deep Guard',
 
+  'feed_home':'Feed',
 
+  'my_feed_home':'My Feed',
 
   //HOME PAGE:
 
@@ -354,4 +362,8 @@ const Map<String,String> en={
   'appBar_title_a_user_profile':'User Profile',
 
   'shared_posts_a_user_profile':'Shared Posts',
+
+  'subscribe_a_user_profile':'Subscribe',
+
+  'un_subscribe_a_user_profile':'Unsubscribe',
 };

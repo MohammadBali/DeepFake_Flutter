@@ -67,6 +67,10 @@ class _LoginState extends State<Login> {
 
                 cubit.getUserPosts();
 
+                cubit.getSubscriptions();
+
+                cubit.getSubscriptionsPosts();
+
                 navigateAndFinish(context,const HomeLayout());
 
               }).catchError((error)

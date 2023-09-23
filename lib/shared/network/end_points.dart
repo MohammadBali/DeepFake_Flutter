@@ -17,6 +17,10 @@ const updateUser= 'users/me';
 
 const userPosts= 'posts/me';
 
+const subscriptions='getSubscriptions';
+
+const manageSubs='manageSubscription';
+
 
 //INQUIRIES ENDPOINTS
 
@@ -42,6 +46,9 @@ const getUserLikedPosts='likedPosts';
 const deleteAPost='deletePost'; // pass Post's ID
 
 const getSomeUserPosts ='users/getAUserProfile';
+
+
+const subscriptionsPosts='getSubscriptionsPosts';
 
 
 //NEWS ENDPOINTS

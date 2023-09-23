@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/models/NewsModel/NewsModel.dart';
+import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/modules/NewsPage/newsPage.dart';
 import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
@@ -20,6 +21,8 @@ class _HomeState extends State<Home> {
   ScrollController scrollController= ScrollController();
   final GlobalKey _key = GlobalKey();
 
+  String? currentFeed=Localization.translate('feed_home');
+
   @override
   void initState()
   {
@@ -27,10 +30,13 @@ class _HomeState extends State<Home> {
 
     AppCubit cubit= AppCubit.get(context);
 
+    currentFeed=Localization.translate('feed_home');
+
     scrollController.addListener(()
     {
       _onScroll(cubit);
     });
+
   }
 
   @override
@@ -81,16 +87,107 @@ class _HomeState extends State<Home> {
 
                     const SizedBox(height: 40,),
 
-                    ConditionalBuilder(
-                      condition: AppCubit.postModel!=null,
-                      builder: (context)=>ListView.separated(
-                        itemCount: AppCubit.postModel!.posts!.length,
-                        separatorBuilder: (context,index)=>const SizedBox(height: 25,),
-                        itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: AppCubit.postModel!.posts![index], context: context),
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
+                    Align(
+                      alignment: AlignmentDirectional.center,
+                      child: defaultBox(
+                        cubit: cubit,
+                        boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                        borderColor: cubit.isDarkTheme? defaultDarkColor: defaultColor,
+                        manualBorderColor: true,
+                        paddingOptions: false,
+                        padding: 0,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children:
+                          [
+                            GestureDetector(
+                              onTap: ()
+                              {
+                                setState(() {
+                                  currentFeed=Localization.translate('feed_home');
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(22.0),
+                                child: Text(
+                                  Localization.translate('feed_home'),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: currentFeed == Localization.translate('feed_home')
+                                        ? cubit.isDarkTheme? defaultDarkColor : defaultColor
+                                        : cubit.isDarkTheme? Colors.white : defaultHomeColor
+
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            RotatedBox(
+                              quarterTurns: 1,
+                              child: Container(
+                                height: 2,
+                                width: 30,
+                                color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
+                              ),
+                            ),
+
+                            GestureDetector(
+                              onTap: ()
+                              {
+                                setState(() {
+                                  currentFeed=Localization.translate('my_feed_home');
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(22.0),
+                                child: Text(
+                                  Localization.translate('my_feed_home'),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: currentFeed == Localization.translate('my_feed_home')
+                                          ? cubit.isDarkTheme? defaultDarkColor : defaultColor
+                                          : cubit.isDarkTheme? Colors.white : defaultHomeColor
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        onTap: (){},
                       ),
-                      fallback: (context)=> Center(child: defaultProgressIndicator(context)),
+                    ),
+
+                    const SizedBox(height: 40,),
+
+                    ConditionalBuilder(
+                      condition: currentFeed == Localization.translate('feed_home'),
+
+                      builder: (context)=>ConditionalBuilder(
+                        condition: AppCubit.postModel!=null,
+                        builder: (context)=>ListView.separated(
+                          itemCount: AppCubit.postModel!.posts!.length,
+                          separatorBuilder: (context,index)=>const SizedBox(height: 25,),
+                          itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: AppCubit.postModel!.posts![index], context: context),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                        ),
+                        fallback: (context)=> Center(child: defaultProgressIndicator(context)),
+                      ),
+
+                      fallback: (context)=> ConditionalBuilder(
+                        condition: cubit.subscriptionsPostsModel !=null,
+                        builder: (context)=>ListView.separated(
+                          itemCount: cubit.subscriptionsPostsModel!.posts!.length,
+                          separatorBuilder: (context,index)=>const SizedBox(height: 25,),
+                          itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: cubit.subscriptionsPostsModel!.posts![index], context: context),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                        ),
+                        fallback: (context)=> Center(child: defaultProgressIndicator(context),),
+                      ),
                     ),
 
                     const SizedBox(height: 20,),
@@ -111,8 +208,8 @@ class _HomeState extends State<Home> {
 
   void _onScroll(AppCubit cubit)
   {
-
-    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) //scrollController.position.maxScrollExtent * threshold
+    //Will Scroll Only and Only if: 1. Got to the end of the list / 2. is in the Feed home NOT MY FEED
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent && currentFeed == Localization.translate('feed_home'))
     {
       if(AppCubit.postModel?.pagination?.nextPage !=null)
         {
@@ -143,7 +240,7 @@ class _HomeState extends State<Home> {
                 fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.w600,
                 fontFamily: 'WithoutSans',
-                color: cubit.isDarkTheme? defaultDarkFontColor : Colors.white,
+                color: cubit.isDarkTheme? defaultDarkFontColor : defaultHomeColor,
               ),
             ),
           ),
