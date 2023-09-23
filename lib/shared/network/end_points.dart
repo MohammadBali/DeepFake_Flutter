@@ -1,6 +1,6 @@
 const String localhost= 'http://192.168.1.1:3000/'; //'http://192.168.188.87:3000';
 
-
+const String webSocketLocalHost='ws://192.168.1.1:3000/webSocket'; // ws://localhost:3000/webSocket
 //USER ENDPOINTS
 
 const login='users/login';

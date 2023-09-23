@@ -48,7 +48,18 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
-      listener: (context,state){},
+      listener: (context,state)
+      {
+        if(state is AppWSModifyCommentLoadingState)
+          {
+            print('');
+          }
+
+        if(state is AppWSAddLikeSuccessState)
+          {
+            print('');
+          }
+      },
       builder: (context,state)
       {
         var cubit=AppCubit.get(context);
@@ -162,31 +173,33 @@ class _HomeState extends State<Home> {
 
                     const SizedBox(height: 40,),
 
-                    ConditionalBuilder(
-                      condition: currentFeed == Localization.translate('feed_home'),
-
+                    Builder(
                       builder: (context)=>ConditionalBuilder(
-                        condition: AppCubit.postModel!=null,
-                        builder: (context)=>ListView.separated(
-                          itemCount: AppCubit.postModel!.posts!.length,
-                          separatorBuilder: (context,index)=>const SizedBox(height: 25,),
-                          itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: AppCubit.postModel!.posts![index], context: context),
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                        ),
-                        fallback: (context)=> Center(child: defaultProgressIndicator(context)),
-                      ),
+                        condition: currentFeed == Localization.translate('feed_home'),
 
-                      fallback: (context)=> ConditionalBuilder(
-                        condition: cubit.subscriptionsPostsModel !=null,
-                        builder: (context)=>ListView.separated(
-                          itemCount: cubit.subscriptionsPostsModel!.posts!.length,
-                          separatorBuilder: (context,index)=>const SizedBox(height: 25,),
-                          itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: cubit.subscriptionsPostsModel!.posts![index], context: context),
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
+                        builder: (context)=>ConditionalBuilder(
+                          condition: AppCubit.postModel!=null,
+                          builder: (context)=>ListView.separated(
+                            itemCount: AppCubit.postModel!.posts!.length,
+                            separatorBuilder: (context,index)=>const SizedBox(height: 25,),
+                            itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: AppCubit.postModel!.posts![index], context: context),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                          ),
+                          fallback: (context)=> Center(child: defaultProgressIndicator(context)),
                         ),
-                        fallback: (context)=> Center(child: defaultProgressIndicator(context),),
+
+                        fallback: (context)=> ConditionalBuilder(
+                          condition: cubit.subscriptionsPostsModel !=null,
+                          builder: (context)=>ListView.separated(
+                            itemCount: cubit.subscriptionsPostsModel!.posts!.length,
+                            separatorBuilder: (context,index)=>const SizedBox(height: 25,),
+                            itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: cubit.subscriptionsPostsModel!.posts![index], context: context),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                          ),
+                          fallback: (context)=> Center(child: defaultProgressIndicator(context),),
+                        ),
                       ),
                     ),
 

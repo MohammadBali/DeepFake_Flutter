@@ -106,8 +106,6 @@ class AppGetSubscriptionsSuccessState extends AppStates{}
 class AppGetSubscriptionsErrorState extends AppStates{}
 
 
-
-
 //-----------------------------------------------
 
 // UPLOAD A POST
@@ -241,3 +239,30 @@ class AppGetFileErrorState extends AppStates{}
 // REMOVE FILE
 
 class AppRemoveFileState extends AppStates{}
+
+
+
+//-----------------------------------------------
+
+// WEB SOCKETS
+
+// ADD LIKE STATE
+
+class AppWSAddLikeLoadingState extends AppStates{}
+class AppWSAddLikeSuccessState extends AppStates{}
+class AppWSAddLikeErrorState extends AppStates{}
+
+
+// DELETE COMMENT STATE
+
+class AppWSModifyCommentLoadingState extends AppStates{}
+class AppWSModifyCommentSuccessState extends AppStates{}
+class AppWSModifyCommentErrorState extends AppStates{}
+
+
+
+// DELETE POST STATE
+
+class AppWSDeletePostLoadingState extends AppStates{}
+class AppWSDeletePostSuccessState extends AppStates{}
+class AppWSDeletePostErrorState extends AppStates{}

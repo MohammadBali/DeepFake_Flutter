@@ -535,9 +535,10 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
                   IconButton(
                       onPressed: ()
                       {
+                        cubit.addLike(userID: AppCubit.userData!.id!, postID: post.id!);
                       },
                       icon: Icon(
-                        Icons.thumb_up_off_alt_outlined,
+                        isLiked(post)? Icons.thumb_up :Icons.thumb_up_off_alt_outlined,
                         color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
                       )
                   ),
@@ -812,6 +813,22 @@ bool isSubscribed({required String userId, required AppCubit cubit})
     if(element.ownerId! == userId)
       {
         return true;
+      }
+  }
+  return false;
+}
+
+
+//------------------------------------------------------------------------------------------\\
+
+bool isLiked(Post post)
+{
+  for (var like in post.likes!)
+  {
+    if(like.owner! == AppCubit.userData!.id!)
+      {
+        return true;
+
       }
   }
   return false;

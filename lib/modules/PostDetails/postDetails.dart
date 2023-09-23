@@ -45,14 +45,14 @@ class PostDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:
                       [
-                        postItemBuilder(
+                        Builder(builder: (context)=>postItemBuilder(
                           cubit: cubit,
                           context: context,
                           post: post,
                           isCommentClickable: false,
                           isBoxClickable: false,
                         ),
-
+                        ),
                         const SizedBox(height: 20,),
 
 
@@ -75,27 +75,29 @@ class PostDetails extends StatelessWidget {
                                 child: const SizedBox(height: 20),
                               ),
 
-                              ConditionalBuilder(
-                                condition: post.comments!.isNotEmpty,
-                                builder: (context)=> ListView.separated(
-                                  itemBuilder: (context,index)=>commentItemBuilder(cubit: cubit, comment: post.comments![index], context: context),
-                                  separatorBuilder: (context,index)=> Column(
-                                    children:
-                                    [
-                                      const SizedBox(height: 20),
+                              Builder(
+                                builder: (context)=>ConditionalBuilder(
+                                  condition: post.comments!.isNotEmpty,
+                                  builder: (context)=> ListView.separated(
+                                    itemBuilder: (context,index)=>commentItemBuilder(cubit: cubit, comment: post.comments![index], context: context),
+                                    separatorBuilder: (context,index)=> Column(
+                                      children:
+                                      [
+                                        const SizedBox(height: 20),
 
-                                      Container(width: double.infinity, height: 1, color: cubit.isDarkTheme? defaultDarkColor : defaultColor,),
+                                        Container(width: double.infinity, height: 1, color: cubit.isDarkTheme? defaultDarkColor : defaultColor,),
 
-                                      const SizedBox(height: 20),
-                                    ],
+                                        const SizedBox(height: 20),
+                                      ],
+                                    ),
+
+                                    itemCount: post.comments!.length,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
                                   ),
 
-                                  itemCount: post.comments!.length,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
+                                  fallback: (context) => const SizedBox(height: 1,),
                                 ),
-
-                                fallback: (context) => const SizedBox(height: 1,),
                               ),
 
                             ],

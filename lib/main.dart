@@ -8,21 +8,23 @@ import 'package:deepfake_detection/modules/on_boarding/on_boarding_screen.dart';
 import 'package:deepfake_detection/shared/bloc_observer.dart';
 import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/constants.dart';
+import 'package:deepfake_detection/shared/network/end_points.dart';
 import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
 import 'package:deepfake_detection/shared/network/remote/main_dio_helper.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:deepfake_detection/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:web_socket_channel/io.dart';
 import 'layout/home_layout.dart';
 
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized(); //Makes sure that all the await and initializer get done before runApp
 
+  IOWebSocketChannel wsChannel= IOWebSocketChannel.connect(webSocketLocalHost);
 
   //Fire Flutter Errors into Run Terminal
   FlutterError.onError = (FlutterErrorDetails details) {
@@ -83,7 +85,7 @@ void main() async {
     widget = const OnBoardingScreen();
   }
 
-  runApp(MyApp(isDark: isDark, homeWidget: widget));
+  runApp(MyApp(isDark: isDark, homeWidget: widget, wsChannel: wsChannel!,));
 }
 
 class MyApp extends StatelessWidget {
@@ -91,7 +93,9 @@ class MyApp extends StatelessWidget {
   final bool isDark;        //If the app last theme was dark or light
   final Widget homeWidget;  // Passing the widget to be loaded.
 
-  const MyApp({super.key, required this.isDark, required this.homeWidget});
+  final IOWebSocketChannel wsChannel;
+
+  const MyApp({super.key, required this.isDark, required this.homeWidget, required this.wsChannel});
 
   // This widget is the root of your application.
   @override
@@ -99,13 +103,20 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers:
         [
-          BlocProvider(create: (BuildContext  context) => AppCubit()..changeTheme(themeFromState: isDark)..getUserData()..getPosts()..getUserPosts()..getNews()..getInquiries()..getSubscriptions()..getSubscriptionsPosts() ),
+          BlocProvider(create: (BuildContext  context)
+          {
+            //AppCubit.setListener(wsChannel);
+            return AppCubit(wsChannel)..setListener(wsChannel)..changeTheme(themeFromState: isDark)..getUserData()..getPosts()..getUserPosts()..getNews()..getInquiries()..getSubscriptions()..getSubscriptionsPosts();
+          }),
         ],
         child: BlocConsumer<AppCubit,AppStates>(
-          listener: (context,state){},
+          listener: (context,state)
+          {},
+
           builder: (context,state)
           {
             var cubit=AppCubit.get(context);
+
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: lightTheme(context),

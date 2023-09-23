@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/models/AUserPostsModel/AUserPostsModel.dart';
 import 'package:deepfake_detection/models/InquiryModel/InquiryModel.dart';
@@ -18,12 +19,210 @@ import 'package:deepfake_detection/shared/network/remote/main_dio_helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_socket_channel/io.dart';
 
 class AppCubit extends Cubit<AppStates>
 {
-  AppCubit(): super(AppInitialState());
+  final IOWebSocketChannel wsChannel;
+  AppCubit(this.wsChannel): super(AppInitialState());
 
   static AppCubit get(context)=> BlocProvider.of(context);
+
+  //SET LISTENER FOR WEB SOCKETS
+   void setListener(IOWebSocketChannel wsChannel) {
+    wsChannel.stream.listen((message) {
+      //Parse JSON from String
+      var jsonMessage= jsonDecode(message);
+
+      if(jsonMessage['posts']!=null)
+        {
+          print('Got WS Message!, ${jsonMessage['type']}');
+
+          Post post= Post.fromJson(jsonMessage['posts']);
+
+          switch (jsonMessage['type'])
+          {
+            case 'like':
+              wsLike(post);
+              break;
+
+            case 'add_comment':
+              wsComments(post);
+              break;
+
+            case 'delete_comment':
+              wsComments(post);
+              break;
+
+            case 'delete_post':
+              wsDeletePost(post);
+              break;
+
+            default:
+              print('WS Message Does not convey any types');
+              break;
+
+          }
+
+        }
+
+      else
+        {
+          print(jsonMessage);
+        }
+
+
+    });
+  }
+
+
+  //WEB SOCKETS
+
+  //Modify Likes
+  void wsLike(Post post)
+  {
+    print('Add/Remove Like WS');
+
+    if(postModel !=null)
+      {
+        int indexOfElement=-1;
+
+        emit(AppWSAddLikeLoadingState());
+
+        try {
+          for (var element in postModel!.posts!)
+          {
+            if(element.id! == post.id!)
+            {
+              print('Found Post, Modifying it now...');
+              indexOfElement=postModel!.posts!.indexOf(element);
+            }
+          }
+
+          if(indexOfElement != -1)
+            {
+              postModel!.posts![indexOfElement]=post;
+              emit(AppWSAddLikeSuccessState());
+              return;
+            }
+
+          print('Post Was not found => adding it now...');
+          postModel!.posts!.add(post);
+          emit(AppWSAddLikeSuccessState());
+        }catch (error,stackTrace) {
+          print('ERROR WHILE MODIFYING LIKES POSTS WS,${error.toString()} , $stackTrace');
+          emit(AppWSAddLikeErrorState());
+        }
+
+      }
+
+    else
+      {
+        print('Could not modify likes, Post Model is Null');
+      }
+  }
+
+  //Modify Comments
+  void wsComments(Post post)
+  {
+    print('Add/Remove Comments WS');
+
+    if(postModel !=null)
+    {
+      int indexOfElement=-1;
+
+      emit(AppWSModifyCommentLoadingState());
+
+      try {
+        for (var element in postModel!.posts!)
+        {
+          if(element.id! == post.id!)
+          {
+            print('Found Post, Modifying it now...');
+            indexOfElement=postModel!.posts!.indexOf(element);
+          }
+        }
+
+        if(indexOfElement != -1)
+        {
+          postModel!.posts![indexOfElement]=post;
+          emit(AppWSModifyCommentSuccessState());
+          return;
+        }
+
+        print('Post Was not found => adding it now...');
+        postModel!.posts!.add(post);
+        emit(AppWSModifyCommentSuccessState());
+      }catch (error,stackTrace) {
+        print('ERROR WHILE MODIFYING COMMENTS POSTS WS,${error.toString()} , $stackTrace');
+        emit(AppWSModifyCommentErrorState());
+      }
+
+    }
+
+    else
+    {
+      print('Could not modify Comments, Post Model is Null');
+    }
+  }
+
+  //Delete Post
+  void wsDeletePost(Post post)
+  {
+    print('Remove a Post WS');
+
+    if(postModel !=null)
+    {
+      int indexOfElement=-1;
+      emit(AppWSDeletePostLoadingState());
+      try {
+        for (var element in postModel!.posts!)
+        {
+          if(element.id! == post.id!)
+          {
+            print('Found Post, Deleting it now...');
+            indexOfElement=postModel!.posts!.indexOf(element);
+
+          }
+        }
+
+        if(indexOfElement != -1)
+          {
+            postModel!.posts!.removeAt(indexOfElement);
+            emit(AppWSDeletePostSuccessState());
+            return;
+          }
+        print('Post Does not exist to delete it...');
+        emit(AppWSDeletePostSuccessState());
+      }catch (error,stackTrace) {
+        print('ERROR WHILE DELETING POST POSTS WS,${error.toString()} , $stackTrace');
+        emit(AppWSDeletePostErrorState());
+      }
+
+    }
+
+    else
+    {
+      print('Could not delete post, Post Model is Null');
+    }
+  }
+
+
+
+  void addLike({required String userID, required String postID})
+  {
+    Map<String,dynamic> data=
+    {
+      'type':'like',
+      'userID':userID,
+      'postID':postID,
+      'token':token
+    };
+
+    wsChannel.sink.add(jsonEncode(data));
+  }
+
+  //-----------------------------------
 
 
   //GLOBAL SETTINGS
@@ -404,7 +603,7 @@ class AppCubit extends Cubit<AppStates>
 
           value.data['posts'].forEach((post)
           {
-            print('Adding New Post');
+            //print('Adding New Post');
 
             //postModel?.posts?.add(Post.fromJson(post));
 
