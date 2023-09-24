@@ -82,6 +82,8 @@ class AUserProfile extends StatelessWidget {
                             onPressed: ()
                             {
                               cubit.manageSubscriptions(user.id!);
+
+                              cubit.getSubscriptionsPosts();
                             },
                           ),
                         ),

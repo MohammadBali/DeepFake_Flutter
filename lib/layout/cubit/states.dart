@@ -250,6 +250,8 @@ class AppRemoveFileState extends AppStates{}
 
 // ADD LIKE STATE
 
+//For PostModel Posts
+
 class AppWSAddLikePostModelLoadingState extends AppStates{}
 class AppWSAddLikePostModelSuccessState extends AppStates
 {
@@ -259,15 +261,24 @@ class AppWSAddLikePostModelSuccessState extends AppStates
 }
 class AppWSAddLikePostModelErrorState extends AppStates{}
 
+//For Subscriptions posts
 
 class AppWSAddLikeSubscriptionsPostsModelLoadingState extends AppStates{}
 class AppWSAddLikeSubscriptionsPostsModelSuccessState extends AppStates{}
 class AppWSAddLikeSubscriptionsPostsModelErrorState extends AppStates{}
 
 
+//For a User Post Models
+
+class AppWSAddLikeAUserPostsModelLoadingState extends AppStates{}
+class AppWSAddLikeAUserPostsModelSuccessState extends AppStates{}
+class AppWSAddLikeAUserPostsModelErrorState extends AppStates{}
+
+//-----------------------------------------------
 
 // DELETE COMMENT STATE
 
+//For PostModel Posts
 class AppWSModifyCommentPostModelLoadingState extends AppStates{}
 class AppWSModifyCommentPostModelSuccessState extends AppStates
 {
@@ -278,12 +289,25 @@ class AppWSModifyCommentPostModelSuccessState extends AppStates
 class AppWSModifyCommentPostModelErrorState extends AppStates{}
 
 
+//For Subscriptions posts
 class AppWSModifyCommentSubscriptionsPostsModelLoadingState extends AppStates{}
 class AppWSModifyCommentSubscriptionsPostsModelSuccessState extends AppStates{}
 class AppWSModifyCommentSubscriptionsPostsModelErrorState extends AppStates{}
 
+
+//For a User Post Models
+
+class AppWSModifyCommentAUserPostsModelLoadingState extends AppStates{}
+class AppWSModifyCommentAUserPostsModelSuccessState extends AppStates{}
+class AppWSModifyCommentAUserPostsModelErrorState extends AppStates{}
+
+
+//-----------------------------------------------
+
 // DELETE POST STATE
 
+
+//For PostModel Posts
 class AppWSDeletePostPostModelLoadingState extends AppStates{}
 class AppWSDeletePostPostModelSuccessState extends AppStates
 {
@@ -294,6 +318,15 @@ class AppWSDeletePostPostModelSuccessState extends AppStates
 class AppWSDeletePostPostModelErrorState extends AppStates{}
 
 
+//For Subscriptions posts
 class AppWSDeletePostSubscriptionsPostsModelLoadingState extends AppStates{}
 class AppWSDeletePostSubscriptionsPostsModelSuccessState extends AppStates{}
 class AppWSDeletePostSubscriptionsPostsModelErrorState extends AppStates{}
+
+//For a User Post Models
+
+class AppWSDeletePostAUserPostsModelLoadingState extends AppStates{}
+class AppWSDeletePostAUserPostsModelSuccessState extends AppStates{}
+class AppWSDeletePostAUserPostsModelErrorState extends AppStates{}
+
+//-----------------------------------------------

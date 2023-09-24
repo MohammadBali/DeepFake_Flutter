@@ -14,9 +14,6 @@ import 'package:intl/intl.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:open_file_plus/open_file_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../models/AUserPostsModel/AUserPostsModel.dart';
-import '../../models/UserDataModel/UserDataModel.dart';
 import 'Localization/Localization.dart';
 import 'constants.dart';
 
@@ -467,39 +464,47 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
           crossAxisAlignment: CrossAxisAlignment.start,
           children:
           [
-            Column(
-              children:
-              [
-
-                 GestureDetector(
-                   onTap: ()
-                   {
-                     if(isPhotoClickable)
-                       {
-                         cubit.getAUserPosts(post.owner!.id!);
-                         navigateTo(context, AUserProfile(user: post.owner!));
-                       }
-                   },
-                   child: CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/profile/${post.owner!.photo!}'),
-                    radius: 22,
-                ),
-                 ),
-
-                const SizedBox(height: 8,),
-
-                Text(
-                  post.owner!.name!.length >10 ? '${ post.owner!.name!.substring(0,10)}...' :  post.owner!.name!  ,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+            //Used Constrained Box so even if the name is too long, it won't push the text title with it.
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width/8),
+              child: Wrap(
+                alignment: WrapAlignment.spaceEvenly,
+                crossAxisAlignment: WrapCrossAlignment.start,
+                direction: Axis.vertical,
+                spacing: 1,
+                children:
+                [
+                  GestureDetector(
+                    onTap: ()
+                    {
+                      if(isPhotoClickable)
+                      {
+                        cubit.getAUserPosts(post.owner!.id!);
+                        navigateTo(context, AUserProfile(user: post.owner!));
+                      }
+                    },
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/profile/${post.owner!.photo!}'),
+                      radius: 22,
+                    ),
                   ),
-                ),
 
-              ],
+                  const SizedBox(height: 8,),
+
+                  Text(
+                    post.owner!.name!.length >10 ? '${ post.owner!.name!.substring(0,10)}...' :  post.owner!.name!  ,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ],
+              ),
             ),
 
-            const SizedBox(width: 10,),
+            const SizedBox(width: 5,),
 
             Expanded(
               child: Padding(
