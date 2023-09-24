@@ -561,7 +561,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
                       {
                         if(isCommentClickable)
                           {
-                            navigateTo(context, PostDetails(post: post));
+                            navigateTo(context, PostDetails(globalPost: post));
                           }
                       },
                       icon: Icon(
@@ -628,7 +628,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
     {
       if(isBoxClickable)
         {
-          navigateTo(context, PostDetails(post: post,) );
+          navigateTo(context, PostDetails(globalPost: post,) );
         }
     }
 );

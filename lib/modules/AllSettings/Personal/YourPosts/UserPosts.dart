@@ -88,7 +88,7 @@ class UserPosts extends StatelessWidget {
     borderRadius: BorderRadius.circular(8),
     onTap: ()
     {
-      navigateTo(context, PostDetails(post: post));
+      navigateTo(context, PostDetails(globalPost: post));
     },
     child: Column(
       children:

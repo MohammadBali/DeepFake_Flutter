@@ -1,3 +1,5 @@
+import 'package:deepfake_detection/models/PostModel/PostModel.dart';
+
 abstract class AppStates{}
 
 class AppInitialState extends AppStates{}
@@ -248,21 +250,50 @@ class AppRemoveFileState extends AppStates{}
 
 // ADD LIKE STATE
 
-class AppWSAddLikeLoadingState extends AppStates{}
-class AppWSAddLikeSuccessState extends AppStates{}
-class AppWSAddLikeErrorState extends AppStates{}
+class AppWSAddLikePostModelLoadingState extends AppStates{}
+class AppWSAddLikePostModelSuccessState extends AppStates
+{
+  final Post post;
+
+  AppWSAddLikePostModelSuccessState(this.post);
+}
+class AppWSAddLikePostModelErrorState extends AppStates{}
+
+
+class AppWSAddLikeSubscriptionsPostsModelLoadingState extends AppStates{}
+class AppWSAddLikeSubscriptionsPostsModelSuccessState extends AppStates{}
+class AppWSAddLikeSubscriptionsPostsModelErrorState extends AppStates{}
+
 
 
 // DELETE COMMENT STATE
 
-class AppWSModifyCommentLoadingState extends AppStates{}
-class AppWSModifyCommentSuccessState extends AppStates{}
-class AppWSModifyCommentErrorState extends AppStates{}
+class AppWSModifyCommentPostModelLoadingState extends AppStates{}
+class AppWSModifyCommentPostModelSuccessState extends AppStates
+{
+  final Post post;
+
+  AppWSModifyCommentPostModelSuccessState(this.post);
+}
+class AppWSModifyCommentPostModelErrorState extends AppStates{}
 
 
+class AppWSModifyCommentSubscriptionsPostsModelLoadingState extends AppStates{}
+class AppWSModifyCommentSubscriptionsPostsModelSuccessState extends AppStates{}
+class AppWSModifyCommentSubscriptionsPostsModelErrorState extends AppStates{}
 
 // DELETE POST STATE
 
-class AppWSDeletePostLoadingState extends AppStates{}
-class AppWSDeletePostSuccessState extends AppStates{}
-class AppWSDeletePostErrorState extends AppStates{}
+class AppWSDeletePostPostModelLoadingState extends AppStates{}
+class AppWSDeletePostPostModelSuccessState extends AppStates
+{
+  final Post post;
+
+  AppWSDeletePostPostModelSuccessState(this.post);
+}
+class AppWSDeletePostPostModelErrorState extends AppStates{}
+
+
+class AppWSDeletePostSubscriptionsPostsModelLoadingState extends AppStates{}
+class AppWSDeletePostSubscriptionsPostsModelSuccessState extends AppStates{}
+class AppWSDeletePostSubscriptionsPostsModelErrorState extends AppStates{}

@@ -50,12 +50,12 @@ class _HomeState extends State<Home> {
     return BlocConsumer<AppCubit,AppStates>(
       listener: (context,state)
       {
-        if(state is AppWSModifyCommentLoadingState)
+        if(state is AppWSModifyCommentPostModelLoadingState)
           {
             print('');
           }
 
-        if(state is AppWSAddLikeSuccessState)
+        if(state is AppWSAddLikePostModelSuccessState)
           {
             print('');
           }

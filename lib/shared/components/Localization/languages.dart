@@ -117,6 +117,8 @@ const Map<String,String> ar={
 
   'comment_date':'أُضيف بتاريخ  ',
 
+  'post_is_deleted':'هذا المنشور قد تم حذفه',
+
   //Previous Inquiries Page:
 
   'previous_inquiries_title':'مرفوعاتك الخاصة',
@@ -300,6 +302,8 @@ const Map<String,String> en={
   'post_date':'Shared at: ',
 
   'comment_date':'Added at: ',
+
+  'post_is_deleted':'Post has been deleted',
 
   //Previous Inquiries Page:
 

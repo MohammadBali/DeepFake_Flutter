@@ -87,7 +87,7 @@ class AppCubit extends Cubit<AppStates>
       {
         int indexOfElement=-1;
 
-        emit(AppWSAddLikeLoadingState());
+        emit(AppWSAddLikePostModelLoadingState());
 
         try {
           for (var element in postModel!.posts!)
@@ -102,16 +102,17 @@ class AppCubit extends Cubit<AppStates>
           if(indexOfElement != -1)
             {
               postModel!.posts![indexOfElement]=post;
-              emit(AppWSAddLikeSuccessState());
-              return;
+              emit(AppWSAddLikePostModelSuccessState(post));
             }
-
-          print('Post Was not found => adding it now...');
-          postModel!.posts!.add(post);
-          emit(AppWSAddLikeSuccessState());
+          else
+            {
+              print('Post Was not found => adding it now...');
+              postModel!.posts!.add(post);
+              emit(AppWSAddLikePostModelSuccessState(post));
+            }
         }catch (error,stackTrace) {
-          print('ERROR WHILE MODIFYING LIKES POSTS WS,${error.toString()} , $stackTrace');
-          emit(AppWSAddLikeErrorState());
+          print('ERROR WHILE MODIFYING LIKES POSTS IN POST-MODEL WS,${error.toString()} , $stackTrace');
+          emit(AppWSAddLikePostModelErrorState());
         }
 
       }
@@ -120,6 +121,44 @@ class AppCubit extends Cubit<AppStates>
       {
         print('Could not modify likes, Post Model is Null');
       }
+
+    if(subscriptionsPostsModel !=null)
+      {
+        int indexOfElement=-1;
+
+        emit(AppWSAddLikeSubscriptionsPostsModelLoadingState());
+
+        try {
+          for (var element in subscriptionsPostsModel!.posts!)
+          {
+            if(element.id! == post.id!)
+            {
+              print('Found Post in Subscriptions Post Model, Modifying it now...');
+              indexOfElement=subscriptionsPostsModel!.posts!.indexOf(element);
+            }
+          }
+
+          if(indexOfElement != -1)
+          {
+            subscriptionsPostsModel!.posts![indexOfElement]=post;
+            emit(AppWSAddLikeSubscriptionsPostsModelSuccessState());
+          }
+
+          else
+            {
+              print('Post Was not found in Subscriptions Post Model=> do nothing..');
+              emit(AppWSAddLikeSubscriptionsPostsModelSuccessState());
+            }
+        }catch (error,stackTrace) {
+          print('ERROR WHILE MODIFYING LIKES POSTS IN SUBSCRIPTIONS-POST-MODEL WS,${error.toString()} , $stackTrace');
+          emit(AppWSAddLikeSubscriptionsPostsModelErrorState());
+        }
+      }
+
+    else
+    {
+      print('Could not modify likes, Subscriptions Post Model is Null');
+    }
   }
 
   //Modify Comments
@@ -131,7 +170,7 @@ class AppCubit extends Cubit<AppStates>
     {
       int indexOfElement=-1;
 
-      emit(AppWSModifyCommentLoadingState());
+      emit(AppWSModifyCommentPostModelLoadingState());
 
       try {
         for (var element in postModel!.posts!)
@@ -146,16 +185,19 @@ class AppCubit extends Cubit<AppStates>
         if(indexOfElement != -1)
         {
           postModel!.posts![indexOfElement]=post;
-          emit(AppWSModifyCommentSuccessState());
-          return;
+          emit(AppWSModifyCommentPostModelSuccessState(post));
+
         }
 
-        print('Post Was not found => adding it now...');
-        postModel!.posts!.add(post);
-        emit(AppWSModifyCommentSuccessState());
+        else
+          {
+            print('Post Was not found => adding it now...');
+            postModel!.posts!.add(post);
+            emit(AppWSModifyCommentPostModelSuccessState(post));
+          }
       }catch (error,stackTrace) {
         print('ERROR WHILE MODIFYING COMMENTS POSTS WS,${error.toString()} , $stackTrace');
-        emit(AppWSModifyCommentErrorState());
+        emit(AppWSModifyCommentPostModelErrorState());
       }
 
     }
@@ -163,6 +205,44 @@ class AppCubit extends Cubit<AppStates>
     else
     {
       print('Could not modify Comments, Post Model is Null');
+    }
+
+    if(subscriptionsPostsModel !=null)
+    {
+      int indexOfElement=-1;
+
+      emit(AppWSModifyCommentSubscriptionsPostsModelLoadingState());
+
+      try {
+        for (var element in subscriptionsPostsModel!.posts!)
+        {
+          if(element.id! == post.id!)
+          {
+            print('Found Post in Subscriptions Post Model, Modifying it now...');
+            indexOfElement=subscriptionsPostsModel!.posts!.indexOf(element);
+          }
+        }
+
+        if(indexOfElement != -1)
+        {
+          subscriptionsPostsModel!.posts![indexOfElement]=post;
+          emit(AppWSModifyCommentSubscriptionsPostsModelSuccessState());
+        }
+        else
+          {
+            print('Post Was not found in Subscriptions Post Model=> do nothing..');
+            emit(AppWSModifyCommentSubscriptionsPostsModelSuccessState());
+          }
+
+      }catch (error,stackTrace) {
+        print('ERROR WHILE MODIFYING COMMENTS POSTS IN SUBSCRIPTIONS-POST-MODEL WS,${error.toString()} , $stackTrace');
+        emit(AppWSModifyCommentSubscriptionsPostsModelErrorState());
+      }
+    }
+
+    else
+    {
+      print('Could not modify Comments, Subscriptions Post Model is Null');
     }
   }
 
@@ -174,7 +254,7 @@ class AppCubit extends Cubit<AppStates>
     if(postModel !=null)
     {
       int indexOfElement=-1;
-      emit(AppWSDeletePostLoadingState());
+      emit(AppWSDeletePostPostModelLoadingState());
       try {
         for (var element in postModel!.posts!)
         {
@@ -189,14 +269,16 @@ class AppCubit extends Cubit<AppStates>
         if(indexOfElement != -1)
           {
             postModel!.posts!.removeAt(indexOfElement);
-            emit(AppWSDeletePostSuccessState());
-            return;
+            emit(AppWSDeletePostPostModelSuccessState(post));
           }
-        print('Post Does not exist to delete it...');
-        emit(AppWSDeletePostSuccessState());
+        else
+          {
+            print('Post Does not exist to delete it...');
+            emit(AppWSDeletePostPostModelSuccessState(post));
+          }
       }catch (error,stackTrace) {
         print('ERROR WHILE DELETING POST POSTS WS,${error.toString()} , $stackTrace');
-        emit(AppWSDeletePostErrorState());
+        emit(AppWSDeletePostPostModelErrorState());
       }
 
     }
@@ -205,10 +287,48 @@ class AppCubit extends Cubit<AppStates>
     {
       print('Could not delete post, Post Model is Null');
     }
+
+
+    if(subscriptionsPostsModel !=null)
+    {
+      int indexOfElement=-1;
+      emit(AppWSDeletePostSubscriptionsPostsModelLoadingState());
+      try {
+        for (var element in postModel!.posts!)
+        {
+          if(element.id! == post.id!)
+          {
+            print('Found Post in Subscriptions Post Model, Deleting it now...');
+            indexOfElement=postModel!.posts!.indexOf(element);
+
+          }
+        }
+
+        if(indexOfElement != -1) {
+          postModel!.posts!.removeAt(indexOfElement);
+          emit(AppWSDeletePostSubscriptionsPostsModelSuccessState());
+          return;
+        }
+        else
+          {
+            print('Post Does not exist to delete it...');
+            emit(AppWSDeletePostSubscriptionsPostsModelSuccessState());
+          }
+      }catch (error,stackTrace) {
+        print('ERROR WHILE DELETING POST POSTS WS,${error.toString()} , $stackTrace');
+        emit(AppWSDeletePostSubscriptionsPostsModelErrorState());
+      }
+
+    }
+
+    else
+    {
+      print('Could not delete post, Subscriptions Post Model is Null');
+    }
   }
 
 
-
+  //Send Data to Server by WebSockets
   void addLike({required String userID, required String postID})
   {
     Map<String,dynamic> data=
@@ -220,6 +340,26 @@ class AppCubit extends Cubit<AppStates>
     };
 
     wsChannel.sink.add(jsonEncode(data));
+  }
+
+
+
+
+  //Send Comment to Server by WebSockets
+  void addComment({required String userID, required String postID, required String comment})
+  {
+    Map<String,dynamic> data=
+    {
+      'type':'comment',
+      'userID':userID,
+      'postID':postID,
+      'comment':comment,
+      'token':token
+    };
+
+    wsChannel.sink.add(jsonEncode(data));
+
+    defaultToast(msg: 'Added Successfully');
   }
 
   //-----------------------------------
@@ -764,6 +904,8 @@ class AppCubit extends Cubit<AppStates>
       emit(AppDeleteAPostErrorState(error.toString()));
     });
   }
+
+
 
   //-----------------------------------------
 

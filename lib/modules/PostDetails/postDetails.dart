@@ -9,16 +9,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PostDetails extends StatelessWidget {
-  Post post;
-  PostDetails({super.key, required this.post});
+  Post globalPost;
+  PostDetails({super.key, required this.globalPost});
 
   TextEditingController addCommentController=TextEditingController();
 
+  int postIndex=0;
+
+  bool isDeleted=false;
 
   @override
   Widget build(BuildContext context) {
+
+    Post post=globalPost;
+    try
+    {
+      print(AppCubit.postModel!.posts!.indexOf(globalPost));
+      postIndex= AppCubit.postModel!.posts!.indexOf(globalPost);
+      post= AppCubit.postModel!.posts![postIndex];
+    }
+    catch (e,stackTrace)
+    {
+      print('ERROR IN POST DETAILS PAGE, ${e.toString()} $stackTrace');
+    }
+
     return BlocConsumer<AppCubit,AppStates>(
-        listener: (context,state){},
+        listener: (context,state)
+        {
+          if(state is AppWSAddLikePostModelSuccessState)
+            {
+                post=state.post;
+            }
+
+          if(state is AppWSModifyCommentPostModelSuccessState)
+            {
+              post=state.post;
+            }
+
+          if(state is AppWSDeletePostPostModelSuccessState)
+            {
+              if(post.id! == state.post.id!)
+                {
+                  isDeleted=true;
+                }
+            }
+        },
         builder: (context,state)
         {
           var cubit =AppCubit.get(context);
@@ -37,76 +72,88 @@ class PostDetails extends StatelessWidget {
                 ),
               ),
 
-              body: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 28.0, end:28.0, top:28.0, bottom: 10.0),
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children:
-                      [
-                        Builder(builder: (context)=>postItemBuilder(
-                          cubit: cubit,
-                          context: context,
-                          post: post,
-                          isCommentClickable: false,
-                          isBoxClickable: false,
-                        ),
-                        ),
-                        const SizedBox(height: 20,),
+              body: ConditionalBuilder(
+                condition: isDeleted==false && post !=null,
+                builder: (context)=>SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 28.0, end:28.0, top:28.0, bottom: 10.0),
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children:
+                        [
+                          Builder(builder: (context)=>postItemBuilder(
+                            cubit: cubit,
+                            context: context,
+                            post: post,
+                            isCommentClickable: false,
+                            isBoxClickable: false,
+                          ),
+                          ),
+                          const SizedBox(height: 20,),
 
 
-                        defaultBox(
-                          cubit: cubit,
-                          boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                          onTap: (){},
-                          child: Column(
-                            children: [
+                          defaultBox(
+                            cubit: cubit,
+                            boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                            onTap: (){},
+                            child: Column(
+                              children: [
 
-                              addCommentItemBuilder(cubit: cubit, context: context),
+                                addCommentItemBuilder(cubit: cubit, context: context, post: post),
 
-                              Visibility(
-                                visible: post.comments!.isNotEmpty,
-                                child: Container(width: double.infinity, height: 1, color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,)
-                              ),
+                                Visibility(
+                                    visible: post.comments!.isNotEmpty,
+                                    child: Container(width: double.infinity, height: 1, color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,)
+                                ),
 
-                              Visibility(
-                                visible: post.comments!.isNotEmpty,
-                                child: const SizedBox(height: 20),
-                              ),
+                                Visibility(
+                                  visible: post.comments!.isNotEmpty,
+                                  child: const SizedBox(height: 20),
+                                ),
 
-                              Builder(
-                                builder: (context)=>ConditionalBuilder(
-                                  condition: post.comments!.isNotEmpty,
-                                  builder: (context)=> ListView.separated(
-                                    itemBuilder: (context,index)=>commentItemBuilder(cubit: cubit, comment: post.comments![index], context: context),
-                                    separatorBuilder: (context,index)=> Column(
-                                      children:
-                                      [
-                                        const SizedBox(height: 20),
+                                Builder(
+                                  builder: (context)=>ConditionalBuilder(
+                                    condition: post.comments!.isNotEmpty,
+                                    builder: (context)=> ListView.separated(
+                                      itemBuilder: (context,index)=>commentItemBuilder(cubit: cubit, comment: post.comments![index], context: context),
+                                      separatorBuilder: (context,index)=> Column(
+                                        children:
+                                        [
+                                          const SizedBox(height: 20),
 
-                                        Container(width: double.infinity, height: 1, color: cubit.isDarkTheme? defaultDarkColor : defaultColor,),
+                                          Container(width: double.infinity, height: 1, color: cubit.isDarkTheme? defaultDarkColor : defaultColor,),
 
-                                        const SizedBox(height: 20),
-                                      ],
+                                          const SizedBox(height: 20),
+                                        ],
+                                      ),
+
+                                      itemCount: post.comments!.length,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
                                     ),
 
-                                    itemCount: post.comments!.length,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
+                                    fallback: (context) => const SizedBox(height: 1,),
                                   ),
-
-                                  fallback: (context) => const SizedBox(height: 1,),
                                 ),
-                              ),
 
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
+                ),
+                fallback: (context)=> Center(
+                child: Text(
+                  Localization.translate('post_is_deleted'),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24,
+                ),
+                ),
                 ),
               ),
 
@@ -118,7 +165,7 @@ class PostDetails extends StatelessWidget {
   }
 
 
-  Widget addCommentItemBuilder({required AppCubit cubit, required BuildContext context})=>Column(
+  Widget addCommentItemBuilder({required AppCubit cubit, required BuildContext context, required Post post})=>Column(
     crossAxisAlignment: CrossAxisAlignment.start,
 
     children:
@@ -191,6 +238,13 @@ class PostDetails extends StatelessWidget {
               {
                 if(addCommentController.text.isNotEmpty)
                   {
+                    cubit.addComment(
+                      userID: AppCubit.userData!.id!,
+                      postID: post.id!,
+                      comment: addCommentController.text,
+                    );
+
+                    addCommentController.text='';
                   }
                 else
                   {
