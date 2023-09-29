@@ -16,6 +16,7 @@ import 'package:deepfake_detection/shared/components/constants.dart';
 import 'package:deepfake_detection/shared/network/end_points.dart';
 import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
 import 'package:deepfake_detection/shared/network/remote/main_dio_helper.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -658,33 +659,45 @@ class AppCubit extends Cubit<AppStates>
     });
   }
 
-  //Logout User
+  //Logout User and Remove his token from back-end side
   bool logout({required BuildContext context})
   {
+    emit(AppLogoutLoadingState());
 
-    CacheHelper.saveData(key: 'token', value: '').then((value)
-    {
-      token='';
-      userData=null;
-      postModel=null;
-      inquiryModel=null;
-      userPostsModel=null;
-      currentBottomBarIndex=0;
-      defaultToast(msg: 'Logged Out');
+    MainDioHelper.postData(
+      url: logoutOneToken,
+      data: {},
+      token: token,
+    ).then((value) {
 
-      navigateAndFinish(context, Login());
-      emit(AppLogoutState());
+      CacheHelper.saveData(key: 'token', value: '').then((value)
+      {
+        token='';
+        userData=null;
+        postModel=null;
+        inquiryModel=null;
+        userPostsModel=null;
+        currentBottomBarIndex=0;
+        defaultToast(msg: 'Logged Out');
 
-      return true;
+        navigateAndFinish(context, Login());
+        emit(AppLogoutSuccessState());
+
+        return true;
+
+      }).catchError((error)
+      {
+        defaultToast(msg: error.toString());
+        print('ERROR WHILE LOGGING OUT CACHE HELPER, ${error.toString()}');
+        emit(AppLogoutErrorState());
+        return false;
+      });
 
     }).catchError((error)
     {
-      defaultToast(msg: error.toString());
       print('ERROR WHILE LOGGING OUT, ${error.toString()}');
-
-      return false;
+      emit(AppLogoutErrorState());
     });
-
     return false;
   }
 
@@ -1091,6 +1104,66 @@ class AppCubit extends Cubit<AppStates>
       print('ERROR WHILE DELETING AN INQUIRY, ${error.toString()}');
       emit(AppDeleteInquiryErrorState(error.toString()));
     });
+  }
+
+
+  //Upload a Text Inquiry
+
+  Future<bool> uploadTextInquiry( {required PlatformFile file, void Function(int, int)? onSendProgress}) async
+  {
+    bool boolToReturn=false;
+
+    if(file.size <= maxTextFileSize)
+      {
+
+        print('In Uploading Text Inquiry...');
+        emit(AppUploadTextInquiryLoadingState());
+
+        //Set Data to be sent as Map
+        final formData=FormData.fromMap(
+            {
+              'type':file.extension,
+              'name':file.name,
+              'result':'true', //TBD, Must be returned by back-end through AI Model
+              'text': await MultipartFile.fromFile(file.path!, filename: file.name),
+            });
+
+        MainDioHelper.postFileData(
+          url: addTextInquiry,
+          data:formData,
+          token: token,
+          onSendProgress: onSendProgress,
+
+        ).then((value) {
+
+          print('Got UploadTextInquiry Data...');
+
+          emit(AppUploadTextInquirySuccessState());
+
+
+
+          getInquiries(); //Ask For New Inquiries
+
+          boolToReturn=true;
+
+          defaultToast(msg: 'Uploaded Successfully');
+
+        }).catchError((error)
+        {
+          print('ERROR WHILE UPLOADING TEXT INQUIRY, ${error.toString()}');
+          emit(AppUploadTextInquiryErrorState());
+
+          boolToReturn=false;
+        });
+
+        return boolToReturn;
+      }
+
+    else
+      {
+        defaultToast(msg: 'File Size is Bigger Than ${byteToMB(maxTextFileSize)} MB');
+        return false;
+      }
   }
 
  //----------------------------------------------

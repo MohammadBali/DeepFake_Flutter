@@ -33,7 +33,7 @@ class MainDioHelper
       'Authorization': 'Bearer $token',
     };
 
-    print('in Main Dio getData');
+    //print('in Main Dio getData');
     return await dio!.get(
       url,
       queryParameters: query,
@@ -69,7 +69,7 @@ class MainDioHelper
         };
       }
 
-    print('in Main Dio postData');
+    //print('in Main Dio postData');
     return await dio!.post(
       url,
       queryParameters: query,
@@ -80,7 +80,7 @@ class MainDioHelper
 
 
   static Future<Response> postFileData(
-      {required String url, Map<String,dynamic>?query,  required dynamic data, String lang='en', String? token,}) async
+      {required String url, Map<String,dynamic>?query,  required dynamic data, String lang='en', String? token, void Function(int, int)? onSendProgress }) async
   {
     dio?.options.headers=
     {
@@ -89,12 +89,12 @@ class MainDioHelper
       'Authorization': 'Bearer $token',
     };
 
-    print('in Main Dio postData');
+    //print('in Main Dio postData');
     return await dio!.post(
       url,
       queryParameters: query,
       data: data,
-
+      onSendProgress: onSendProgress,
     );
   }
 
@@ -123,7 +123,7 @@ class MainDioHelper
       };
     }
 
-    print('in Main Dio putData');
+    //print('in Main Dio putData');
     return await dio!.put(
       url,
       queryParameters: query,
@@ -141,7 +141,7 @@ class MainDioHelper
       'Connection' : 'keep-alive',
       'Authorization': 'Bearer $token',
     };
-    print('in Main Dio patchData');
+    //print('in Main Dio patchData');
     return await dio!.patch(
       url,
       queryParameters: query,
@@ -173,7 +173,7 @@ class MainDioHelper
     }
 
 
-    print('in Main Dio deleteData');
+    //print('in Main Dio deleteData');
     return await dio!.delete(
       url,
       data: data,

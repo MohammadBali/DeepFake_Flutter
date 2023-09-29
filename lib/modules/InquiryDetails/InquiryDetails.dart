@@ -87,7 +87,11 @@ class InquiryDetails extends StatelessWidget {
                           ),
                           onTap: ()
                           async {
-                            File? file=await base64ToFile(inquiry.data!, inquiry.type!);
+                            File? file=await base64ToFile(
+                              base: inquiry.data!,
+                              type: inquiry.type!,
+                              id: inquiry.id!,
+                            );
 
                             if(file!=null)
                               {

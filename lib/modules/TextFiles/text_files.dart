@@ -43,22 +43,6 @@ class TextFiles extends StatelessWidget {
                               ),
                             ),
 
-                            // const Spacer(),
-                            //
-                            // Visibility(
-                            //   visible: cubit.chosenFile !=null,
-                            //   child: IconButton(
-                            //       onPressed: ()
-                            //       {
-                            //         cubit.removeFile();
-                            //       },
-                            //       icon: Icon(
-                            //         Icons.remove,
-                            //         color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-                            //
-                            //       )
-                            //   ),
-                            // ),
                           ],
                         ),
 
@@ -156,21 +140,44 @@ class TextFiles extends StatelessWidget {
                         const SizedBox(height: 10,),
 
                         Center(
-                          child: defaultButton(
-                            title: Localization.translate('upload_button'),
-                            color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
-                            onTap: ()
-                            {
-                              if(cubit.chosenFile!=null)
-                              {
+                          child: ConditionalBuilder(
+                            condition: state is! AppUploadTextInquiryLoadingState,
 
-                              }
-                              else
+                            fallback: (context)=>defaultProgressIndicator(context),
+
+                            builder:(context)=> defaultButton(
+                              title: Localization.translate('upload_button'),
+                              color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
+                              onTap: ()
                               {
-                                defaultToast(msg: 'No Data to Upload');
-                              }
-                            },
-                            textColor: cubit.isDarkTheme? Colors.black : Colors.white,
+                                if(cubit.chosenFile!=null)
+                                {
+
+                                  cubit.uploadTextInquiry(
+
+                                  file:cubit.chosenFile!,
+
+                                  onSendProgress: (int sent, int total)
+                                  {
+                                    print('File is Being Uploaded: Sent:$sent Total:$total');
+                                  },
+
+                                  ).then((value)
+                                  {
+                                    cubit.removeFile();
+
+                                  }).catchError((error)
+                                  {
+                                    defaultToast(msg: error.toString());
+                                  });
+                                }
+                                else
+                                {
+                                  defaultToast(msg: 'No Data to Upload');
+                                }
+                              },
+                              textColor: cubit.isDarkTheme? Colors.black : Colors.white,
+                            ),
                           ),
                         ),
 
@@ -178,6 +185,7 @@ class TextFiles extends StatelessWidget {
                     ),
                   );
                 }
+
                 else
                 {
                     return SingleChildScrollView(
@@ -311,21 +319,44 @@ class TextFiles extends StatelessWidget {
                             const SizedBox(height: 75,),
 
                             Center(
-                              child: defaultButton(
-                                title: Localization.translate('upload_button'),
-                                color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
-                                onTap: ()
-                                {
-                                  if(cubit.chosenFile!=null)
-                                  {
+                              child: ConditionalBuilder(
+                                condition: state is! AppUploadTextInquiryLoadingState,
 
-                                  }
-                                  else
+                                fallback: (context)=>defaultProgressIndicator(context),
+
+                                builder: (context)=>defaultButton(
+                                  title: Localization.translate('upload_button'),
+                                  color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
+                                  onTap: ()
                                   {
-                                    defaultToast(msg: 'No Data to Upload');
-                                  }
-                                },
-                                textColor: cubit.isDarkTheme? Colors.black : Colors.white,
+                                    if(cubit.chosenFile!=null)
+                                    {
+
+                                      cubit.uploadTextInquiry(
+
+                                        file:cubit.chosenFile!,
+
+                                        onSendProgress: (int sent, int total)
+                                        {
+                                          print('File is Being Uploaded: Sent:$sent Total:$total');
+                                        },
+
+                                      ).then((value)
+                                      {
+                                        cubit.removeFile();
+
+                                      }).catchError((error)
+                                      {
+                                        defaultToast(msg: error.toString());
+                                      });
+                                    }
+                                    else
+                                    {
+                                      defaultToast(msg: 'No Data to Upload');
+                                    }
+                                  },
+                                  textColor: cubit.isDarkTheme? Colors.black : Colors.white,
+                                ),
                               ),
                             ),
 

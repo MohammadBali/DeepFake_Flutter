@@ -2,7 +2,6 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/models/NewsModel/NewsModel.dart';
-import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/modules/NewsPage/newsPage.dart';
 import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/components.dart';

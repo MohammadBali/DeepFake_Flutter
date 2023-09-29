@@ -138,6 +138,25 @@ class AppGetInquiriesErrorState extends AppStates{}
 
 //-----------------------------------------------
 
+
+
+
+
+
+
+// UPLOAD TEXT INQUIRY
+
+
+class AppUploadTextInquiryLoadingState extends AppStates{}
+
+class AppUploadTextInquirySuccessState extends AppStates{}
+
+class AppUploadTextInquiryErrorState extends AppStates{}
+
+
+//-----------------------------------------------
+
+
 // UPDATE USER PROFILE DATA
 
 
@@ -222,7 +241,9 @@ class AppGetAUserPostsErrorState extends AppStates {}
 
 // LOGOUT
 
-class AppLogoutState extends AppStates{}
+class AppLogoutLoadingState extends AppStates{}
+class AppLogoutSuccessState extends AppStates{}
+class AppLogoutErrorState extends AppStates{}
 
 
 // GET FILE

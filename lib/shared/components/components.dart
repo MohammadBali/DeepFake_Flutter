@@ -597,7 +597,11 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
                       ),
                       onTap:() async
                       {
-                        File? file=await base64ToFile(post.inquiry!.data!, post.inquiry!.type!);
+                        File? file=await base64ToFile(
+                            base: post.inquiry!.data!,
+                            type: post.inquiry!.type!,
+                            id: post.inquiry!.id!,
+                        );
 
                         if(file!=null)
                         {
@@ -798,12 +802,26 @@ String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
 
 //Convert the Base64 Back to File
 
-Future<File?> base64ToFile(String base, String type)async
+Future<File?> base64ToFile({required String base, required String type, required String id})async
 {
-  Uint8List decodedBytes= base64.decode(base);
+  if(await File('$appDocPath/$id.$type').exists() == false)
+    {
+      Uint8List decodedBytes= base64.decode(base);
 
-  File file= await File('$appDocPath/${getRandomString(10)}.$type').writeAsBytes(decodedBytes);
-  return file;
+      //File file= await File('$appDocPath/${getRandomString(10)}.$type').writeAsBytes(decodedBytes);
+
+      File file= await File('$appDocPath/$id.$type').writeAsBytes(decodedBytes);
+      return file;
+
+    }
+
+  else
+    {
+      print('File Exists already');
+
+      File file= File('$appDocPath/$id.$type');
+      return file;
+    }
 
 }
 
@@ -826,6 +844,7 @@ bool isSubscribed({required String userId, required AppCubit cubit})
 
 //------------------------------------------------------------------------------------------\\
 
+//Check if a Post is already Liked or Not
 bool isLiked(Post post)
 {
   for (var like in post.likes!)
@@ -837,4 +856,13 @@ bool isLiked(Post post)
       }
   }
   return false;
+}
+
+
+//------------------------------
+
+//Convert Bytes into MB...
+int byteToMB(int byte)
+{
+  return (byte * 0.000001).round();
 }

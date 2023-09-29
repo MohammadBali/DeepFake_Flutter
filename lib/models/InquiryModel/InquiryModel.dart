@@ -25,7 +25,7 @@ class Inquiry
   String? name;
   String? type;
   String? data; //is in Base64 and Needs conversion
-  String? owner;
+  //String? owner;
   String? result;
   String? createdAt;
 
@@ -41,9 +41,9 @@ class Inquiry
       createdAt=json['createdAt'];
       data=json['data'];
     }
-    catch(e)
+    catch(e, stackTrace)
     {
-      print('ERROR WHILE SETTING DATA IN INQUIRY CLASS MODEL, ${e.toString()}');
+      print('ERROR WHILE SETTING DATA IN INQUIRY CLASS MODEL, ${e.toString()}, $stackTrace');
     }
   }
 }

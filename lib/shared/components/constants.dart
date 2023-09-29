@@ -1,10 +1,10 @@
 //User Token
-import 'package:web_socket_channel/io.dart';
-
 String token='';
 
 //Directory To Store Files
 String appDocPath='';
 
 
+//Maximum Size in Bytes for TextFiles
+int maxTextFileSize= 12000000; //12MB
 

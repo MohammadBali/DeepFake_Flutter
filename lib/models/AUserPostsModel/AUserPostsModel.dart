@@ -1,6 +1,4 @@
 import 'package:deepfake_detection/models/UserDataModel/UserDataModel.dart';
-
-import '../InquiryModel/InquiryModel.dart';
 import '../PostModel/PostModel.dart';
 
 class AUserPostsModel
