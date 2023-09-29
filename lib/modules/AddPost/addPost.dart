@@ -22,17 +22,17 @@ class AddPost extends StatelessWidget {
         {
           if(state is AppUploadPostLoadingState)
             {
-              defaultToast(msg: 'Uploading...');
+              defaultToast(msg: Localization.translate('upload_post_loading_toast'));
             }
 
           if(state is AppUploadPostErrorState)
             {
-              defaultToast(msg: 'Error, ${state.error}', state: ToastStates.error);
+              defaultToast(msg: '${Localization.translate('upload_post_error_toast')}, ${state.error}', state: ToastStates.error);
             }
 
           if(state is AppUploadPostSuccessState)
             {
-              defaultToast(msg: 'Uploaded Successfully');
+              defaultToast(msg: Localization.translate('upload_post_successfully_toast'));
               Navigator.pop(context);
             }
         },
@@ -167,7 +167,7 @@ class AddPost extends StatelessWidget {
                             }
                             else
                             {
-                              defaultToast(msg: 'No Data to post');
+                              defaultToast(msg: Localization.translate('upload_post_no_data_toast'));
                             }
                           },
                         ),

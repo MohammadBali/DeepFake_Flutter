@@ -47,12 +47,12 @@ class _LoginState extends State<Login> {
           {
             if(state.loginModel.success ==0)
               {
-                defaultToast(msg: 'Wrong Credentials', state: ToastStates.error);
+                defaultToast(msg: Localization.translate('login_error_toast'), state: ToastStates.error);
               }
 
             if(state.loginModel.user !=null)
             {
-              defaultToast(msg: 'Success', state: ToastStates.success);
+              defaultToast(msg: Localization.translate('login_successfully_toast'), state: ToastStates.success);
 
               CacheHelper.saveData(key: 'token', value: state.loginModel.token).then((value)
               {

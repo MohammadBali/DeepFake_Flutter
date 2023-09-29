@@ -11,6 +11,7 @@ import 'package:deepfake_detection/modules/Home/home.dart';
 import 'package:deepfake_detection/modules/Login/login.dart';
 import 'package:deepfake_detection/modules/Profile/profile.dart';
 import 'package:deepfake_detection/modules/TextFiles/text_files.dart';
+import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/components/constants.dart';
 import 'package:deepfake_detection/shared/network/end_points.dart';
@@ -20,6 +21,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:web_socket_channel/io.dart';
 
 class AppCubit extends Cubit<AppStates>
@@ -474,7 +476,7 @@ class AppCubit extends Cubit<AppStates>
 
     wsChannel.sink.add(jsonEncode(data));
 
-    defaultToast(msg: 'Added Successfully');
+    defaultToast(msg: Localization.translate('comment_add_successfully_toast'));
   }
 
   //-----------------------------------
@@ -577,7 +579,7 @@ class AppCubit extends Cubit<AppStates>
 
     if(n==null && ln==null && e==null && p==null)
       {
-        defaultToast(msg: 'No Data to Update');
+        defaultToast(msg: Localization.translate('update_user_profile_no_data_toast'));
       }
 
     else
@@ -678,7 +680,7 @@ class AppCubit extends Cubit<AppStates>
         inquiryModel=null;
         userPostsModel=null;
         currentBottomBarIndex=0;
-        defaultToast(msg: 'Logged Out');
+        defaultToast(msg: Localization.translate('logout_successfully_toast'));
 
         navigateAndFinish(context, Login());
         emit(AppLogoutSuccessState());
@@ -1146,7 +1148,7 @@ class AppCubit extends Cubit<AppStates>
 
           boolToReturn=true;
 
-          defaultToast(msg: 'Uploaded Successfully');
+          defaultToast(msg: Localization.translate('upload_text_inquiry_successfully_toast'));
 
         }).catchError((error)
         {
@@ -1161,7 +1163,7 @@ class AppCubit extends Cubit<AppStates>
 
     else
       {
-        defaultToast(msg: 'File Size is Bigger Than ${byteToMB(maxTextFileSize)} MB');
+        defaultToast(msg: '${Localization.translate('big_file_size_toast')}, ${byteToMB(maxTextFileSize)} MB', length: Toast.LENGTH_LONG);
         return false;
       }
   }

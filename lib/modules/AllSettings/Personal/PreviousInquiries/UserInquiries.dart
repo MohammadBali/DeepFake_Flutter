@@ -19,17 +19,17 @@ class UserInquiries extends StatelessWidget {
       {
         if(state is AppDeleteInquiryLoadingState)
           {
-            defaultToast(msg: 'Deleting Inquiry...');
+            defaultToast(msg: Localization.translate('delete_inquiry_loading_toast'));
           }
 
         if(state is AppDeleteInquiryErrorState)
           {
-            defaultToast(msg: 'Error on Deleting Inquiry, ${state.error}', state: ToastStates.error);
+            defaultToast(msg: '${Localization.translate('delete_inquiry_error_toast')}, ${state.error}', state: ToastStates.error);
           }
 
         if(state is AppDeleteAPostSuccessState)
           {
-            defaultToast(msg: 'Deleted Successfully');
+            defaultToast(msg: Localization.translate('delete_inquiry_successfully_toast'));
           }
       },
       builder: (context,state)

@@ -183,6 +183,93 @@ const Map<String,String> ar={
 
   'un_subscribe_a_user_profile':'إلغاء الإشتراك',
 
+
+
+  // TOAST MESSAGES:
+
+  //POSTS
+  'delete_post_loading_toast':'جاري حذف المنشور...',
+
+  'delete_post_error_toast':'حدث خطأ أثناء الحذف',
+
+  'delete_post_successfully_toast':'تم الحذف بنجاح',
+
+
+  //INQUIRIES
+  'delete_inquiry_loading_toast':'جاري حذف المرفوع الخاص',
+
+  'delete_inquiry_error_toast':'حدث خطأ أثناء الحذف',
+
+  'delete_inquiry_successfully_toast':'تم الحذف بنجاح',
+
+
+  //EDIT PROFILE
+  'update_profile_loading_toast':'جاري التحديث',
+
+  'update_profile_success_toast':'تم التحديث بنجاح',
+
+
+  //ADD COMMENTS
+
+  'comment_add_successfully_toast':'تم إضافة تعليقك بنجاح',
+
+  'comment_no_data_toast':'لا يوجد تعليق ليتم رفعه',
+
+
+  //UPDATE USER PROFILE
+
+  'update_user_profile_no_data_toast':'لا يوجد مدخلات ليتم تحديثها',
+
+
+  //UPLOAD POST
+
+  'upload_post_loading_toast':'جاري التحديث',
+
+  'upload_post_error_toast':'حدث خطأ',
+
+  'upload_post_successfully_toast':'تم الرفع بنجاح',
+
+  'upload_post_no_data_toast':'لا يوجد منشور لرفعه',
+
+
+  //LOG OUT
+
+  'logout_successfully_toast':'تم تسجيل خروجك بنجاح',
+
+
+  //UPLOAD TEXT INQUIRY
+
+  'upload_text_inquiry_successfully_toast':'تم الرفع بنجاح',
+  'upload_text_no_data_toast':'لا يوجد ملف ليتم رفعه',
+
+
+  //TOO BIG FILE SIZE
+
+  'big_file_size_toast':'إن حجم الملف المختار أكبر من',
+
+
+  //LOGIN
+  'login_error_toast':'مدخلاتك خاطئة',
+  'login_successfully_toast':'تمت بنجاح',
+
+  'login_unknown_error_toast':'لم نستطيع تسجيل دخولك',
+
+
+  //REGISTER
+
+  'register_successfully_toast':'تم التسجيل بنجاح',
+
+
+  //EXIT APP
+
+  'exit_app_title':'الخروج من التطبيق',
+
+  'exit_app_secondary_title':'هل تريد الخروج من التطبيق؟',
+
+  'exit_app_yes':'نعم',
+
+  'exit_app_no':'لا',
+
 };
 
 
@@ -370,4 +457,91 @@ const Map<String,String> en={
   'subscribe_a_user_profile':'Subscribe',
 
   'un_subscribe_a_user_profile':'Unsubscribe',
+
+
+  // TOAST MESSAGES:
+
+  //POSTS
+  'delete_post_loading_toast':'Deleting Post...',
+
+  'delete_post_error_toast':'Error While Deleting',
+
+  'delete_post_successfully_toast':'Deleted Successfully',
+
+
+  //INQUIRIES
+  'delete_inquiry_loading_toast':'Deleting Inquiry...',
+
+  'delete_inquiry_error_toast':'Error While Deleting',
+
+  'delete_inquiry_successfully_toast':'Deleted Successfully',
+
+
+  //EDIT PROFILE
+  'update_profile_loading_toast':'Updating...',
+
+  'update_profile_success_toast':'Successfully Updated',
+
+
+  //ADD COMMENTS
+
+  'comment_add_successfully_toast':'Comment Added Successfully',
+
+  'comment_no_data_toast':'No Data to post',
+
+
+  //UPDATE USER PROFILE
+
+  'update_user_profile_no_data_toast':'No Data to Update',
+
+
+  //UPLOAD POST
+
+  'upload_post_loading_toast':'Uploading...',
+
+  'upload_post_error_toast':'Error',
+
+  'upload_post_successfully_toast':'Uploaded Successfully',
+
+  'upload_post_no_data_toast':'No Data to post',
+
+
+  //LOG OUT
+
+  'logout_successfully_toast':'Logged Out',
+
+
+  //UPLOAD TEXT INQUIRY
+
+  'upload_text_inquiry_successfully_toast':'Uploaded Successfully',
+  'upload_text_no_data_toast':'No Data to Upload',
+
+
+  //TOO BIG FILE SIZE
+
+  'big_file_size_toast':'File Size is Bigger Than',
+
+
+  //LOGIN
+  'login_error_toast':'Wrong Credentials',
+  'login_successfully_toast':'Success',
+
+  'login_unknown_error_toast':'Couldn\'t Sign you in',
+
+
+  //REGISTER
+
+  'register_successfully_toast':'Success',
+
+
+  //EXIT APP
+
+  'exit_app_title':'EXIT APP',
+
+  'exit_app_secondary_title':'Are you sure?',
+
+  'exit_app_yes':'YES',
+
+  'exit_app_no':'NO',
+
 };

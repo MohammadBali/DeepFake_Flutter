@@ -173,7 +173,7 @@ class TextFiles extends StatelessWidget {
                                 }
                                 else
                                 {
-                                  defaultToast(msg: 'No Data to Upload');
+                                  defaultToast(msg: Localization.translate('upload_text_no_data_toast'));
                                 }
                               },
                               textColor: cubit.isDarkTheme? Colors.black : Colors.white,
@@ -352,7 +352,7 @@ class TextFiles extends StatelessWidget {
                                     }
                                     else
                                     {
-                                      defaultToast(msg: 'No Data to Upload');
+                                      defaultToast(msg: Localization.translate('upload_text_no_data_toast'));
                                     }
                                   },
                                   textColor: cubit.isDarkTheme? Colors.black : Colors.white,

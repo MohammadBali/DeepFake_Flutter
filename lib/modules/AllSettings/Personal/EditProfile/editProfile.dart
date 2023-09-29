@@ -50,12 +50,12 @@ class _EditProfileState extends State<EditProfile> {
         {
           if(state is AppUpdateUserProfileLoadingState)
             {
-              defaultToast(msg: 'Updating...');
+              defaultToast(msg: Localization.translate('update_profile_loading_toast'));
             }
 
           if(state is AppUpdateUserProfileSuccessState)
           {
-            defaultToast(msg: 'Successfully Updated');
+            defaultToast(msg: Localization.translate('update_profile_success_toast'));
           }
 
           if(state is AppUpdateUserProfileErrorState)

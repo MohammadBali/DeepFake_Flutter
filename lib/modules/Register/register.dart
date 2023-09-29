@@ -61,13 +61,13 @@ class _RegisterState extends State<Register> {
                 }
               else
                 {
-                  defaultToast(msg: "Couldn't Sign you in", state: ToastStates.error);
+                  defaultToast(msg: Localization.translate('login_unknown_error_toast'), state: ToastStates.error);
                 }
             }
 
             if(state.registerModel.user !=null)
             {
-              defaultToast(msg: 'Success', state: ToastStates.success);
+              defaultToast(msg: Localization.translate('register_successfully_toast'), state: ToastStates.success);
 
               CacheHelper.saveData(key: 'token', value: state.registerModel.token).then((value)
               {

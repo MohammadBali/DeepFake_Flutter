@@ -19,17 +19,17 @@ class UserPosts extends StatelessWidget {
       {
         if(state is AppDeleteAPostLoadingState)
           {
-            defaultToast(msg: 'Deleting Post...');
+            defaultToast(msg: Localization.translate('delete_post_loading_toast'));
           }
 
         if(state is AppDeleteAPostErrorState)
           {
-            defaultToast(msg: 'Error While Deleting, ${state.error}', state: ToastStates.error);
+            defaultToast(msg: '${Localization.translate('delete_post_error_toast')}, ${state.error}', state: ToastStates.error);
           }
 
         if(state is AppDeleteAPostSuccessState)
           {
-            defaultToast(msg: 'Deleted Successfully');
+            defaultToast(msg: Localization.translate('delete_post_successfully_toast'));
           }
       },
       builder: (context,state)

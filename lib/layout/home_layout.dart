@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
@@ -26,32 +28,78 @@ class HomeLayout extends StatelessWidget {
           var cubit= AppCubit.get(context);
           return Directionality(
             textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
-            child: Scaffold(
-              appBar: defaultAppBar(cubit: cubit),
+            child: WillPopScope(
+              child: Scaffold(
+                appBar: defaultAppBar(cubit: cubit),
 
-              body: cubit.bottomBarWidgets[cubit.currentBottomBarIndex],
+                body: cubit.bottomBarWidgets[cubit.currentBottomBarIndex],
 
-              bottomNavigationBar: BottomNavigationBar(
-                currentIndex: cubit.currentBottomBarIndex,
+                bottomNavigationBar: BottomNavigationBar(
+                  currentIndex: cubit.currentBottomBarIndex,
 
-                onTap: (index)
-                {
-                  const Duration(milliseconds: 800);
-                  cubit.changeBottomNavBar(index);
-                },
+                  onTap: (index)
+                  {
+                    const Duration(milliseconds: 800);
+                    cubit.changeBottomNavBar(index);
+                  },
 
-                items:
-                [
-                  BottomNavigationBarItem(label: Localization.translate('home_bnb'), icon: const Icon(Icons.rss_feed_rounded)),
+                  items:
+                  [
+                    BottomNavigationBarItem(label: Localization.translate('home_bnb'), icon: const Icon(Icons.rss_feed_rounded)),
 
-                  BottomNavigationBarItem(label: Localization.translate('text_bnb') , icon: const Icon(Icons.file_present_rounded)),
+                    BottomNavigationBarItem(label: Localization.translate('text_bnb') , icon: const Icon(Icons.file_present_rounded)),
 
-                  BottomNavigationBarItem(label: Localization.translate('bot_bnb') ,icon: const Icon(Icons.person_4_rounded)),
+                    BottomNavigationBarItem(label: Localization.translate('bot_bnb') ,icon: const Icon(Icons.person_4_rounded)),
 
-                  BottomNavigationBarItem(label: Localization.translate('profile_bnb') , icon: const Icon(Icons.person_rounded)),
-                ],
+                    BottomNavigationBarItem(label: Localization.translate('profile_bnb') , icon: const Icon(Icons.person_rounded)),
+                  ],
 
+                ),
               ),
+
+              onWillPop: ()async
+              {
+                return (
+                    await showDialog(
+                    context: context,
+                    builder: (dialogContext)
+                    {
+                      return defaultAlertDialog(
+                          context: dialogContext,
+                          title: Localization.translate('exit_app_title'),
+                          content: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children:
+                              [
+                                Text(Localization.translate('exit_app_secondary_title')),
+
+                                const SizedBox(height: 5,),
+
+                                Row(
+                                  children:
+                                  [
+                                    TextButton(
+                                        onPressed: ()=> exit(0), //Navigator.of(context).pop(true),
+                                        child: Text(Localization.translate('exit_app_yes'))
+                                    ),
+
+                                    const Spacer(),
+
+                                    TextButton(
+                                      onPressed: ()=> Navigator.of(dialogContext).pop(false),
+                                      child: Text(Localization.translate('exit_app_no')),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ));
+                    }
+                )) ?? false;
+              },
             ),
           );
         },

@@ -248,7 +248,7 @@ class PostDetails extends StatelessWidget {
                   }
                 else
                   {
-                    defaultToast(msg: 'No Data to post');
+                    defaultToast(msg: Localization.translate('comment_no_data_toast'));
                   }
               },
             ),
