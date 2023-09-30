@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/models/AUserPostsModel/AUserPostsModel.dart';
 import 'package:deepfake_detection/models/InquiryModel/InquiryModel.dart';
+import 'package:deepfake_detection/models/MessageModel/MessageModel.dart';
 import 'package:deepfake_detection/models/NewsModel/NewsModel.dart';
 import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/models/SubscriptionsModel/SubscriptionsModel.dart';
@@ -680,6 +681,7 @@ class AppCubit extends Cubit<AppStates>
         inquiryModel=null;
         userPostsModel=null;
         currentBottomBarIndex=0;
+        messageModel!.messages=[];
         defaultToast(msg: Localization.translate('logout_successfully_toast'));
 
         navigateAndFinish(context, Login());
@@ -1210,4 +1212,65 @@ class AppCubit extends Cubit<AppStates>
     chosenFile=null;
     emit(AppRemoveFileState());
   }
+
+
+ //----------------------------------------------
+
+ //CHAT BOT
+
+ MessageModel? messageModel = MessageModel();
+
+  //Send a Message to AI Model and get their response back
+ void sendMessage(String message)
+ {
+   print('In Sending a Message...');
+   emit(AppSendMessageLoadingState());
+
+   MainDioHelper.postData(
+     url: chatBot,
+     data:
+     {
+       'message':message,
+     },
+   ).then((value) {
+
+     print('Got ChatBot Response...');
+
+     messageModel!.messages!.add(Message.fromJson(value.data));
+
+     emit(AppSendMessageSuccessState());
+   }).catchError((error)
+   {
+     print('ERROR WHILE GETTING NEW CHAT BOT MESSAGE, ${error.toString()}');
+
+     emit(AppSendMessageErrorState());
+   });
+
+ }
+
+ //Sinking a new message and adding it to the model
+ void addMessage(String m)
+ {
+   emit(AppAddMessageLoadingState());
+
+   try
+   {
+     Message message= Message(
+       senderId: AppCubit.userData!.id!,
+       date: DateTime.now().toString(),
+       text: m
+     );
+
+     messageModel!.messages!.add(message);
+
+     emit(AppAddMessageSuccessState());
+   }
+   catch (e,stackTrace)
+   {
+     print('ERROR WHILE ADDING A MESSAGE, ${e.toString()}, $stackTrace');
+
+     emit(AppAddMessageErrorState());
+   }
+ }
+
 }

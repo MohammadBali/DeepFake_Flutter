@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
+import 'package:deepfake_detection/modules/ChatBot/chatScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,14 +60,33 @@ class ChatBot extends StatelessWidget {
 
                             ),
 
-                            const Spacer(),
+                            const SizedBox(height: 10,),
+
+                            Image(
+                              image: cubit.isDarkTheme? const AssetImage('assets/images/chatbot/chatbot_dark.png') : const AssetImage('assets/images/chatbot/chatbot_light.png'),
+                              fit: BoxFit.contain,
+                              filterQuality: FilterQuality.high,
+                              alignment: AlignmentDirectional.center,
+
+                            ),
+
+                            const SizedBox(height: 10,),
 
                             Center(
                               child: defaultButton(
                                 title: Localization.translate('chat_bot_button'),
                                 color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
                                 onTap: ()
-                                {},
+                                {
+                                  if(AppCubit.userData !=null)
+                                    {
+                                      navigateTo(context, const ChatScreen());
+                                    }
+                                  else
+                                    {
+                                      defaultToast(msg: 'No Internet Connection');
+                                    }
+                                },
                                 textColor: cubit.isDarkTheme? Colors.black : Colors.white,
                               ),
                             ),
@@ -90,7 +110,7 @@ class ChatBot extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    Localization.translate('text_title'),
+                                    Localization.translate('chat_bot_title'),
                                     style: TextStyle(
                                       color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
                                       fontSize: 32,
@@ -104,15 +124,42 @@ class ChatBot extends StatelessWidget {
                               const SizedBox(height: 25,),
 
                               Text(
-                                Localization.translate('text_second_title'),
+                                Localization.translate('chat_bot_secondary_title'),
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 18,
                                     wordSpacing: 2
                                 ),
-                                maxLines: 2,
+                                maxLines: 4,
                                 overflow: TextOverflow.ellipsis,
 
+                              ),
+
+                              Image(
+                                image: cubit.isDarkTheme? const AssetImage('assets/images/chatbot/chatbot_dark.png') : const AssetImage('assets/images/chatbot/chatbot_light.png'),
+                                fit: BoxFit.contain,
+                                filterQuality: FilterQuality.high,
+
+                              ),
+
+
+                              Center(
+                                child: defaultButton(
+                                  title: Localization.translate('chat_bot_button'),
+                                  color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
+                                  onTap: ()
+                                  {
+                                    if(AppCubit.userData !=null)
+                                    {
+                                      navigateTo(context, const ChatScreen());
+                                    }
+                                    else
+                                    {
+                                      defaultToast(msg: 'No Internet Connection');
+                                    }
+                                  },
+                                  textColor: cubit.isDarkTheme? Colors.black : Colors.white,
+                                ),
                               ),
                             ],
                           ),

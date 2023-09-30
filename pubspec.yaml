@@ -86,6 +86,7 @@ flutter:
     - assets/images/lottie/
     - assets/images/splash/
     - assets/images/profile/
+    - assets/images/chatbot/
 
 
   fonts:

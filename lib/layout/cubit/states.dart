@@ -260,8 +260,38 @@ class AppGetFileErrorState extends AppStates{}
 class AppRemoveFileState extends AppStates{}
 
 
+//-----------------------------------------------
+
+
+
+
+// SEND MESSAGES
+
+
+class AppSendMessageLoadingState extends AppStates{}
+
+class AppSendMessageSuccessState extends AppStates{}
+
+class AppSendMessageErrorState extends AppStates{}
+
+
+
+// ADD YOUR MESSAGE
+
+
+class AppAddMessageLoadingState extends AppStates{}
+
+class AppAddMessageSuccessState extends AppStates{}
+
+class AppAddMessageErrorState extends AppStates{}
+
 
 //-----------------------------------------------
+
+
+
+
+
 
 // WEB SOCKETS
 

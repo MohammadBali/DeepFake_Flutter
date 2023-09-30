@@ -192,6 +192,12 @@ const Map<String,String> ar={
 
   'chat_bot_button':'تحدث',
 
+  // CHAT SCREEN PAGE:
+
+  'chat_screen_appBar':'تحدث مع الذكاء الصنعي',
+
+  'chat_screen_tff':'أضف رسالتك هنا...',
+
   // TOAST MESSAGES:
 
   //POSTS
@@ -481,6 +487,12 @@ const Map<String,String> en={
   'chat_bot_secondary_title':'Not sure about anything?\nJust Chat with our experienced Chat-Bot and get all your answers',
 
   'chat_bot_button':'CHAT',
+
+  // CHAT SCREEN PAGE:
+
+  'chat_screen_appBar':'Chat With Bot',
+
+  'chat_screen_tff':'Type your message here...',
 
 
   // TOAST MESSAGES:

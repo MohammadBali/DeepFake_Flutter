@@ -20,6 +20,8 @@ Color defaultBottomNavBarColor= HexColor('C2C3C4'); // Light Grey Color
 
 Color defaultFontColor= Colors.black;
 
+Color defaultRespondMessageColor=HexColor('C2C3C4');
+
 //----------------------------------------
 
 //DARK MODE
@@ -39,3 +41,6 @@ Color defaultBoxDarkColor=HexColor('323232'); //Boxes, Dark Grey Color
 Color defaultBottomNavBarDarkColor= HexColor('242424');
 
 Color defaultDarkFontColor= Colors.white;
+
+
+Color defaultRespondMessageDarkColor=HexColor('323232');

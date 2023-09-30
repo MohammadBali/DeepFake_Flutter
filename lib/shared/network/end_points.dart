@@ -59,3 +59,8 @@ const subscriptionsPosts='getSubscriptionsPosts';
 const news='getNews';
 
 
+// CHAT BOT
+
+const chatBot='';
+
+
