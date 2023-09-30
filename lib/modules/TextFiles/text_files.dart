@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
+import 'package:deepfake_detection/modules/InquiryDetails/InquiryDetails.dart';
 import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
@@ -15,10 +16,62 @@ class TextFiles extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocConsumer<AppCubit,AppStates>(
-      listener: (context,state){},
+      listener: (context,state)
+      {
+        //if Uploading Text and Getting results back is a success AND the uploadedTextInquiryModel isn't NULL => Show Prompt to inspect the data.
+        if(state is AppUploadTextInquirySuccessState && AppCubit.get(context).uploadedTextInquiryModel !=null)
+          {
+            showDialog(
+                context: context,
+                builder: (dialogContext)
+                {
+                  return defaultAlertDialog(
+                      context: dialogContext,
+                      title: Localization.translate('upload_text_inquiry_title_alert'),
+                      content: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children:
+                          [
+                            Text(Localization.translate('upload_text_inquiry_secondary_alert')),
+
+                            const SizedBox(height: 5,),
+
+                            Row(
+                              children:
+                              [
+                                TextButton(
+                                    onPressed: ()
+                                    {
+                                      Navigator.of(dialogContext).pop(true);
+                                      return navigateTo(context, InquiryDetails(inquiry: AppCubit.get(context).uploadedTextInquiryModel! ));
+                                    },
+                                    child: Text(Localization.translate('exit_app_yes'))
+                                ),
+
+                                const Spacer(),
+
+                                TextButton(
+                                  onPressed: ()=> Navigator.of(dialogContext).pop(false),
+                                  child: Text(Localization.translate('exit_app_no')),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ));
+                }
+            );
+          }
+
+      },
+
       builder: (context,state)
       {
         var cubit=AppCubit.get(context);
+
         return OrientationBuilder(
           builder: (context,orientation)
               {

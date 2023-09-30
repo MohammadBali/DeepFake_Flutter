@@ -24,7 +24,7 @@ class Inquiry
   String? id;
   String? name;
   String? type;
-  String? data; //is in Base64 and Needs conversion
+  String? data; //is in Base64 and Needs conversion for further using.
   //String? owner;
   String? result;
   String? createdAt;
@@ -40,6 +40,25 @@ class Inquiry
       result=json['result'];
       createdAt=json['createdAt'];
       data=json['data'];
+    }
+    catch(e, stackTrace)
+    {
+      print('ERROR WHILE SETTING DATA IN INQUIRY CLASS MODEL, ${e.toString()}, $stackTrace');
+    }
+  }
+
+
+  Inquiry.fromJsonUploadTextInquiry(Map<String,dynamic>json)
+  {
+    try
+    {
+      id=json['_id'];
+      name=json['name'];
+      type=json['type'];
+      //owner=json['owner'];
+      result=json['result'];
+      createdAt=json['createdAt'];
+      data=json['data']['data'];
     }
     catch(e, stackTrace)
     {

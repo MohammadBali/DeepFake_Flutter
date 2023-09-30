@@ -184,6 +184,13 @@ const Map<String,String> ar={
   'un_subscribe_a_user_profile':'إلغاء الإشتراك',
 
 
+  //CHAT BOT PAGE:
+
+  'chat_bot_title':'تحدث مع الذكاء الصنعي',
+
+  'chat_bot_secondary_title':'هل لديك تساؤلات؟\nتحدث مع البوت الخبير واحصل على جميع الإجابات',
+
+  'chat_bot_button':'تحدث',
 
   // TOAST MESSAGES:
 
@@ -258,6 +265,15 @@ const Map<String,String> ar={
   //REGISTER
 
   'register_successfully_toast':'تم التسجيل بنجاح',
+
+  //------------------------------------------------------------------------\\
+
+  //UPLOAD TEXT INQUIRY
+
+  'upload_text_inquiry_title_alert':'حصلنا على نتائجك',
+
+  'upload_text_inquiry_secondary_alert':'هل تريد رؤية تفاصيل النتائج',
+
 
 
   //EXIT APP
@@ -458,6 +474,14 @@ const Map<String,String> en={
 
   'un_subscribe_a_user_profile':'Unsubscribe',
 
+  //Chat BOT PAGE:
+
+  'chat_bot_title':'Chat Bot',
+
+  'chat_bot_secondary_title':'Not sure about anything?\nJust Chat with our experienced Chat-Bot and get all your answers',
+
+  'chat_bot_button':'CHAT',
+
 
   // TOAST MESSAGES:
 
@@ -532,6 +556,14 @@ const Map<String,String> en={
   //REGISTER
 
   'register_successfully_toast':'Success',
+
+  //UPLOAD TEXT INQUIRY
+
+  'upload_text_inquiry_title_alert':'Got Your Results',
+
+  'upload_text_inquiry_secondary_alert':'Results are Back, would you like to inspect them ?',
+
+  //--------------------------------------------------------------------\\
 
 
   //EXIT APP

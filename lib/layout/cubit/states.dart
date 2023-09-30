@@ -140,10 +140,6 @@ class AppGetInquiriesErrorState extends AppStates{}
 
 
 
-
-
-
-
 // UPLOAD TEXT INQUIRY
 
 

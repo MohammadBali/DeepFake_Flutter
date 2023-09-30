@@ -1111,6 +1111,8 @@ class AppCubit extends Cubit<AppStates>
 
   //Upload a Text Inquiry
 
+  Inquiry? uploadedTextInquiryModel;
+
   Future<bool> uploadTextInquiry( {required PlatformFile file, void Function(int, int)? onSendProgress}) async
   {
     bool boolToReturn=false;
@@ -1140,9 +1142,9 @@ class AppCubit extends Cubit<AppStates>
 
           print('Got UploadTextInquiry Data...');
 
+          uploadedTextInquiryModel= Inquiry.fromJson(value.data['inquiry']);
+
           emit(AppUploadTextInquirySuccessState());
-
-
 
           getInquiries(); //Ask For New Inquiries
 
