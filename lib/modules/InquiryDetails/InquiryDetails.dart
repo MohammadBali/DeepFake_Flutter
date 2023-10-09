@@ -46,113 +46,241 @@ class InquiryDetails extends StatelessWidget {
                 ],
               ),
 
-              body: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children:
-                    [
-                      const SizedBox(height: 20,),
+              body: OrientationBuilder(
+                builder: (context,orientation)
+                {
+                  if(orientation == Orientation.portrait)
+                    {
+                      return Padding(
+                        padding: const EdgeInsetsDirectional.only(end: 24, top: 24, start: 24,bottom:0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children:
+                          [
+                            //const SizedBox(height: 20,),
 
-                      Padding(
-                        padding: const EdgeInsetsDirectional.symmetric(horizontal: 25),
-                        child: defaultBox(
-                          padding: 28,
-                          cubit: cubit,
-                          boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            Padding(
+                              padding: const EdgeInsetsDirectional.symmetric(horizontal: 25),
+                              child: defaultBox(
+                                padding: 28,
+                                cubit: cubit,
+                                boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+
+                                  children:
+                                  [
+                                    Expanded(
+                                      child: Text(
+                                        inquiry.name!.capitalize!,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: cubit.isDarkTheme? defaultSecondaryDarkColor : Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+
+                                    const SizedBox(width: 5,),
+
+                                    const Icon(Icons.folder_open_rounded),
+                                  ],
+                                ),
+                                onTap: ()
+                                async {
+                                  File? file=await base64ToFile(
+                                    base: inquiry.data!,
+                                    type: inquiry.type!,
+                                    id: inquiry.id!,
+                                  );
+
+                                  if(file!=null)
+                                  {
+                                    print('Converted File');
+                                    openFile(file.path);
+                                  }
+                                },
+                              ),
+                            ),
+
+                            //const SizedBox(height: 40,),
+
+                            Text(
+                              inquiry.result?.toUpperCase() =='CORRECT' ? Localization.translate('correct_secondary_inquiry_details') : Localization.translate('fake_secondary_inquiry_details'),
+                              style: TextStyle(
+                                color: cubit.isDarkTheme? defaultDarkFontColor: defaultFontColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                letterSpacing: 1,
+                              ),
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+
+                            //const SizedBox(height: 5,),
+
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width/1.3,
+                              height: MediaQuery.of(context).size.width/1.2,
+                              child: Image(
+                                image: cubit.isDarkTheme? const AssetImage('assets/images/geoface1_light.png') : const AssetImage('assets/images/geoface1_dark.png'),
+                                alignment: AlignmentDirectional.center,
+                                fit: BoxFit.contain,
+                                //height: 300,
+                              ),
+                            ),
+
+                            //const Spacer(),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Spacer(),
+
+                                Text(
+                                  inquiry.result?.toUpperCase() =='CORRECT' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
+                                  style: TextStyle(
+                                    color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                                    fontSize: 30,
+                                    fontFamily: 'Neology',
+                                    letterSpacing: 2,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+
+                                const Spacer(),
+
+                                Icon(
+                                  inquiry.result =='correct' ? Icons.check_rounded : Icons.cancel_outlined,
+                                  size: 32,
+                                  color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                                )
+                              ],
+                            ),
+
+                          ],
+                        ),
+                      );
+                    }
+
+                  else
+                    {
+                      return SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.all(24),
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
-
                             children:
                             [
-                              Expanded(
-                                child: Text(
-                                  inquiry.name!.capitalize!,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: cubit.isDarkTheme? defaultSecondaryDarkColor : Colors.white,
-                                    fontSize: 16,
+                              const SizedBox(height: 20,),
+
+                              Padding(
+                                padding: const EdgeInsetsDirectional.symmetric(horizontal: 25),
+                                child: defaultBox(
+                                  padding: 28,
+                                  cubit: cubit,
+                                  boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+
+                                    children:
+                                    [
+                                      Expanded(
+                                        child: Text(
+                                          inquiry.name!.capitalize!,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: cubit.isDarkTheme? defaultSecondaryDarkColor : Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+
+                                      const SizedBox(width: 5,),
+
+                                      const Icon(Icons.folder_open_rounded),
+                                    ],
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                  onTap: ()
+                                  async {
+                                    File? file=await base64ToFile(
+                                      base: inquiry.data!,
+                                      type: inquiry.type!,
+                                      id: inquiry.id!,
+                                    );
+
+                                    if(file!=null)
+                                    {
+                                      print('Converted File');
+                                      openFile(file.path);
+                                    }
+                                  },
                                 ),
                               ),
 
-                              const SizedBox(width: 5,),
+                              const SizedBox(height: 40,),
 
-                              const Icon(Icons.folder_open_rounded),
+                              Text(
+                                inquiry.result?.toUpperCase() =='CORRECT' ? Localization.translate('correct_secondary_inquiry_details') : Localization.translate('fake_secondary_inquiry_details'),
+                                style: TextStyle(
+                                  color: cubit.isDarkTheme? defaultDarkFontColor: defaultFontColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  letterSpacing: 1,
+                                ),
+                                maxLines: 4,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+
+                              const SizedBox(height: 5,),
+
+                              Image(
+                                image: cubit.isDarkTheme? const AssetImage('assets/images/geoface1_light.png') : const AssetImage('assets/images/geoface1_dark.png'),
+                                alignment: AlignmentDirectional.center,
+                                height: 350,
+                              ),
+
+                              const SizedBox(height: 10,),
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Spacer(),
+
+                                  Text(
+                                    inquiry.result?.toUpperCase() =='CORRECT' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
+                                    style: TextStyle(
+                                      color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                                      fontSize: 30,
+                                      fontFamily: 'Neology',
+                                      letterSpacing: 2,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+
+                                  const Spacer(),
+
+                                  Icon(
+                                    inquiry.result =='correct' ? Icons.check_rounded : Icons.cancel_outlined,
+                                    size: 32,
+                                    color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                                  )
+                                ],
+                              ),
+
                             ],
                           ),
-                          onTap: ()
-                          async {
-                            File? file=await base64ToFile(
-                              base: inquiry.data!,
-                              type: inquiry.type!,
-                              id: inquiry.id!,
-                            );
-
-                            if(file!=null)
-                              {
-                                print('Converted File');
-                                openFile(file.path);
-                              }
-                          },
                         ),
-                      ),
-
-                      const SizedBox(height: 40,),
-
-                      Text(
-                        inquiry.result?.toUpperCase() =='CORRECT' ? Localization.translate('correct_secondary_inquiry_details') : Localization.translate('fake_secondary_inquiry_details'),
-                        style: TextStyle(
-                          color: cubit.isDarkTheme? defaultDarkFontColor: defaultFontColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          letterSpacing: 1,
-                        ),
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-
-                      const Image(
-                        image: AssetImage('assets/images/geoface1.png'),
-                        alignment: AlignmentDirectional.center,
-                        height: 400,
-                      ),
-
-                      const SizedBox(height: 10,),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Spacer(),
-
-                          Text(
-                            inquiry.result?.toUpperCase() =='CORRECT' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
-                            style: TextStyle(
-                              color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-                              fontSize: 30,
-                              fontFamily: 'Neology',
-                              letterSpacing: 2,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-
-                          const Spacer(),
-
-                          Icon(
-                            inquiry.result =='correct' ? Icons.check_rounded : Icons.cancel_outlined,
-                            size: 32,
-                            color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-                          )
-                        ],
-                      ),
-
-                    ],
-                  ),
-                ),
+                      );
+                    }
+                },
               ),
             ),
           );
@@ -160,4 +288,6 @@ class InquiryDetails extends StatelessWidget {
 
     );
   }
+
+
 }

@@ -39,9 +39,11 @@ class AddPost extends StatelessWidget {
         builder: (context,state)
         {
           var cubit=AppCubit.get(context);
+
           return Directionality(
             textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
             child: Scaffold(
+              resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 title: Text(
                   Localization.translate('appBar_title_add_post'),
@@ -52,131 +54,263 @@ class AddPost extends StatelessWidget {
                   ),
                 ),
               ),
+              body: OrientationBuilder(
+                builder: (context,orientation)
+                {
+                  if(orientation == Orientation.portrait)
+                    {
+                      return Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children:
+                          [
+                            Text(
+                              Localization.translate('title_add_post'),
+                              style: TextStyle(
+                                color:cubit.isDarkTheme? defaultDarkColor : defaultColor ,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 26,
+                                fontFamily: 'Neology',
+                              ),
+                            ),
 
-              body: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                    [
-                      Text(
-                        Localization.translate('title_add_post'),
-                        style: TextStyle(
-                          color:cubit.isDarkTheme? defaultDarkColor : defaultColor ,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 26,
-                          fontFamily: 'Neology',
+                            const SizedBox(height: 15,),
+
+                            defaultAddPostBox(
+                              context: context,
+                              cubit: cubit,
+                              boxColor: null,
+                              child: SizedBox(
+                                width: double.infinity,
+                                //height: MediaQuery.of(context).size.height /2.5,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children:
+                                  [
+                                    TextFormField(
+                                      controller: postController,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        enabledBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                        ),
+                                        labelText: Localization.translate('add_comment_add_post'),
+                                        labelStyle: TextStyle(
+                                          color: cubit.isDarkTheme? Colors.grey : Colors.black,
+                                        ),
+                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                      ),
+                                      maxLines: 5,
+                                    ),
+
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.symmetric(horizontal: 25),
+                                        child: defaultBox(
+                                          padding: 28,
+                                          cubit: cubit,
+                                          boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+
+                                            children:
+                                            [
+                                              Expanded(
+                                                child: Text(
+                                                  inquiry.name!.capitalize!,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    color: cubit.isDarkTheme? defaultSecondaryDarkColor : Colors.white,
+                                                    fontSize: 16,
+                                                  ),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+
+                                              const SizedBox(width: 5,),
+
+                                              const Icon(Icons.file_copy_outlined),
+                                            ],
+                                          ),
+                                          onTap: (){},
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: (){},
+                              paddingOptions: false,
+                            ),
+
+                            const SizedBox(height: 15,),
+
+                            Align(
+                              alignment: AlignmentDirectional.bottomEnd,
+                              child: TextButton(
+                                child: Text(
+                                  Localization.translate('add_post_add_post'),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                                onPressed: ()
+                                {
+                                  if(postController.text.isNotEmpty)
+                                  {
+                                    cubit.uploadPost(
+                                      inquiryId: inquiry.id!,
+                                      comment: postController.text,
+                                      ownerId: AppCubit.userData!.id!,
+                                    );
+                                  }
+                                  else
+                                  {
+                                    defaultToast(msg: Localization.translate('upload_post_no_data_toast'));
+                                  }
+                                },
+                              ),
+                            ),
+
+                          ],
                         ),
-                      ),
-
-                      const SizedBox(height: 40,),
-
-                      defaultAddPostBox(
-                        context: context,
-                        cubit: cubit,
-                        boxColor: null,
-                        child: SizedBox(
-                          width: double.infinity,
-                          //height: MediaQuery.of(context).size.height /2.5,
+                      );
+                    }
+                  else
+                    {
+                      return SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(24.0),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children:
                             [
-                              TextFormField(
-                                controller: postController,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  labelText: Localization.translate('add_comment_add_post'),
-                                  labelStyle: TextStyle(
-                                    color: cubit.isDarkTheme? Colors.grey : Colors.black,
-                                  ),
-                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                              Text(
+                                Localization.translate('title_add_post'),
+                                style: TextStyle(
+                                  color:cubit.isDarkTheme? defaultDarkColor : defaultColor ,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 26,
+                                  fontFamily: 'Neology',
                                 ),
-                                maxLines: null,
                               ),
 
+                              const SizedBox(height: 40,),
 
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 25),
-                                  child: defaultBox(
-                                    padding: 28,
-                                    cubit: cubit,
-                                    boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                              defaultAddPostBox(
+                                context: context,
+                                cubit: cubit,
+                                boxColor: null,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  //height: MediaQuery.of(context).size.height /2.5,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children:
+                                    [
+                                      TextFormField(
+                                        controller: postController,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          enabledBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          labelText: Localization.translate('add_comment_add_post'),
+                                          labelStyle: TextStyle(
+                                            color: cubit.isDarkTheme? Colors.grey : Colors.black,
+                                          ),
+                                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                                        ),
+                                        maxLines: null,
+                                      ),
 
-                                      children:
-                                      [
-                                        Expanded(
-                                          child: Text(
-                                            inquiry.name!.capitalize!,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: cubit.isDarkTheme? defaultSecondaryDarkColor : Colors.white,
-                                              fontSize: 16,
+
+                                      Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Padding(
+                                          padding: const EdgeInsetsDirectional.symmetric(horizontal: 25),
+                                          child: defaultBox(
+                                            padding: 28,
+                                            cubit: cubit,
+                                            boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+
+                                              children:
+                                              [
+                                                Expanded(
+                                                  child: Text(
+                                                    inquiry.name!.capitalize!,
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.w500,
+                                                      color: cubit.isDarkTheme? defaultSecondaryDarkColor : Colors.white,
+                                                      fontSize: 16,
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+
+                                                const SizedBox(width: 5,),
+
+                                                const Icon(Icons.file_copy_outlined),
+                                              ],
                                             ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
+                                            onTap: (){},
                                           ),
                                         ),
-
-                                        const SizedBox(width: 5,),
-
-                                        const Icon(Icons.file_copy_outlined),
-                                      ],
-                                    ),
-                                    onTap: (){},
+                                      ),
+                                    ],
                                   ),
                                 ),
+                                onTap: (){},
+                                paddingOptions: false,
                               ),
+
+                              const SizedBox(height: 25,),
+
+                              Align(
+                                alignment: AlignmentDirectional.bottomEnd,
+                                child: TextButton(
+                                  child: Text(
+                                    Localization.translate('add_post_add_post'),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                  onPressed: ()
+                                  {
+                                    if(postController.text.isNotEmpty)
+                                    {
+                                      cubit.uploadPost(
+                                        inquiryId: inquiry.id!,
+                                        comment: postController.text,
+                                        ownerId: AppCubit.userData!.id!,
+                                      );
+                                    }
+                                    else
+                                    {
+                                      defaultToast(msg: Localization.translate('upload_post_no_data_toast'));
+                                    }
+                                  },
+                                ),
+                              ),
+
+
                             ],
                           ),
                         ),
-                        onTap: (){},
-                        paddingOptions: false,
-                      ),
-
-                      const SizedBox(height: 25,),
-
-                      Align(
-                        alignment: AlignmentDirectional.bottomEnd,
-                        child: TextButton(
-                          child: Text(
-                            Localization.translate('add_post_add_post'),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                          onPressed: ()
-                          {
-                            if(postController.text.isNotEmpty)
-                            {
-                              cubit.uploadPost(
-                                inquiryId: inquiry.id!,
-                                comment: postController.text,
-                                ownerId: AppCubit.userData!.id!,
-                              );
-                            }
-                            else
-                            {
-                              defaultToast(msg: Localization.translate('upload_post_no_data_toast'));
-                            }
-                          },
-                        ),
-                      ),
-
-
-                    ],
-                  ),
-                ),
+                      );
+                    }
+                },
               ),
             ),
           );
