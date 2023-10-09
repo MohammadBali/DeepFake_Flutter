@@ -51,12 +51,12 @@ class _HomeState extends State<Home> {
       {
         if(state is AppWSModifyCommentPostModelLoadingState)
           {
-            print('');
+            //print('');
           }
 
         if(state is AppWSAddLikePostModelSuccessState)
           {
-            print('');
+            //print('');
           }
       },
       builder: (context,state)
@@ -68,7 +68,9 @@ class _HomeState extends State<Home> {
           {
             await cubit.checkForNewPosts();
           },
+
           child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             controller: scrollController,
             key: _key,
             child: Padding(
@@ -134,14 +136,24 @@ class _HomeState extends State<Home> {
                               ),
                             ),
 
-                            RotatedBox(
-                              quarterTurns: 1,
-                              child: Container(
-                                height: 2,
-                                width: 30,
-                                color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
+                            Text(
+                              '|',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
+
                               ),
                             ),
+
+                            // RotatedBox(
+                            //   quarterTurns: 1,
+                            //   child: Container(
+                            //     height: 2,
+                            //     width: 30,
+                            //     color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
+                            //   ),
+                            // ),
 
                             GestureDetector(
                               onTap: ()

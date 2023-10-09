@@ -27,14 +27,15 @@ import 'package:web_socket_channel/io.dart';
 
 class AppCubit extends Cubit<AppStates>
 {
-  final IOWebSocketChannel wsChannel;
+  IOWebSocketChannel wsChannel;
   AppCubit(this.wsChannel): super(AppInitialState());
 
   static AppCubit get(context)=> BlocProvider.of(context);
 
   //SET LISTENER FOR WEB SOCKETS
-   void setListener(IOWebSocketChannel wsChannel) {
-    wsChannel.stream.listen((message) {
+   void setListener(IOWebSocketChannel awsChannel) {
+    wsChannel.stream.listen((message)
+    {
       //Parse JSON from String
       var jsonMessage= jsonDecode(message);
 
@@ -74,11 +75,38 @@ class AppCubit extends Cubit<AppStates>
         {
           print(jsonMessage);
         }
+    },
 
+    onError: (error,stackTrace)
+    {
+      print('WebSocket has been closed for an error, ${error.toString()}, reconnecting in 3 Seconds');
 
-    });
+      //_reConnectWsChannel();
+
+      defaultToast(msg: 'Reconnecting in 3 Seconds...');
+
+      Future.delayed(const Duration(seconds: 3)).then((value) =>_reConnectWsChannel());
+    },
+
+    onDone: ()
+    {
+      print('WebSocket fired onDone function, Reason:${wsChannel.closeReason}, reconnecting in 3 Seconds...');
+
+      defaultToast(msg: 'Reconnecting in 3 Seconds...');
+
+      Future.delayed(const Duration(seconds: 3)).then((value) =>_reConnectWsChannel());
+    }
+    );
   }
 
+
+   void _reConnectWsChannel()
+   {
+     print('Reconnecting WSChannel');
+     wsChannel= IOWebSocketChannel.connect(webSocketLocalHost);
+     
+     setListener(wsChannel);
+  }
 
   //WEB SOCKETS
 
@@ -450,6 +478,8 @@ class AppCubit extends Cubit<AppStates>
   //Send Data to Server by WebSockets
   void addLike({required String userID, required String postID})
   {
+    print('Adding a Like');
+
     Map<String,dynamic> data=
     {
       'type':'like',
@@ -466,6 +496,8 @@ class AppCubit extends Cubit<AppStates>
   //Send Comment to Server by WebSockets
   void addComment({required String userID, required String postID, required String comment})
   {
+    print('Adding a Comment');
+
     Map<String,dynamic> data=
     {
       'type':'comment',

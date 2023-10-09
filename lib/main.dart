@@ -26,6 +26,7 @@ void main() async {
 
   IOWebSocketChannel wsChannel= IOWebSocketChannel.connect(webSocketLocalHost);
 
+
   //Fire Flutter Errors into Run Terminal
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
@@ -96,6 +97,7 @@ class MyApp extends StatelessWidget {
   final IOWebSocketChannel wsChannel;
 
   const MyApp({super.key, required this.isDark, required this.homeWidget, required this.wsChannel});
+
 
   // This widget is the root of your application.
   @override

@@ -49,31 +49,40 @@ class UserPosts extends StatelessWidget {
                 ),
               ),
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  children:
-                  [
-                    ConditionalBuilder(
-                      condition: cubit.userPostsModel !=null,
-                      builder: (context)=>ListView.separated(
-                          itemBuilder: (context,index)=>itemBuilder(post: cubit.userPostsModel!.posts![index], cubit: cubit, context: context),
-                          separatorBuilder: (context,index)=> Column(
-                            children:
-                            [
-                              const SizedBox(height: 20,),
-                              myDivider(color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor),
-                              const SizedBox(height: 20,),
-                            ],
-                          ),
-                          itemCount: cubit.userPostsModel!.posts!.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
+
+            body: RefreshIndicator(
+              onRefresh: () async
+              {
+                return await Future(() => cubit.getUserPosts() );
+              },
+
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(), //User can always scroll => can always fire the refresh indicator
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    children:
+                    [
+                      ConditionalBuilder(
+                        condition: cubit.userPostsModel !=null,
+                        builder: (context)=>ListView.separated(
+                            itemBuilder: (context,index)=>itemBuilder(post: cubit.userPostsModel!.posts![index], cubit: cubit, context: context),
+                            separatorBuilder: (context,index)=> Column(
+                              children:
+                              [
+                                const SizedBox(height: 20,),
+                                myDivider(color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor),
+                                const SizedBox(height: 20,),
+                              ],
+                            ),
+                            itemCount: cubit.userPostsModel!.posts!.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                        ),
+                        fallback: (context)=> Center(child: defaultProgressIndicator(context)),
                       ),
-                      fallback: (context)=> Center(child: defaultProgressIndicator(context)),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -430,6 +430,7 @@ Widget defaultAlertDialog(
 
 PreferredSizeWidget defaultAppBar({
   required AppCubit cubit,
+  List<Widget>? actions,
 })=>AppBar(
 
   title: Text(
@@ -440,7 +441,7 @@ PreferredSizeWidget defaultAppBar({
     ),
   ),
 
-  actions:[],
+  actions:actions,
 
 
 );

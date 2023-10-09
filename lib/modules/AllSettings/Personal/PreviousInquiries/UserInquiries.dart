@@ -48,31 +48,41 @@ class UserInquiries extends StatelessWidget {
                 ),
               ),
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  children:
-                  [
-                    ConditionalBuilder(
-                      condition: cubit.inquiryModel !=null,
-                      builder: (context)=>ListView.separated(
-                        itemBuilder: (context,index)=>itemBuilder(inquiry: cubit.inquiryModel!.inquiries![index], cubit: cubit, context: context),
-                        separatorBuilder: (context,index)=> Column(
-                          children:
-                          [
-                            const SizedBox(height: 20,),
-                            myDivider(color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor),
-                            const SizedBox(height: 20,),
-                          ],
+
+            body: RefreshIndicator(
+
+              onRefresh: ()async
+              {
+                return await Future(()=> cubit.getInquiries());
+              },
+
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    children:
+                    [
+                      ConditionalBuilder(
+                        condition: cubit.inquiryModel !=null,
+                        builder: (context)=>ListView.separated(
+                          itemBuilder: (context,index)=>itemBuilder(inquiry: cubit.inquiryModel!.inquiries![index], cubit: cubit, context: context),
+                          separatorBuilder: (context,index)=> Column(
+                            children:
+                            [
+                              const SizedBox(height: 20,),
+                              myDivider(color: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor),
+                              const SizedBox(height: 20,),
+                            ],
+                          ),
+                          itemCount: cubit.inquiryModel!.inquiries!.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
                         ),
-                        itemCount: cubit.inquiryModel!.inquiries!.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
+                        fallback: (context)=> Center(child: defaultProgressIndicator(context)),
                       ),
-                      fallback: (context)=> Center(child: defaultProgressIndicator(context)),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
