@@ -478,8 +478,11 @@ class AppCubit extends Cubit<AppStates>
   //Send Data to Server by WebSockets
   void addLike({required String userID, required String postID})
   {
-    print('Adding a Like');
-
+    //If WebSocket is Closed for some reason => Will Reconnect.
+    if(wsChannel.innerWebSocket ==null)
+    {
+      _reConnectWsChannel();
+    }
     Map<String,dynamic> data=
     {
       'type':'like',
@@ -496,8 +499,10 @@ class AppCubit extends Cubit<AppStates>
   //Send Comment to Server by WebSockets
   void addComment({required String userID, required String postID, required String comment})
   {
-    print('Adding a Comment');
-
+    if(wsChannel.innerWebSocket ==null)
+    {
+      _reConnectWsChannel();
+    }
     Map<String,dynamic> data=
     {
       'type':'comment',
@@ -777,14 +782,34 @@ class AppCubit extends Cubit<AppStates>
   //Get Posts
   static PostModel? postModel;
 
-  //Check for New Posts & Merge Together => Guess Need to ask for all posts and keep them, maybe some posts got deleted ?
+  //Get News & Posts & Subscriptions Posts & UserData if not available.
   PostModel? newPostModel;
-  Future<void> checkForNewPosts()async
+  Future<void> checkForNewData()async
   {
 
-    getPosts();
+    if(userData ==null)
+    {
+      getUserData();
+    }
 
-    getSubscriptionsPosts();
+    if(newsModel ==null)
+    {
+      getNews();
+    }
+
+    if(userData !=null)
+    {
+      getPosts();
+
+      getSubscriptionsPosts();
+
+    }
+
+    //If WebSocket is Closed for some reason => Will Reconnect.
+    if(wsChannel.closeCode !=null || wsChannel.innerWebSocket ==null)
+    {
+      _reConnectWsChannel();
+    }
 
     // print('In Check For New Posts...');
     // emit(AppCheckNewPostsLoadingState());

@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
         return RefreshIndicator(
           onRefresh:() async
           {
-            await cubit.checkForNewPosts();
+            await cubit.checkForNewData();
           },
 
           child: SingleChildScrollView(

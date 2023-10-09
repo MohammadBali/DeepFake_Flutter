@@ -24,7 +24,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized(); //Makes sure that all the await and initializer get done before runApp
 
-  IOWebSocketChannel wsChannel= IOWebSocketChannel.connect(webSocketLocalHost);
+  IOWebSocketChannel wsChannel= IOWebSocketChannel.connect(webSocketLocalHost, pingInterval: const Duration(seconds: 15));
 
 
   //Fire Flutter Errors into Run Terminal
