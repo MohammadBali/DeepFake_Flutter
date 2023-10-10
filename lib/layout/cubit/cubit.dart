@@ -27,12 +27,12 @@ import 'package:web_socket_channel/io.dart';
 
 class AppCubit extends Cubit<AppStates>
 {
-  IOWebSocketChannel wsChannel;
+  IOWebSocketChannel wsChannel; //Web Socket passed to AppCubit
   AppCubit(this.wsChannel): super(AppInitialState());
 
   static AppCubit get(context)=> BlocProvider.of(context);
 
-  //SET LISTENER FOR WEB SOCKETS
+  //SET LISTENER FOR WEB SOCKETS, DEFAULT CALLED BY MAIN
    void setListener(IOWebSocketChannel awsChannel) {
     wsChannel.stream.listen((message)
     {
@@ -99,7 +99,7 @@ class AppCubit extends Cubit<AppStates>
     );
   }
 
-
+  // Re-connect and listen to wsChannel
    void _reConnectWsChannel()
    {
      print('Reconnecting WSChannel');
@@ -517,11 +517,12 @@ class AppCubit extends Cubit<AppStates>
     defaultToast(msg: Localization.translate('comment_add_successfully_toast'));
   }
 
-  //-----------------------------------
+  //--------------------------------------------------\\
 
 
   //GLOBAL SETTINGS
 
+  //List of BottomBarWidgets, Home, TextFiles, ChatBot and Profile
   List<Widget> bottomBarWidgets=
   [
     Home(),
@@ -556,8 +557,6 @@ class AppCubit extends Cubit<AppStates>
     }
   }
 
-  //-----------------------------------
-
 
   //Current Language Code
 
@@ -569,6 +568,9 @@ class AppCubit extends Cubit<AppStates>
     language=lang;
     emit(AppChangeLanguageState());
   }
+
+
+  //--------------------------------------------------\\
 
   //USER APIS
 
@@ -649,6 +651,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  //Get User Subscriptions
   SubscriptionsModel? subscriptionsModel;
   void getSubscriptions()
   {
@@ -742,10 +745,9 @@ class AppCubit extends Cubit<AppStates>
     return false;
   }
 
-  //------------------------------------------
+  //------------------------------------
 
-
-  //NEWS APIS
+  // NEWS APIS
 
   //Get News
   NewsModel? newsModel;
@@ -774,8 +776,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  //--------------------------------------------
-
+  //-------------------------------------
 
   //POSTS APIS
 
@@ -851,6 +852,7 @@ class AppCubit extends Cubit<AppStates>
 
   }
 
+  //Get Available Posts
   void getPosts()
   {
     if(token !='')
@@ -1003,6 +1005,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  //Get the Subscriptions Posts
   PostModel? subscriptionsPostsModel;
   void getSubscriptionsPosts()
   {
@@ -1100,8 +1103,8 @@ class AppCubit extends Cubit<AppStates>
 
   //INQUIRIES API
 
+  //Get User Inquiries
   InquiryModel? inquiryModel;
-
   void getInquiries()
   {
     if(token != '')
@@ -1229,12 +1232,13 @@ class AppCubit extends Cubit<AppStates>
       }
   }
 
- //----------------------------------------------
+ //-------------------------------------
 
   //FILE PICKER
 
   PlatformFile? chosenFile;
 
+  //Pick a File from storage
   void pickFile() async
   {
     emit(AppGetFileLoadingState());
@@ -1264,6 +1268,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
+  //Discard chosen file
   void removeFile()
   {
     chosenFile=null;
@@ -1277,7 +1282,7 @@ class AppCubit extends Cubit<AppStates>
 
  MessageModel? messageModel = MessageModel();
 
-  //Send a Message to AI Model and get their response back
+ //Send a Message to AI Model and get their response back
  void sendMessage(String message)
  {
    print('In Sending a Message...');

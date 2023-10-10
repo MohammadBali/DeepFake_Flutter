@@ -87,6 +87,7 @@ flutter:
     - assets/images/splash/
     - assets/images/profile/
     - assets/images/chatbot/
+    - assets/images/inquiry/
 
 
   fonts:

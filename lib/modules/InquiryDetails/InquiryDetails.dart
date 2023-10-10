@@ -127,7 +127,7 @@ class InquiryDetails extends StatelessWidget {
                               width: MediaQuery.of(context).size.width/1.3,
                               height: MediaQuery.of(context).size.width/1.2,
                               child: Image(
-                                image: cubit.isDarkTheme? const AssetImage('assets/images/geoface1_light.png') : const AssetImage('assets/images/geoface1_dark.png'),
+                                image: cubit.isDarkTheme? const AssetImage('assets/images/inquiry/geoface1_light.png') : const AssetImage('assets/images/inquiry/geoface1_dark.png'),
                                 alignment: AlignmentDirectional.center,
                                 fit: BoxFit.contain,
                                 //height: 300,
@@ -242,7 +242,7 @@ class InquiryDetails extends StatelessWidget {
                               const SizedBox(height: 5,),
 
                               Image(
-                                image: cubit.isDarkTheme? const AssetImage('assets/images/geoface1_light.png') : const AssetImage('assets/images/geoface1_dark.png'),
+                                image: cubit.isDarkTheme? const AssetImage('assets/images/inquiry/geoface1_light.png') : const AssetImage('assets/images/inquiry/geoface1_dark.png'),
                                 alignment: AlignmentDirectional.center,
                                 height: 350,
                               ),
