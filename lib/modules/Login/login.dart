@@ -35,6 +35,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(create: (context)=>LoginCubit(),
+
       child: BlocConsumer<LoginCubit,LoginStates>(
         listener: (context,state)
         {
@@ -83,13 +84,16 @@ class _LoginState extends State<Login> {
           }
         },
 
-        builder: (context,state){
+        builder: (context,state)
+        {
           var cubit= LoginCubit.get(context);
+
           return BlocConsumer<AppCubit,AppStates>(
               listener: (appContext,appState){},
               builder:(appContext,appState)
               {
                 var appCubit= AppCubit.get(appContext);
+
                 return Directionality(
                   textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
                   child: Scaffold(
@@ -103,7 +107,7 @@ class _LoginState extends State<Login> {
                             return Form(
                               key: formKey,
                               child: Padding(
-                                padding: const EdgeInsets.all(24.0),
+                                padding: const EdgeInsetsDirectional.only(top:24.0, start: 24.0, end: 24.0, bottom: 0.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -172,10 +176,23 @@ class _LoginState extends State<Login> {
                                         },
 
                                         isObscure: cubit.isPassVisible,
+
+                                        onSubmit: (value)
+                                        {
+                                          if(formKey.currentState!.validate())
+                                            {
+                                              cubit.userLogin(
+                                                  emailController.text,
+                                                  passwordController.text
+                                              );
+                                            }
+                                        },
+
                                         onPressedSuffixIcon: ()
                                         {
                                           cubit.changePassVisibility();
-                                        }
+                                        },
+
                                     ),
 
 
@@ -370,6 +387,18 @@ class _LoginState extends State<Login> {
                                           },
 
                                           isObscure: cubit.isPassVisible,
+
+                                          onSubmit: (value)
+                                          {
+                                            if(formKey.currentState!.validate())
+                                              {
+                                                cubit.userLogin(
+                                                    emailController.text,
+                                                    passwordController.text
+                                                );
+                                              }
+                                          },
+
                                           onPressedSuffixIcon: ()
                                           {
                                             cubit.changePassVisibility();

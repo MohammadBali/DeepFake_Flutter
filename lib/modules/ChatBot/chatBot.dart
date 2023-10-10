@@ -61,12 +61,17 @@ class ChatBot extends StatelessWidget {
 
                             const SizedBox(height: 10,),
 
-                            Image(
-                              image: cubit.isDarkTheme? const AssetImage('assets/images/chatbot/chatbot_dark.png') : const AssetImage('assets/images/chatbot/chatbot_light.png'),
-                              fit: BoxFit.contain,
-                              filterQuality: FilterQuality.high,
-                              alignment: AlignmentDirectional.center,
-
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional.center,
+                                child: Image(
+                                  image: cubit.isDarkTheme? const AssetImage('assets/images/chatbot/chatbot_dark.png') : const AssetImage('assets/images/chatbot/chatbot_light.png'),
+                                  fit: BoxFit.contain,
+                                  filterQuality: FilterQuality.high,
+                                  alignment: AlignmentDirectional.center,
+                                  height: MediaQuery.of(context).size.height/3,
+                                ),
+                              ),
                             ),
 
                             const SizedBox(height: 10,),
@@ -134,11 +139,15 @@ class ChatBot extends StatelessWidget {
 
                               ),
 
-                              Image(
-                                image: cubit.isDarkTheme? const AssetImage('assets/images/chatbot/chatbot_dark.png') : const AssetImage('assets/images/chatbot/chatbot_light.png'),
-                                fit: BoxFit.contain,
-                                filterQuality: FilterQuality.high,
-
+                              Align(
+                                alignment: AlignmentDirectional.center,
+                                child: Image(
+                                  image: cubit.isDarkTheme? const AssetImage('assets/images/chatbot/chatbot_dark.png') : const AssetImage('assets/images/chatbot/chatbot_light.png'),
+                                  fit: BoxFit.contain,
+                                  filterQuality: FilterQuality.high,
+                                  alignment: AlignmentDirectional.center,
+                                  height: MediaQuery.of(context).size.height/3,
+                                ),
                               ),
 
 

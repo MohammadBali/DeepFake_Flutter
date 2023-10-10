@@ -46,7 +46,7 @@ class AUserProfile extends StatelessWidget {
                         [
                           Expanded(
                             child: CircleAvatar(
-                              backgroundImage: AssetImage('assets/images/profile/${user.photo!}'),
+                              backgroundImage: AssetImage('assets/images/profile/${user.photo!}',),
                               radius: 75,
                             ),
                           ),

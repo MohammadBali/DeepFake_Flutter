@@ -225,23 +225,25 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     );
   }
 
-  Widget  buildBoardingItem(OnBoardingModel list,{AlignmentGeometry titlePlace=AlignmentDirectional.topStart, double heightFromPicture=2}) =>
+  Widget  buildBoardingItem(OnBoardingModel list,{AlignmentGeometry titlePlace=AlignmentDirectional.center, double heightFromPicture=2}) =>
       Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children:
         [
-          Lottie.asset(
-            list.image,
-            width: 500,
-            height: 250,
-            repeat: true,
-            filterQuality: FilterQuality.high,
-            errorBuilder: (context,error,stackTrace)
-            {
-              print('Error in onBoarding Screen, ${error.toString()}');
-              return const Center (child: Icon(Icons.error, size: 100,));
-            },
+          Expanded(
+            child: Lottie.asset(
+              list.image,
+              width: 500,
+              height: 250,
+              repeat: true,
+              filterQuality: FilterQuality.high,
+              errorBuilder: (context,error,stackTrace)
+              {
+                print('Error in onBoarding Screen, ${error.toString()}');
+                return const Center (child: Icon(Icons.error, size: 100,));
+              },
+            ),
           ),
 
           SizedBox(height: heightFromPicture),

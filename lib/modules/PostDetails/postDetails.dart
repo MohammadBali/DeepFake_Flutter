@@ -30,7 +30,7 @@ class PostDetails extends StatelessWidget {
     }
     catch (e,stackTrace)
     {
-      print('ERROR IN POST DETAILS PAGE, ${e.toString()} $stackTrace');
+      print('CAUGHT UNKNOWN ERROR IN POST DETAILS PAGE, ${e.toString()}');
     }
 
     return BlocConsumer<AppCubit,AppStates>(

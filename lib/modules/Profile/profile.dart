@@ -22,109 +22,159 @@ class Profile extends StatelessWidget {
       builder: (context,state)
       {
         var cubit=AppCubit.get(context);
+
         return OrientationBuilder(
             builder: (context,orientation)
+            {
+              if(orientation == Orientation.portrait)
                 {
-                  if(orientation == Orientation.portrait)
-                    {
-                      return Padding(
-                        padding: const EdgeInsets.all(42.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children:
-                          [
-                            defaultBox(
-                                padding: 15,
-                                paddingOptions: false,
-                                cubit: cubit,
-                                boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                                child: Column(
-                                  children:
-                                  [
-                                    itemBuilder(
-                                        icon: Icons.person_outline_rounded,
-                                        text: Localization.translate('edit_profile_profile'),
-                                        onTap: ()
-                                        {
-                                          navigateTo(context, EditProfile());
-                                        }
-                                    ),
-
-                                    const SizedBox(height: 5),
-
-                                    myDivider(color: Colors.white),
-
-                                    itemBuilder(
-                                        icon: Icons.favorite_border_outlined,
-                                        text: Localization.translate('your_posts_profile'),
-                                        onTap: ()
-                                        {
-                                          navigateTo(context, const UserPosts());
-                                        }
-                                    ),
-
-                                    const SizedBox(height: 5),
-
-                                    myDivider(color: Colors.white),
-
-                                    itemBuilder(
-                                        icon: Icons.timelapse_rounded,
-                                        text: Localization.translate('previous_inquiries_profile'),
-                                        onTap: ()
-                                        {
-                                          navigateTo(context, const UserInquiries());
-                                        }
-                                    ),
-                                  ],
+                  return Padding(
+                    padding: const EdgeInsets.all(42.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children:
+                      [
+                        defaultBox(
+                            padding: 15,
+                            paddingOptions: false,
+                            cubit: cubit,
+                            boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                            child: Column(
+                              children:
+                              [
+                                itemBuilder(
+                                    icon: Icons.person_outline_rounded,
+                                    text: Localization.translate('edit_profile_profile'),
+                                    onTap: ()
+                                    {
+                                      navigateTo(context, EditProfile());
+                                    }
                                 ),
-                                onTap: (){},
-                                manualBorderColor: true,
-                                borderColor: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor
-                            ),
 
-                            const SizedBox(height: 20,),
+                                const SizedBox(height: 5),
 
-                            defaultBox(
-                                padding: 15,
-                                paddingOptions: false,
-                                cubit: cubit,
-                                boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                                child: Column(
-                                  children:
-                                  [
-                                    itemBuilder(
-                                        icon: Icons.light_outlined,
-                                        text: Localization.translate('appearance_profile'),
-                                        onTap: ()
-                                        {
-                                          navigateTo(context, const Appearance());
-                                        }
-                                    ),
+                                myDivider(color: Colors.white),
 
-                                    const SizedBox(height: 5),
-
-                                    myDivider(color: Colors.white),
-
-                                    itemBuilder(
-                                        icon: Icons.settings_outlined,
-                                        text: Localization.translate('general_settings_profile'),
-                                        onTap: ()
-                                        {
-                                          navigateTo(context, GeneralSettings() );
-                                        }
-                                    ),
-
-                                  ],
+                                itemBuilder(
+                                    icon: Icons.favorite_border_outlined,
+                                    text: Localization.translate('your_posts_profile'),
+                                    onTap: ()
+                                    {
+                                      navigateTo(context, const UserPosts());
+                                    }
                                 ),
-                                onTap: (){},
-                                manualBorderColor: true,
-                                borderColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor
+
+                                const SizedBox(height: 5),
+
+                                myDivider(color: Colors.white),
+
+                                itemBuilder(
+                                    icon: Icons.timelapse_rounded,
+                                    text: Localization.translate('previous_inquiries_profile'),
+                                    onTap: ()
+                                    {
+                                      navigateTo(context, const UserInquiries());
+                                    }
+                                ),
+                              ],
                             ),
+                            onTap: (){},
+                            manualBorderColor: true,
+                            borderColor: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor
+                        ),
 
-                            const SizedBox(height: 20,),
+                        const SizedBox(height: 20,),
 
-                            defaultBox(
+                        defaultBox(
+                            padding: 15,
+                            paddingOptions: false,
+                            cubit: cubit,
+                            boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                            child: Column(
+                              children:
+                              [
+                                itemBuilder(
+                                    icon: Icons.light_outlined,
+                                    text: Localization.translate('appearance_profile'),
+                                    onTap: ()
+                                    {
+                                      navigateTo(context, const Appearance());
+                                    }
+                                ),
+
+                                const SizedBox(height: 5),
+
+                                myDivider(color: Colors.white),
+
+                                itemBuilder(
+                                    icon: Icons.settings_outlined,
+                                    text: Localization.translate('general_settings_profile'),
+                                    onTap: ()
+                                    {
+                                      navigateTo(context, GeneralSettings() );
+                                    }
+                                ),
+
+                              ],
+                            ),
+                            onTap: (){},
+                            manualBorderColor: true,
+                            borderColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor
+                        ),
+
+                        const SizedBox(height: 20,),
+
+                        defaultBox(
+                          padding: 15,
+                          paddingOptions: false,
+                          cubit: cubit,
+                          boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                          child: Column(
+                            children:
+                            [
+                              itemBuilder(
+                                  icon: Icons.question_mark_outlined,
+                                  text: Localization.translate('learn_more_profile'),
+                                  onTap: ()
+                                  {
+
+                                  }
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              myDivider(color: Colors.white),
+
+                              itemBuilder(
+                                  icon: Icons.logout_outlined,
+                                  text: Localization.translate('logout_profile'),
+                                  onTap: ()
+                                  {
+                                    cubit.logout(context: context);
+                                  }
+                              ),
+
+                            ],
+                          ),
+                          onTap: ()
+                          {},
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+              else
+                {
+                  return SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(42.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children:
+                        [
+                          defaultBox(
                               padding: 15,
                               paddingOptions: false,
                               cubit: cubit,
@@ -133,11 +183,11 @@ class Profile extends StatelessWidget {
                                 children:
                                 [
                                   itemBuilder(
-                                      icon: Icons.question_mark_outlined,
-                                      text: Localization.translate('learn_more_profile'),
+                                      icon: Icons.person_outline_rounded,
+                                      text: Localization.translate('edit_profile_profile'),
                                       onTap: ()
                                       {
-
+                                        navigateTo(context, EditProfile());
                                       }
                                   ),
 
@@ -146,165 +196,116 @@ class Profile extends StatelessWidget {
                                   myDivider(color: Colors.white),
 
                                   itemBuilder(
-                                      icon: Icons.logout_outlined,
-                                      text: Localization.translate('logout_profile'),
+                                      icon: Icons.favorite_border_outlined,
+                                      text: Localization.translate('your_posts_profile'),
                                       onTap: ()
                                       {
-                                        cubit.logout(context: context);
+                                        navigateTo(context, const UserPosts());
+                                      }
+                                  ),
+
+                                  const SizedBox(height: 5),
+
+                                  myDivider(color: Colors.white),
+
+                                  itemBuilder(
+                                      icon: Icons.timelapse_rounded,
+                                      text: Localization.translate('previous_inquiries_profile'),
+                                      onTap: ()
+                                      {
+                                        navigateTo(context, const UserInquiries());
+                                      }
+                                  ),
+                                ],
+                              ),
+                              onTap: (){},
+                              manualBorderColor: true,
+                              borderColor: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor
+                          ),
+
+                          const SizedBox(height: 20,),
+
+                          defaultBox(
+                              padding: 15,
+                              paddingOptions: false,
+                              cubit: cubit,
+                              boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                              child: Column(
+                                children:
+                                [
+                                  itemBuilder(
+                                      icon: Icons.light_outlined,
+                                      text: Localization.translate('appearance_profile'),
+                                      onTap: ()
+                                      {
+                                        navigateTo(context, const Appearance());
+                                      }
+                                  ),
+
+                                  const SizedBox(height: 5),
+
+                                  myDivider(color: Colors.white),
+
+                                  itemBuilder(
+                                      icon: Icons.settings_outlined,
+                                      text: Localization.translate('general_settings_profile'),
+                                      onTap: ()
+                                      {
+                                        navigateTo(context, GeneralSettings() );
                                       }
                                   ),
 
                                 ],
                               ),
-                              onTap: ()
-                              {},
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-
-                  else
-                    {
-                      return SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.all(42.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children:
-                            [
-                              defaultBox(
-                                  padding: 15,
-                                  paddingOptions: false,
-                                  cubit: cubit,
-                                  boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                                  child: Column(
-                                    children:
-                                    [
-                                      itemBuilder(
-                                          icon: Icons.person_outline_rounded,
-                                          text: Localization.translate('edit_profile_profile'),
-                                          onTap: ()
-                                          {
-                                            navigateTo(context, EditProfile());
-                                          }
-                                      ),
-
-                                      const SizedBox(height: 5),
-
-                                      myDivider(color: Colors.white),
-
-                                      itemBuilder(
-                                          icon: Icons.favorite_border_outlined,
-                                          text: Localization.translate('your_posts_profile'),
-                                          onTap: ()
-                                          {
-                                            navigateTo(context, const UserPosts());
-                                          }
-                                      ),
-
-                                      const SizedBox(height: 5),
-
-                                      myDivider(color: Colors.white),
-
-                                      itemBuilder(
-                                          icon: Icons.timelapse_rounded,
-                                          text: Localization.translate('previous_inquiries_profile'),
-                                          onTap: ()
-                                          {
-                                            navigateTo(context, const UserInquiries());
-                                          }
-                                      ),
-                                    ],
-                                  ),
-                                  onTap: (){},
-                                  manualBorderColor: true,
-                                  borderColor: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor
-                              ),
-
-                              const SizedBox(height: 20,),
-
-                              defaultBox(
-                                  padding: 15,
-                                  paddingOptions: false,
-                                  cubit: cubit,
-                                  boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                                  child: Column(
-                                    children:
-                                    [
-                                      itemBuilder(
-                                          icon: Icons.light_outlined,
-                                          text: Localization.translate('appearance_profile'),
-                                          onTap: ()
-                                          {
-                                            navigateTo(context, const Appearance());
-                                          }
-                                      ),
-
-                                      const SizedBox(height: 5),
-
-                                      myDivider(color: Colors.white),
-
-                                      itemBuilder(
-                                          icon: Icons.settings_outlined,
-                                          text: Localization.translate('general_settings_profile'),
-                                          onTap: ()
-                                          {
-
-                                          }
-                                      ),
-
-                                    ],
-                                  ),
-                                  onTap: (){},
-                                  manualBorderColor: true,
-                                  borderColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor
-                              ),
-
-
-                              const SizedBox(height: 20,),
-
-                              defaultBox(
-                                padding: 15,
-                                paddingOptions: false,
-                                cubit: cubit,
-                                boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-                                child: Column(
-                                  children:
-                                  [
-                                    itemBuilder(
-                                        icon: Icons.question_mark_outlined,
-                                        text: Localization.translate('learn_more_profile'),
-                                        onTap: ()
-                                        {
-
-                                        }
-                                    ),
-
-                                    const SizedBox(height: 5),
-
-                                    myDivider(color: Colors.white),
-
-                                    itemBuilder(
-                                        icon: Icons.logout_outlined,
-                                        text: Localization.translate('logout_profile'),
-                                        onTap: ()
-                                        {
-                                          cubit.logout(context: context);
-                                        }
-                                    ),
-
-                                  ],
-                                ),
-                                onTap: ()
-                                {},
-                              ),
-                            ],
+                              onTap: (){},
+                              manualBorderColor: true,
+                              borderColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor
                           ),
-                        ),
-                      );
-                    }
+
+
+                          const SizedBox(height: 20,),
+
+                          defaultBox(
+                            padding: 15,
+                            paddingOptions: false,
+                            cubit: cubit,
+                            boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+                            child: Column(
+                              children:
+                              [
+                                itemBuilder(
+                                    icon: Icons.question_mark_outlined,
+                                    text: Localization.translate('learn_more_profile'),
+                                    onTap: ()
+                                    {
+
+                                    }
+                                ),
+
+                                const SizedBox(height: 5),
+
+                                myDivider(color: Colors.white),
+
+                                itemBuilder(
+                                    icon: Icons.logout_outlined,
+                                    text: Localization.translate('logout_profile'),
+                                    onTap: ()
+                                    {
+                                      cubit.logout(context: context);
+                                    }
+                                ),
+
+                              ],
+                            ),
+                            onTap: ()
+                            {},
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 }
+            }
         );
       },
     );
