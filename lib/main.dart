@@ -7,23 +7,65 @@ import 'package:deepfake_detection/modules/Login/login.dart';
 import 'package:deepfake_detection/modules/on_boarding/on_boarding_screen.dart';
 import 'package:deepfake_detection/shared/bloc_observer.dart';
 import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
+import 'package:deepfake_detection/shared/components/components.dart';
 import 'package:deepfake_detection/shared/components/constants.dart';
 import 'package:deepfake_detection/shared/network/end_points.dart';
 import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
 import 'package:deepfake_detection/shared/network/remote/main_dio_helper.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:deepfake_detection/shared/styles/themes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:web_socket_channel/io.dart';
+import 'firebase_options.dart';
 import 'layout/home_layout.dart';
 
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized(); //Makes sure that all the await and initializer get done before runApp
 
+
+  //Firebase Settings & Connection
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  firebaseToken= await FirebaseMessaging.instance.getToken();
+  print('FIREBASE TOKEN: $firebaseToken');
+
+  NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  FirebaseMessaging.onMessage.listen((event)
+  {
+    print('got firebase data');
+    print(event.notification);
+  }
+  );
+
+  //When user clicks the notification and it opens the app
+  FirebaseMessaging.onMessageOpenedApp.listen((event)
+  {
+    print('got firebase opened data');
+    print(event.data.toString());
+  }
+  );
+
+  //----------------------
+
+  //WebSocket Connection Setup
   IOWebSocketChannel wsChannel= IOWebSocketChannel.connect(webSocketLocalHost, pingInterval: const Duration(seconds: 15));
 
 

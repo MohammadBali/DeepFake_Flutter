@@ -4,6 +4,8 @@ import 'package:deepfake_detection/shared/network/end_points.dart';
 import 'package:deepfake_detection/shared/network/remote/main_dio_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../shared/components/constants.dart';
+
 class RegisterCubit extends Cubit<RegisterStates>
 {
   RegisterCubit(): super(RegisterInitialState());
@@ -35,7 +37,8 @@ class RegisterCubit extends Cubit<RegisterStates>
         'gender':gender,
         'birthDate':birthDate,
         'password':password,
-        'email':email
+        'email':email,
+        if(firebaseToken !=null && firebaseToken != '') 'firebaseToken':firebaseToken,
       },
     ).then((value) {
 

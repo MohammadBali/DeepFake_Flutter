@@ -4,6 +4,8 @@ import 'package:deepfake_detection/shared/network/end_points.dart';
 import 'package:deepfake_detection/shared/network/remote/main_dio_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../shared/components/constants.dart';
+
 class LoginCubit extends Cubit<LoginStates>
 {
   LoginCubit(): super(LoginInitialState());
@@ -32,6 +34,7 @@ class LoginCubit extends Cubit<LoginStates>
       {
         'email':email,
         'password':password,
+        if(firebaseToken !=null && firebaseToken != '') 'firebaseToken':firebaseToken,
       },
     ).then((value)
     {

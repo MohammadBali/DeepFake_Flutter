@@ -263,8 +263,6 @@ class AppRemoveFileState extends AppStates{}
 //-----------------------------------------------
 
 
-
-
 // SEND MESSAGES
 
 
@@ -287,9 +285,6 @@ class AppAddMessageErrorState extends AppStates{}
 
 
 //-----------------------------------------------
-
-
-
 
 
 

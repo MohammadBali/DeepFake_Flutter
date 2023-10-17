@@ -8,3 +8,7 @@ String appDocPath='';
 //Maximum Size in Bytes for TextFiles
 int maxTextFileSize= 12000000; //12MB
 
+
+//Firebase Token
+
+String? firebaseToken='';

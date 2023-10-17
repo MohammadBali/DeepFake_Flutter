@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "253459030199",
+    "project_id": "deepguard-f5619",
+    "storage_bucket": "deepguard-f5619.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253459030199:android:f7449a74fa3ec7950d6d32",
+        "android_client_info": {
+          "package_name": "com.deepfakedetection.deepfake_detection"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYx8XfFX9C-vYyYPyEOSBGYQDMVLUrq_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

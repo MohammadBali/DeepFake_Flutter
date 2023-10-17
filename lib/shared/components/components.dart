@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/modules/AUserProfile/AUserProfile.dart';
 import 'package:deepfake_detection/modules/PostDetails/postDetails.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -866,4 +867,14 @@ bool isLiked(Post post)
 int byteToMB(int byte)
 {
   return (byte * 0.000001).round();
+}
+
+//---------------------------------
+
+Future<void>firebaseMessagingBackgroundHandler(RemoteMessage message) async
+{
+  print('Got background message');
+  print(message.data.toString());
+
+  defaultToast(msg: 'DeepGuard Data');
 }
