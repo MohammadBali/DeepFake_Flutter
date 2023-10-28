@@ -105,6 +105,8 @@ Widget defaultBox(
   bool manualBorderColor=false,
   Color borderColor=Colors.white,
 
+  double? containerWidth,
+
 })=>GestureDetector(
 
   onTap: onTap,
@@ -124,7 +126,10 @@ Widget defaultBox(
 
     ),
 
+    width: containerWidth,
+
     child: child,
+
 
   ),
 );
@@ -825,6 +830,22 @@ Future<File?> base64ToFile({required String base, required String type, required
       return file;
     }
 
+}
+
+//------------------------------------------------------------------------------------------\\
+
+
+//Write a String Data into a File and return it
+
+Future<File> writeFileFromText(String data, String title) async
+{
+  // final File file= File('$appDocPath/${getRandomString(5)}.txt');
+
+  final File file= File('$appDocPath/$title.txt');
+
+  await file.writeAsString(data);
+
+  return file;
 }
 
 //------------------------------------------------------------------------------------------\\

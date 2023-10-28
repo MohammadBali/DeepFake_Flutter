@@ -54,6 +54,8 @@ class HomeLayout extends StatelessWidget {
                   ],
 
                 ),
+
+                resizeToAvoidBottomInset: false, //For Text File Page when adding text => won't resize itself
               ),
 
               onWillPop: ()async

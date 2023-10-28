@@ -69,6 +69,19 @@ const Map<String,String> ar={
   'text_title':'إرفع ملفاً',
   'text_second_title':'قم بإختيار ملف',
 
+  'text_third_string_title':'أدخل نصاً عوضاً عن ملف',
+
+  'text_choose_file_option':'ملف',
+  'text_choose_string_option':'اكتب نصا',
+
+  'text_add_string_post_title':'أضف النص',
+
+  'text_add_string_post_name':'أضف عنواناً',
+
+  'text_add_string_no_text':'أضف نصاً',
+
+
+
   //BOT PAGE:
 
 
@@ -292,6 +305,8 @@ const Map<String,String> ar={
 
   'exit_app_no':'لا',
 
+
+
 };
 
 
@@ -363,6 +378,17 @@ const Map<String,String> en={
 
   'text_title':'Upload Text File',
   'text_second_title':'Choose a File to Upload',
+
+  'text_third_string_title':'Enter Lines instead of a File',
+
+  'text_choose_file_option':'File',
+  'text_choose_string_option':'Write a String',
+
+  'text_add_string_post_title':'Add Your Text',
+
+  'text_add_string_post_name':'Add Title',
+
+  'text_add_string_no_text':'Enter Text Please',
 
   //BOT PAGE:
 
@@ -587,5 +613,7 @@ const Map<String,String> en={
   'exit_app_yes':'YES',
 
   'exit_app_no':'NO',
+
+
 
 };

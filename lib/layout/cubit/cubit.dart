@@ -1178,7 +1178,6 @@ class AppCubit extends Cubit<AppStates>
   Future<bool> uploadTextInquiry( {required PlatformFile file, void Function(int, int)? onSendProgress}) async
   {
     bool boolToReturn=false;
-
     if(file.size <= maxTextFileSize)
       {
 
@@ -1243,7 +1242,8 @@ class AppCubit extends Cubit<AppStates>
   {
     emit(AppGetFileLoadingState());
 
-    try {
+    try
+    {
       FilePickerResult? result= await FilePicker.platform.pickFiles(allowedExtensions: ['docx','pdf','doc','txt'], type: FileType.custom, allowMultiple: false, );
       if(result !=null)
       {
@@ -1256,7 +1256,6 @@ class AppCubit extends Cubit<AppStates>
         print('FILE PICKER RESULT IS NULL');
         emit(AppGetFileErrorState());
       }
-
 
     }catch (e)
     {
