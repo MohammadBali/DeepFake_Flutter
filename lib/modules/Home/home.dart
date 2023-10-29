@@ -66,12 +66,12 @@ class _HomeState extends State<Home> {
         return RefreshIndicator(
           onRefresh:() async
           {
-            await cubit.checkForNewData();
+            await cubit.checkForNewData();  //On pull down, will get new data such as news and posts
           },
 
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            controller: scrollController,
+            controller: scrollController, //Necessary for lazy loading
             key: _key,
             child: Padding(
               padding: const EdgeInsets.all(28.0),
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
                   [
 
                     ConditionalBuilder(
-                      condition: cubit.newsModel !=null,
+                      condition: cubit.newsModel !=null, //Check if there are news to show it or not
                       builder: (context) =>SizedBox(
                         height: 150,
                         child: ListView.separated(
@@ -113,6 +113,7 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children:
                           [
+                            //Home Feed
                             GestureDetector(
                               onTap: ()
                               {
@@ -155,6 +156,7 @@ class _HomeState extends State<Home> {
                             //   ),
                             // ),
 
+                            //My Feed, aka personalized feed
                             GestureDetector(
                               onTap: ()
                               {
@@ -184,12 +186,13 @@ class _HomeState extends State<Home> {
 
                     const SizedBox(height: 40,),
 
+                    //Posts Builder, we used builder to specify this part to be rebuilt on data change, (real-time)
                     Builder(
                       builder: (context)=>ConditionalBuilder(
                         condition: currentFeed == Localization.translate('feed_home'),
 
                         builder: (context)=>ConditionalBuilder(
-                          condition: AppCubit.postModel!=null,
+                          condition: AppCubit.postModel!=null, //Check if there are posts first
                           builder: (context)=>ListView.separated(
                             itemCount: AppCubit.postModel!.posts!.length,
                             separatorBuilder: (context,index)=>const SizedBox(height: 25,),

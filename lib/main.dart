@@ -60,6 +60,8 @@ void main() async {
   {
     print('got firebase opened data');
     print(event.data.toString());
+
+    defaultToast(msg: event.data.toString());
   }
   );
 
