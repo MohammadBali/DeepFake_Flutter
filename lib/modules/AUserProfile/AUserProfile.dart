@@ -17,9 +17,11 @@ class AUserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
       listener: (context,state){},
+
       builder: (context,state)
       {
         var cubit= AppCubit.get(context);
+
         return WillPopScope(
           child: Directionality(
             textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
@@ -51,15 +53,73 @@ class AUserProfile extends StatelessWidget {
                             ),
                           ),
 
-                          Expanded(
-                            child: Text(
-                              '${user.name!} ${user.lastName!}',
-                              style: const TextStyle(
-                                fontFamily: 'Neology',
-                                fontSize: 24,
+                          // Expanded(
+                          //   child: Text(
+                          //     '${user.name!} ${user.lastName!}',
+                          //     style: const TextStyle(
+                          //       fontFamily: 'Neology',
+                          //       fontSize: 24,
+                          //
+                          //     ),
+                          //   ),
+                          // ),
 
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:
+                            [
+                              Text(
+                                '${user.name!} ${user.lastName!}',
+                                style: const TextStyle(
+                                  fontFamily: 'Neology',
+                                  fontSize: 24,
+
+                                ),
                               ),
-                            ),
+
+                              //Build a Verified text if the user is official and verified
+
+                              if(user.isOfficial! == true)
+                              const SizedBox(height: 10,),
+
+                              if(user.isOfficial! == true)
+                              Row(
+                                children: [
+
+                                  Text(
+                                    'Verified',
+                                    style: TextStyle(
+                                      fontFamily: 'GabrielSans',
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w500,
+                                      decoration: TextDecoration.overline,
+                                      decorationStyle: TextDecorationStyle.wavy,
+                                      decorationColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,
+                                      color: defaultSecondaryDarkColor ,
+                                    ),
+                                  ),
+
+                                  const SizedBox(width: 5,),
+
+                                  Image(
+                                    image: const AssetImage('assets/images/others/blue_tick.png'),
+                                    filterQuality: FilterQuality.high,
+                                    height: 20,
+                                    width: 20,
+                                    alignment: AlignmentDirectional.center,
+                                    color: defaultSecondaryDarkColor,
+                                  ),
+
+                                  // Icon(
+                                  //   Icons.check_rounded,
+                                  //   color: defaultSecondaryDarkColor,
+                                  //   size: 24,
+                                  // ),
+
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),

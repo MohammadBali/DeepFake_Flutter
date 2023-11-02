@@ -7,6 +7,7 @@ class UserData
   String? birthDate;
   String? email;
   String? photo;
+  bool? isOfficial;
 
   UserData.fromJson(Map<String,dynamic>json)
   {
@@ -26,6 +27,11 @@ class UserData
       if(json['email']!=null)
         {
           email=json['email'];
+        }
+
+      if(json['isOfficial'] !=null)
+        {
+          isOfficial=json['isOfficial'];
         }
 
     }

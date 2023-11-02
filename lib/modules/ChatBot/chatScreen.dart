@@ -82,7 +82,6 @@ class ChatScreen extends StatelessWidget {
                         ),
                       ),
 
-
                       const SizedBox(height: 25,),
 
                       Align(

@@ -30,6 +30,7 @@ class LoginUser
   String? birthDate;
   String? email;
   String? photo;
+  bool? isOfficial;
 
   LoginUser.fromJson(Map<String,dynamic>json)
   {
@@ -38,5 +39,6 @@ class LoginUser
     gender=json['birthDate'];
     email=json['email'];
     photo=json['photo'];
+    isOfficial=json['isOfficial'];
   }
 }
