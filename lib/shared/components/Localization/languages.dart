@@ -196,6 +196,8 @@ const Map<String,String> ar={
 
   'un_subscribe_a_user_profile':'إلغاء الإشتراك',
 
+  'verified_a_user_profile':'موثق',
+
 
   //CHAT BOT PAGE:
 
@@ -505,6 +507,8 @@ const Map<String,String> en={
   'subscribe_a_user_profile':'Subscribe',
 
   'un_subscribe_a_user_profile':'Unsubscribe',
+
+  'verified_a_user_profile':'Verified',
 
   //Chat BOT PAGE:
 

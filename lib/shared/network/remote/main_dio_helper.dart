@@ -133,7 +133,7 @@ class MainDioHelper
 
 
   static Future<Response> patchData(
-      {required String url, Map<String,dynamic>?query,  required Map<String,dynamic> data, String lang='en', String? token,  }) async
+      {required String url, Map<String,dynamic>?query,  required Map<String,dynamic> data, String lang='en', String? token, bool isStatusCheck=false}) async
   {
     dio?.options.headers=
     {
@@ -141,6 +141,22 @@ class MainDioHelper
       'Connection' : 'keep-alive',
       'Authorization': 'Bearer $token',
     };
+
+    if(isStatusCheck == true)  //Allow Status 400,200,201 for Register and Login Errors.
+    {
+      dio?.options.validateStatus= (status) {
+        if([200,201,400].contains(status))
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      };
+    }
+
+
     //print('in Main Dio patchData');
     return await dio!.patch(
       url,

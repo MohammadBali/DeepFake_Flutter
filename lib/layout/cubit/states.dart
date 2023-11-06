@@ -158,7 +158,7 @@ class AppUploadTextInquiryErrorState extends AppStates{}
 
 class AppUpdateUserProfileLoadingState extends AppStates{}
 
-class AppUpdateUserProfileSuccessState extends AppStates{}
+class AppUpdateUserProfileSuccessState extends AppStates {}
 
 class AppUpdateUserProfileErrorState extends AppStates
 {
