@@ -461,6 +461,8 @@ PreferredSizeWidget defaultAppBar({
 Widget postItemBuilder({required AppCubit cubit, required Post post, required BuildContext context, bool isCommentClickable =true, bool isBoxClickable=true, bool isPhotoClickable=true})=>defaultBox(
     cubit: cubit,
     boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+    borderColor: post.inquiry!.result! == 'fake' ? defaultRedColor : Colors.white, //If Inquiry is fake => Border Color is RedAccent
+    manualBorderColor: post.inquiry!.result! == 'fake' ? true : false,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
 

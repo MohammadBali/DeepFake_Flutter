@@ -110,7 +110,7 @@ class InquiryDetails extends StatelessWidget {
                             //const SizedBox(height: 40,),
 
                             Text(
-                              inquiry.result?.toUpperCase() =='CORRECT' ? Localization.translate('correct_secondary_inquiry_details') : Localization.translate('fake_secondary_inquiry_details'),
+                              inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_secondary_inquiry_details') : Localization.translate('fake_secondary_inquiry_details'),
                               style: TextStyle(
                                 color: cubit.isDarkTheme? defaultDarkFontColor: defaultFontColor,
                                 fontWeight: FontWeight.w500,
@@ -142,7 +142,7 @@ class InquiryDetails extends StatelessWidget {
                                 const Spacer(),
 
                                 Text(
-                                  inquiry.result?.toUpperCase() =='CORRECT' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
+                                  inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
                                   style: TextStyle(
                                     color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
                                     fontSize: 30,
@@ -155,7 +155,7 @@ class InquiryDetails extends StatelessWidget {
                                 const Spacer(),
 
                                 Icon(
-                                  inquiry.result =='correct' ? Icons.check_rounded : Icons.cancel_outlined,
+                                  inquiry.result?.toUpperCase() =='REAL' ? Icons.check_rounded : Icons.cancel_outlined,
                                   size: 32,
                                   color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
                                 )
@@ -228,7 +228,7 @@ class InquiryDetails extends StatelessWidget {
                               const SizedBox(height: 40,),
 
                               Text(
-                                inquiry.result?.toUpperCase() =='CORRECT' ? Localization.translate('correct_secondary_inquiry_details') : Localization.translate('fake_secondary_inquiry_details'),
+                                inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_secondary_inquiry_details') : Localization.translate('fake_secondary_inquiry_details'),
                                 style: TextStyle(
                                   color: cubit.isDarkTheme? defaultDarkFontColor: defaultFontColor,
                                   fontWeight: FontWeight.w500,
@@ -255,7 +255,7 @@ class InquiryDetails extends StatelessWidget {
                                   const Spacer(),
 
                                   Text(
-                                    inquiry.result?.toUpperCase() =='CORRECT' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
+                                    inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
                                     style: TextStyle(
                                       color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
                                       fontSize: 30,
@@ -268,7 +268,7 @@ class InquiryDetails extends StatelessWidget {
                                   const Spacer(),
 
                                   Icon(
-                                    inquiry.result =='correct' ? Icons.check_rounded : Icons.cancel_outlined,
+                                    inquiry.result?.toUpperCase() =='REAL' ? Icons.check_rounded : Icons.cancel_outlined,
                                     size: 32,
                                     color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
                                   )

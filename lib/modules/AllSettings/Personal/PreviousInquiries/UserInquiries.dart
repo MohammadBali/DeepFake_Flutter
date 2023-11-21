@@ -35,6 +35,7 @@ class UserInquiries extends StatelessWidget {
       builder: (context,state)
       {
         var cubit=AppCubit.get(context);
+
         return Directionality(
           textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
           child: Scaffold(
@@ -128,7 +129,7 @@ class UserInquiries extends StatelessWidget {
           children: [
 
             Text(
-              inquiry.result!.toUpperCase() =='CORRECT' ? Localization.translate('correct_your_inquiries') : Localization.translate('fake_your_inquiries') ,
+              inquiry.result!.toUpperCase() =='REAL' ? Localization.translate('correct_your_inquiries') : Localization.translate('fake_your_inquiries') ,
               style: TextStyle(
                 color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
                 fontSize: 14,

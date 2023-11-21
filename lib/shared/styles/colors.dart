@@ -42,5 +42,6 @@ Color defaultBottomNavBarDarkColor= HexColor('242424');
 
 Color defaultDarkFontColor= Colors.white;
 
-
 Color defaultRespondMessageDarkColor=HexColor('323232');
+
+Color defaultRedColor = Colors.redAccent;

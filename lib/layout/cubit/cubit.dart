@@ -1189,7 +1189,7 @@ class AppCubit extends Cubit<AppStates>
             {
               'type':file.extension,
               'name':file.name,
-              'result':'true', //TBD, Must be returned by back-end through AI Model
+              'result':'real', //TBD, Must be returned by back-end through AI Model
               'text': await MultipartFile.fromFile(file.path!, filename: file.name),
             });
 

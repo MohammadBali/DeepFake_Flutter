@@ -454,7 +454,7 @@ const Map<String,String> en={
 
   'no_your_inquiries':'NO',
 
-  'correct_your_inquiries':'CORRECT',
+  'correct_your_inquiries':'REAL',
 
   'fake_your_inquiries':'FAKE',
 
