@@ -66,6 +66,7 @@ class _EditProfileState extends State<EditProfile> {
         builder: (context,state)
         {
           var cubit=AppCubit.get(context);
+
           return Directionality(
             textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
             child: Scaffold(

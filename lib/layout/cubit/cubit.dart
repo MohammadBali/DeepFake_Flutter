@@ -25,6 +25,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:web_socket_channel/io.dart';
 
+import '../../models/SubscriptionsDetailsModel/SubscriptionsDetailsModel.dart';
+
 class AppCubit extends Cubit<AppStates>
 {
   IOWebSocketChannel wsChannel; //Web Socket passed to AppCubit
@@ -672,9 +674,36 @@ class AppCubit extends Cubit<AppStates>
         }).catchError((error,stackTrace)
         {
           print('ERROR WHILE GETTING SUBSCRIPTIONS, ${error.toString()} $stackTrace');
-          print(AppGetUserSubscriptionsErrorState);
+          print(AppGetUserSubscriptionsErrorState());
         });
       }
+  }
+
+
+  //Get User Subscriptions with Further Details -> For General Settings
+  SubscriptionsDetailsModel? subscriptionsDetailsModel;
+  void getSubscriptionsDetails()
+  {
+    if(token!='')
+    {
+      print('In Getting Subscriptions Details');
+      emit(AppGetUserSubscriptionsDetailsLoadingState());
+
+      MainDioHelper.getData(
+        url: subscriptionsDetails,
+        token: token,
+      ).then((value) {
+        print('Got Subscriptions Details Data...');
+
+        subscriptionsDetailsModel=SubscriptionsDetailsModel.fromJson(value.data);
+
+        emit(AppGetUserSubscriptionsDetailsSuccessState());
+      }).catchError((error,stackTrace)
+      {
+        print('ERROR WHILE GETTING SUBSCRIPTIONS DETAILS, ${error.toString()} $stackTrace');
+        print(AppGetUserSubscriptionsDetailsErrorState());
+      });
+    }
   }
 
 
@@ -1189,7 +1218,7 @@ class AppCubit extends Cubit<AppStates>
             {
               'type':file.extension,
               'name':file.name,
-              'result':'real', //TBD, Must be returned by back-end through AI Model
+              //'result':'real', //TBD, Must be returned by back-end through AI Model
               'text': await MultipartFile.fromFile(file.path!, filename: file.name),
             });
 

@@ -186,6 +186,11 @@ const Map<String,String> ar={
 
   'language_name_general_settings':'اللغة',
 
+  'manage_your_subscriptions_settings':'إشتراكاتك',
+
+  'manage_your_subscriptions_button':'إدارة',
+
+
   // A USER PROFILE PAGE:
 
   'appBar_title_a_user_profile':'صفحة المستخدم',
@@ -496,6 +501,10 @@ const Map<String,String> en={
   'language_general_Settings':'Main Language',
 
   'language_name_general_settings':'Language',
+
+  'manage_your_subscriptions_settings':'Your Subscriptions',
+
+  'manage_your_subscriptions_button':'Manage',
 
 
   // A USER PROFILE PAGE:

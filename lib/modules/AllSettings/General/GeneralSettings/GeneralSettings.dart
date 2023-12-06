@@ -6,6 +6,7 @@ import 'package:deepfake_detection/shared/network/local/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../shared/styles/colors.dart';
+import 'ManageUserSubscriptions.dart';
 
 class GeneralSettings extends StatefulWidget {
   GeneralSettings({super.key});
@@ -28,6 +29,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
         builder: (context,state)
         {
           var cubit= AppCubit.get(context);
+
           return Directionality(
             textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
             child: Scaffold(
@@ -58,15 +60,19 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 
                           const SizedBox(width: 10,),
 
-                          Text(
-                            Localization.translate('language_general_Settings'),
-                            style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500
+                          Expanded(
+                            child: Text(
+                              Localization.translate('language_general_Settings'),
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis
+                              ),
                             ),
                           ),
 
-                          const Spacer(),
+                          //const Spacer(),
 
                           Expanded(
                             child: FormField<String>(
@@ -134,6 +140,49 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 
                         ],
                       ),
+
+                      const SizedBox(height: 20,),
+
+                      Row(
+                        children:
+                        [
+                          const Icon(Icons.perm_contact_cal_outlined, size: 22,),
+
+                          const SizedBox(width: 10,),
+
+                          Expanded(
+                            child: Text(
+                              Localization.translate('manage_your_subscriptions_settings'),
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  overflow: TextOverflow.ellipsis
+                              ),
+                            ),
+                          ),
+
+                          //const Spacer(),
+
+                          TextButton(
+                            onPressed: ()
+                            {
+                              cubit.getSubscriptionsDetails();
+                              navigateTo(context, const ManageUserSubscriptions());
+                            },
+                            child: Text(
+                              Localization.translate('manage_your_subscriptions_button'),
+                              style: TextStyle(
+                                color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+
                     ],
                   ),
                 ),

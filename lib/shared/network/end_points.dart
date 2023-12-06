@@ -20,6 +20,8 @@ const userPosts= 'posts/me';
 
 const subscriptions='getSubscriptions';
 
+const subscriptionsDetails='getSubscriptionsDetails';
+
 const manageSubs='manageSubscription';
 
 const logoutOneToken='users/logout';

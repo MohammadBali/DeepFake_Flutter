@@ -49,6 +49,17 @@ class AppGetUserSubscriptionsErrorState extends AppStates{}
 //-----------------------------------------------
 
 
+//GET USER SUBSCRIPTIONS
+
+class AppGetUserSubscriptionsDetailsLoadingState extends AppStates{}
+
+class AppGetUserSubscriptionsDetailsSuccessState extends AppStates{}
+
+class AppGetUserSubscriptionsDetailsErrorState extends AppStates{}
+
+
+//-----------------------------------------------
+
 //MANAGE SUBSCRIPTIONS
 
 class AppManageSubscriptionsLoadingState extends AppStates{}
