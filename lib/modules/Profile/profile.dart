@@ -1,6 +1,7 @@
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/modules/AllSettings/General/Appearance/appearance.dart';
+import 'package:deepfake_detection/modules/AllSettings/General/LearnMore/LearnMore.dart';
 import 'package:deepfake_detection/modules/AllSettings/Personal/EditProfile/editProfile.dart';
 import 'package:deepfake_detection/modules/AllSettings/Personal/PreviousInquiries/UserInquiries.dart';
 import 'package:deepfake_detection/modules/AllSettings/Personal/YourPosts/UserPosts.dart';
@@ -138,7 +139,7 @@ class Profile extends StatelessWidget {
                                   text: Localization.translate('learn_more_profile'),
                                   onTap: ()
                                   {
-
+                                    navigateTo(context, const LearnMore());
                                   }
                               ),
 
@@ -278,7 +279,7 @@ class Profile extends StatelessWidget {
                                     text: Localization.translate('learn_more_profile'),
                                     onTap: ()
                                     {
-
+                                      navigateTo(context, const LearnMore());
                                     }
                                 ),
 

@@ -312,7 +312,23 @@ const Map<String,String> ar={
 
   'exit_app_no':'لا',
 
+  //--------------------------------------------------------------------\\
 
+  //LEARN MORE PAGE:
+
+  'learn_more_page_title':'شكرا لاستخدامكم DeepGuard!',
+
+  'learn_more_page_ai_dev':'مبرمجي قسم الذكاء:',
+
+  'learn_more_page_software_dev':'مبرمجي قسم هندسة البرمجيات:',
+
+  'farah_haltey':'فرح الحلتي',
+
+  'mina_ibrahim':'مينا إبراهيم',
+
+  'mohammad_bali':'محمد البالي',
+
+  'raneem_zerkley':'رنيم الزركلي',
 
 };
 
@@ -627,6 +643,22 @@ const Map<String,String> en={
 
   'exit_app_no':'NO',
 
+  //--------------------------------------------------------------------\\
 
+  //LEARN MORE PAGE:
+
+  'learn_more_page_title':'Thanks For Using DeepGuard!',
+
+  'learn_more_page_ai_dev':'AI Developers:',
+
+  'learn_more_page_software_dev':'Software Developers:',
+
+  'farah_haltey':'Farah Al Halteh',
+
+  'mina_ibrahim':'Mina Ibrahim',
+
+  'mohammad_bali':'Mohammad Al Bali',
+
+  'raneem_zerkley':'Raneem Al Zerkly',
 
 };
