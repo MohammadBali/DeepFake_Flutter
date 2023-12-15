@@ -219,7 +219,7 @@ class _TextFilesState extends State<TextFiles> {
 
                           builder: (context)=>Expanded(
                             child: Center(
-                              child: cubit.chosenFile ==null ? SizedBox(
+                              child: cubit.chosenTextFile ==null ? SizedBox(
                                 height: MediaQuery.of(context).size.height /5,
                                 width: MediaQuery.of(context).size.width /2,
                                 child: defaultBox(
@@ -235,7 +235,7 @@ class _TextFilesState extends State<TextFiles> {
                                   ),
                                   onTap: ()
                                   {
-                                    cubit.pickFile();
+                                    cubit.pickTextFile();
                                   },
                                 ),
                               ) :
@@ -254,7 +254,7 @@ class _TextFilesState extends State<TextFiles> {
                                       [
                                         Expanded(
                                           child: Text(
-                                            cubit.chosenFile!.name.capitalize!,
+                                            cubit.chosenTextFile!.name.capitalize!,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: cubit.isDarkTheme? defaultSecondaryDarkColor : Colors.white,
@@ -268,7 +268,7 @@ class _TextFilesState extends State<TextFiles> {
                                         const SizedBox(width: 5,),
 
                                         ConditionalBuilder(
-                                          condition: cubit.chosenFile !=null,
+                                          condition: cubit.chosenTextFile !=null,
 
                                           fallback: (context)=> const Icon(Icons.folder_open_rounded),
 
@@ -276,7 +276,7 @@ class _TextFilesState extends State<TextFiles> {
                                             child: const Icon(Icons.remove, color: Colors.redAccent,),
                                             onTap: ()
                                             {
-                                              cubit.removeFile();
+                                              cubit.removeTextFile();
                                             },
                                           ),
                                         ),
@@ -286,7 +286,7 @@ class _TextFilesState extends State<TextFiles> {
                                     ),
                                     onTap: ()
                                     async {
-                                      openFile(cubit.chosenFile!.path!);
+                                      openFile(cubit.chosenTextFile!.path!);
                                     },
                                   ),
                                 ),
@@ -370,12 +370,12 @@ class _TextFilesState extends State<TextFiles> {
                               async {
                                 if(currentFeed == Localization.translate('text_choose_file_option'))
                                 {
-                                  if(cubit.chosenFile!=null)
+                                  if(cubit.chosenTextFile!=null)
                                   {
 
                                     cubit.uploadTextInquiry(
 
-                                      file:cubit.chosenFile!,
+                                      file:cubit.chosenTextFile!,
 
                                       onSendProgress: (int sent, int total)
                                       {
@@ -384,7 +384,7 @@ class _TextFilesState extends State<TextFiles> {
 
                                     ).then((value)
                                     {
-                                      cubit.removeFile();
+                                      cubit.removeTextFile();
 
                                     }).catchError((error)
                                     {
@@ -420,7 +420,7 @@ class _TextFilesState extends State<TextFiles> {
 
                                     ).then((value) async
                                     {
-                                      cubit.removeFile();
+                                      cubit.removeTextFile();
                                     }).catchError((error)
                                     {
                                       defaultToast(msg: error.toString());
@@ -575,7 +575,7 @@ class _TextFilesState extends State<TextFiles> {
                               condition: currentFeed == Localization.translate('text_choose_file_option'),
 
                               builder: (context)=>Center(
-                                child: cubit.chosenFile ==null ? SizedBox(
+                                child: cubit.chosenTextFile ==null ? SizedBox(
                                   height: MediaQuery.of(context).size.height /5,
                                   width: MediaQuery.of(context).size.width /2,
                                   child: defaultBox(
@@ -591,7 +591,7 @@ class _TextFilesState extends State<TextFiles> {
                                     ),
                                     onTap: ()
                                     {
-                                      cubit.pickFile();
+                                      cubit.pickTextFile();
                                     },
                                   ),
                                 ) :
@@ -610,7 +610,7 @@ class _TextFilesState extends State<TextFiles> {
                                         [
                                           Expanded(
                                             child: Text(
-                                              cubit.chosenFile!.name.capitalize!,
+                                              cubit.chosenTextFile!.name.capitalize!,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 color: cubit.isDarkTheme? defaultSecondaryDarkColor : Colors.white,
@@ -624,7 +624,7 @@ class _TextFilesState extends State<TextFiles> {
                                           const SizedBox(width: 5,),
 
                                           ConditionalBuilder(
-                                            condition: cubit.chosenFile !=null,
+                                            condition: cubit.chosenTextFile !=null,
 
                                             fallback: (context)=> const Icon(Icons.folder_open_rounded),
 
@@ -632,7 +632,7 @@ class _TextFilesState extends State<TextFiles> {
                                               child: const Icon(Icons.remove, color: Colors.redAccent,),
                                               onTap: ()
                                               {
-                                                cubit.removeFile();
+                                                cubit.removeTextFile();
                                               },
                                             ),
                                           ),
@@ -642,7 +642,7 @@ class _TextFilesState extends State<TextFiles> {
                                       ),
                                       onTap: ()
                                       async {
-                                        openFile(cubit.chosenFile!.path!);
+                                        openFile(cubit.chosenTextFile!.path!);
                                       },
                                     ),
                                   ),
@@ -794,12 +794,12 @@ class _TextFilesState extends State<TextFiles> {
                                   color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
                                   onTap: ()
                                   {
-                                    if(cubit.chosenFile!=null)
+                                    if(cubit.chosenTextFile!=null)
                                     {
 
                                       cubit.uploadTextInquiry(
 
-                                        file:cubit.chosenFile!,
+                                        file:cubit.chosenTextFile!,
 
                                         onSendProgress: (int sent, int total)
                                         {
@@ -808,7 +808,7 @@ class _TextFilesState extends State<TextFiles> {
 
                                       ).then((value)
                                       {
-                                        cubit.removeFile();
+                                        cubit.removeTextFile();
 
                                       }).catchError((error)
                                       {

@@ -7,6 +7,7 @@ import 'package:deepfake_detection/models/NewsModel/NewsModel.dart';
 import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/models/SubscriptionsModel/SubscriptionsModel.dart';
 import 'package:deepfake_detection/models/UserDataModel/UserDataModel.dart';
+import 'package:deepfake_detection/modules/AudioFiles/audio_files.dart';
 import 'package:deepfake_detection/modules/ChatBot/chatBot.dart';
 import 'package:deepfake_detection/modules/Home/home.dart';
 import 'package:deepfake_detection/modules/Login/login.dart';
@@ -529,6 +530,7 @@ class AppCubit extends Cubit<AppStates>
   [
     Home(),
     const TextFiles(),
+    const AudioFiles(),
     const ChatBot(),
     const Profile(),
   ];
@@ -1213,6 +1215,8 @@ class AppCubit extends Cubit<AppStates>
         print('In Uploading Text Inquiry...');
         emit(AppUploadTextInquiryLoadingState());
 
+        defaultToast(msg: 'Uploading Text File...');
+
         //Set Data to be sent as Map
         final formData=FormData.fromMap(
             {
@@ -1262,12 +1266,12 @@ class AppCubit extends Cubit<AppStates>
 
  //-------------------------------------
 
-  //FILE PICKER
+  //FILE PICKER FOR TEXT FILES
 
-  PlatformFile? chosenFile;
+  PlatformFile? chosenTextFile;
 
   //Pick a File from storage
-  void pickFile() async
+  void pickTextFile() async
   {
     emit(AppGetFileLoadingState());
 
@@ -1276,7 +1280,7 @@ class AppCubit extends Cubit<AppStates>
       FilePickerResult? result= await FilePicker.platform.pickFiles(allowedExtensions: ['docx','pdf','doc','txt'], type: FileType.custom, allowMultiple: false, );
       if(result !=null)
       {
-        chosenFile=result.files.first;
+        chosenTextFile=result.files.first;
 
         emit(AppGetFileSuccessState());
       }
@@ -1297,12 +1301,116 @@ class AppCubit extends Cubit<AppStates>
 
 
   //Discard chosen file
-  void removeFile()
+  void removeTextFile()
   {
-    chosenFile=null;
+    chosenTextFile=null;
     emit(AppRemoveFileState());
   }
 
+
+  //------------------------------------
+
+  //FILE PICKER FOR AUDIO FILES
+
+  PlatformFile? chosenAudioFile;
+
+  //Pick and Audio File from storage
+  void pickAudioFile()async
+  {
+    emit(AppGetAudioFileLoadingState());
+
+    try
+    {
+      FilePickerResult? result= await FilePicker.platform.pickFiles(allowedExtensions: ['mp3','wav'], type: FileType.custom, allowMultiple: false, );
+      if(result !=null)
+      {
+        chosenAudioFile=result.files.first;
+
+        emit(AppGetAudioFileSuccessState());
+      }
+      else
+      {
+        print('AUDIO FILE PICKER RESULT IS NULL');
+        emit(AppGetAudioFileErrorState());
+      }
+
+    }catch (e)
+    {
+      print('ERROR WHILE PICKING AN AUDIO FILE, ${e.toString()}');
+
+      defaultToast(msg: e.toString());
+      emit(AppGetFileErrorState());
+    }
+  }
+
+  //Discard chosen file
+  void removeAudioFile()
+  {
+    chosenAudioFile=null;
+    emit(AppRemoveAudioFileState());
+  }
+
+
+  Inquiry? uploadedAudioInquiryModel;
+
+  Future<bool> uploadAudioInquiry( {required PlatformFile file, void Function(int, int)? onSendProgress}) async
+  {
+    bool boolToReturn=false;
+    if(file.size <= maxAudioFileSize)
+    {
+
+      print('In Uploading Audio Inquiry...');
+
+      defaultToast(msg: 'Uploading Audio File...');
+
+      emit(AppUploadAudioInquiryLoadingState());
+
+      //Set Data to be sent as Map
+      final formData=FormData.fromMap(
+          {
+            'type':file.extension,
+            'name':file.name,
+            'result':'real', //TBD, Must be returned by back-end through AI Model
+            'audio': await MultipartFile.fromFile(file.path!, filename: file.name),
+          });
+
+      MainDioHelper.postFileData(
+        url: addAudioInquiry,
+        data:formData,
+        token: token,
+        onSendProgress: onSendProgress,
+
+      ).then((value) {
+
+        print('Got UploadAudioInquiry Data...');
+
+        uploadedAudioInquiryModel= Inquiry.fromJson(value.data['inquiry']);
+
+        emit(AppUploadAudioInquirySuccessState());
+
+        getInquiries(); //Ask For New Inquiries
+
+        boolToReturn=true;
+
+        defaultToast(msg: Localization.translate('upload_audio_inquiry_successfully_toast'));
+
+      }).catchError((error)
+      {
+        print('ERROR WHILE UPLOADING AUDIO INQUIRY, ${error.toString()}');
+        emit(AppUploadAudioInquiryErrorState());
+
+        boolToReturn=false;
+      });
+
+      return boolToReturn;
+    }
+
+    else
+    {
+      defaultToast(msg: '${Localization.translate('big_file_size_toast')}, ${byteToMB(maxTextFileSize)} MB', length: Toast.LENGTH_LONG);
+      return false;
+    }
+  }
 
  //----------------------------------------------
 

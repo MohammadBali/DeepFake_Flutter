@@ -1,6 +1,10 @@
-const String localhost= 'http://192.168.1.1:3000/'; //'http://10.0.0.2:3000/';
+//const String localhost= 'https://conversely-inviting-gelding.ngrok-free.app/'; // 'http://10.0.0.2:3000/'
 
-const String webSocketLocalHost= 'ws://192.168.1.1:3000/webSocket';
+const String localhost= 'http://192.168.1.1:3000/';
+
+//const String webSocketLocalHost= 'ws://conversely-inviting-gelding.ngrok-free.app/webSocket';  // ws://192.168.1.1:3000/webSocket
+
+const String webSocketLocalHost= 'ws://192.168.1.1:3000/webSocket';  // ws://192.168.1.1:3000/webSocket
 
 //USER ENDPOINTS
 
@@ -30,6 +34,8 @@ const logoutOneToken='users/logout';
 //INQUIRIES ENDPOINTS
 
 const addTextInquiry='addTextInquiry';
+
+const addAudioInquiry='addAudioInquiry';
 
 const getUserInquiries='inquiries/me';
 

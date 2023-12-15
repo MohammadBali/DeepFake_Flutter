@@ -12,6 +12,7 @@ const Map<String,String> ar={
   'text_bnb':'ملف',
   'bot_bnb':'بوت',
   'profile_bnb':'الملف الشخصي',
+  'audio_bnb':'صوت',
 
   //Login:
 
@@ -79,6 +80,14 @@ const Map<String,String> ar={
   'text_add_string_post_name':'أضف عنواناً',
 
   'text_add_string_no_text':'أضف نصاً',
+
+  //AUDIO PAGE:
+
+  'audio_title':'ارفع ملفاً صوتياً',
+  'audio_second_title':'قم باختيار ملفٍ صوتي',
+
+
+
 
 
 
@@ -276,6 +285,12 @@ const Map<String,String> ar={
   'upload_text_no_data_toast':'لا يوجد ملف ليتم رفعه',
 
 
+  //UPLOAD Audio INQUIRY
+
+  'upload_audio_inquiry_successfully_toast':'تم الرفع بنجاح',
+  'upload_audio_no_data_toast':'لا يوجد ملف ليتم رفعه',
+
+
   //TOO BIG FILE SIZE
 
   'big_file_size_toast':'إن حجم الملف المختار أكبر من',
@@ -347,6 +362,7 @@ const Map<String,String> en={
   'text_bnb':'Text',
   'bot_bnb':'Bot',
   'profile_bnb':'Profile',
+  'audio_bnb':'Audio',
 
   //Login:
 
@@ -412,6 +428,13 @@ const Map<String,String> en={
   'text_add_string_post_name':'Add Title',
 
   'text_add_string_no_text':'Enter Text Please',
+
+  //AUDIO PAGE:
+
+  'audio_title':'Upload Audio File',
+  'audio_second_title':'Choose an Audio to Upload',
+
+
 
   //BOT PAGE:
 
@@ -606,6 +629,12 @@ const Map<String,String> en={
 
   'upload_text_inquiry_successfully_toast':'Uploaded Successfully',
   'upload_text_no_data_toast':'No Data to Upload',
+
+
+    //UPLOAD Audio INQUIRY
+
+  'upload_audio_inquiry_successfully_toast':'Uploaded Audio Successfully',
+  'upload_audio_no_data_toast':'No Data to Upload',
 
 
   //TOO BIG FILE SIZE

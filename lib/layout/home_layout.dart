@@ -48,6 +48,8 @@ class HomeLayout extends StatelessWidget {
 
                     BottomNavigationBarItem(label: Localization.translate('text_bnb') , icon: const Icon(Icons.file_present_rounded)),
 
+                    BottomNavigationBarItem(label: Localization.translate('audio_bnb') ,icon: const Icon(Icons.audiotrack_rounded)),
+
                     BottomNavigationBarItem(label: Localization.translate('bot_bnb') ,icon: const Icon(Icons.person_4_rounded)),
 
                     BottomNavigationBarItem(label: Localization.translate('profile_bnb') , icon: const Icon(Icons.person_rounded)),
