@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
@@ -356,6 +357,8 @@ class _TextFilesState extends State<TextFiles> {
                         ),
 
                         SizedBox(height: currentFeed == Localization.translate('text_choose_file_option') ? 10 : 25,),
+
+                        
 
                         Center(
                           child: ConditionalBuilder(

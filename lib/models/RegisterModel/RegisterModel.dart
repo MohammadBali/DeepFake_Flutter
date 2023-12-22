@@ -25,7 +25,7 @@ class RegisterModel
     }
     if(json['message']!=null)
     {
-      message=RegisterErrorMessage.fromJson(json['message']);
+      message=RegisterErrorMessage.fromJson(json);  //json['message']
     }
   }
 }
@@ -37,8 +37,15 @@ class RegisterErrorMessage
   String? message;
   RegisterErrorMessage.fromJson(Map<String,dynamic>json)
   {
-    globalMessage=json['_message'];
-    name=json['name'];
-    message=json['message'];
+    try
+    {
+      globalMessage=json['error'];  //_message
+      message=json['message'];
+      //name=json['name'];
+    }
+    catch(e)
+    {
+      print('ERROR IN REGISTER ERROR MESSAGE, ${e.toString()}');
+    }
   }
 }
