@@ -205,13 +205,23 @@ class _HomeState extends State<Home> {
 
                         fallback: (context)=> ConditionalBuilder(
                           condition: cubit.subscriptionsPostsModel !=null,
-                          builder: (context)=>ListView.separated(
+
+                          builder: (context)=>
+                          cubit.subscriptionsPostsModel!.posts!.isNotEmpty
+                          ? ListView.separated(
                             itemCount: cubit.subscriptionsPostsModel!.posts!.length,
                             separatorBuilder: (context,index)=>const SizedBox(height: 25,),
                             itemBuilder: (context,index)=>postItemBuilder(cubit: cubit, post: cubit.subscriptionsPostsModel!.posts![index], context: context),
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
+                          )
+                          : Center(
+                              child: Text(
+                                Localization.translate('my_feed_no_posts'),
+                                style: const TextStyle(fontSize: 14,),
+                              )
                           ),
+
                           fallback: (context)=> Center(child: defaultProgressIndicator(context),),
                         ),
                       ),

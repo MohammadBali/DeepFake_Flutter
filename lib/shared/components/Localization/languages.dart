@@ -60,6 +60,8 @@ const Map<String,String> ar={
 
   'my_feed_home':'المحتوى المشترك به',
 
+  'my_feed_no_posts':'لم ينشر المشتركون بهم أية منشورات بعد!',
+
   //NEWS:
 
   'news_title':'أخبار الذكاء الصنعي',
@@ -81,12 +83,27 @@ const Map<String,String> ar={
 
   'text_add_string_no_text':'أضف نصاً',
 
+
+  'textPage_helper_title':'قسم الملفات',
+  'textPage_helper_body1':' ملف أو نص: يمكنك رفع ملف أو كتابة النص بشكل فوري لاكتشاف التزييف',
+  'textPage_helper_body2':'ارفع الملف: كل ما عليك هو الاختيار وانتظار النتائج',
+  'textPage_helper_body3':'إنشر نتائجك: يمكنك نشر المرفوع كمنشور بعد عودة النتائج',
+  'textPage_helper_body4':'ملاحظة: إن المرفوع لا يُنشر بشكل تلقائي, لك حرية الاختيار بين النشر من عدمه',
+
+
   //AUDIO PAGE:
 
   'audio_title':'ارفع ملفاً صوتياً',
   'audio_second_title':'قم باختيار ملفٍ صوتي',
 
 
+  //HOME PAGE:
+
+  'home_helper_title':'الصفحة الرئيسية',
+  'home_helper_body1':'أخبار الذكاء: قسم يُنشر به آخر الأخبار المتعلقة بالذكاء الصنعي',
+  'home_helper_body2':'المحتوى: يُظهر المحتوى المنشورات الأحدث التي نشرها المستخدمون حول التطبيق',
+  'home_helper_body3':'المحتوى المشترك به: يُظهر المنشورات الخاصة بالمستخدمين الذين اشتركت بهم مسبقاً',
+  'home_helper_body4':'يمكنك التفاعل مع أي من المنشورات بإعجاب أو تعليق, والتي بدورها تتحدث بشكل آني',
 
 
 
@@ -129,6 +146,8 @@ const Map<String,String> ar={
 
   'no_your_posts':'كلا',
 
+  'no_posts_available':'لم تقم بنشر أية مرفوعات بعد!',
+
 
   //Post Details Page:
 
@@ -157,6 +176,8 @@ const Map<String,String> ar={
 
   'fake_your_inquiries':'مزيف',
 
+  'no_inquiries_available':'لم تقم برفع أية مرفوعات بعد!',
+
 
   //INQUIRY DETAILS PAGE:
 
@@ -169,6 +190,14 @@ const Map<String,String> ar={
   'correct_result_inquiry_details':'المعلومات صحيحة',
 
   'fake_result_inquiry_details':'المعلومات غير صحيحة',
+
+  'inquiry_details_helper_title':'تفاصيل المرفوع',
+
+  'inquiry_details_helper_body1':'المرفوع: تحقق ما إذا كانت البيانات مزيفة أم لا',
+
+  'inquiry_details_helper_body2':'الملف: بوسعك استعراض الملف الذي قمت برفعه',
+
+  'inquiry_details_helper_body3':'النشر: يمكنك نشر المرفوع كمنشور ليراه الآخرون عبر التطبيق',
 
 
 
@@ -187,6 +216,8 @@ const Map<String,String> ar={
 
   'dark_mode_appearance':'الوضع الداكن',
 
+  'showHelp_appearance':'إظهار المساعدات',
+
   //GENERAL SETTINGS PAGE:
 
   'appBar_title_general_settings':'الإعدادات العامة',
@@ -199,6 +230,17 @@ const Map<String,String> ar={
 
   'manage_your_subscriptions_button':'إدارة',
 
+  'arabic_general_settings':'العربية',
+
+  'english_general_settings':'الإنجليزية',
+
+  'no_subscriptions_available':'لم تشترك بأية مستخدمين بعد!\nاشترك ببعض المستخدمين',
+
+  'manage_subscriptions_helper_title':'إشتراكاتك',
+
+  'manage_subscriptions_helper_body1':'المستخدمون: يمكنك مراجعة اشتراكاتك من هنا',
+
+  'manage_subscriptions_helper_body2':' عدم ظهور أية مستخدمين يعني أنك لم تشترك بأية مستخدمين بعد',
 
   // A USER PROFILE PAGE:
 
@@ -408,6 +450,8 @@ const Map<String,String> en={
 
   'my_feed_home':'My Feed',
 
+  'my_feed_no_posts':'Your subscriptions have not shared anything yet!',
+
   //HOME PAGE:
 
   'news_title':'AI News',
@@ -429,10 +473,26 @@ const Map<String,String> en={
 
   'text_add_string_no_text':'Enter Text Please',
 
+
+  'textPage_helper_title':'TEXT FILE PAGE',
+  'textPage_helper_body1':'File or Text: You can either upload a file, or write your data instantly',
+  'textPage_helper_body2':'Upload Your File: Choose and just wait for the results back',
+  'textPage_helper_body3':'Share Your Inquiry: You can share your inquiry as a post after the results are back',
+  'textPage_helper_body4':'NOTE: Your inquiry does not get shared automatically as a post, you have the right to share or not',
+
   //AUDIO PAGE:
 
   'audio_title':'Upload Audio File',
   'audio_second_title':'Choose an Audio to Upload',
+
+
+  //HOME PAGE:
+
+  'home_helper_title':'HOME PAGE',
+  'home_helper_body1':'AI News: Section to show latest news about AI',
+  'home_helper_body2':'Feed: Shows the latest posts that users have shared in the app!',
+  'home_helper_body3':'My Feed: Shows the latest posts of users you have subscribed to',
+  'home_helper_body4':'You can interact with any post with a like or comment, which are updated with real time connection',
 
 
 
@@ -474,6 +534,8 @@ const Map<String,String> en={
 
   'no_your_posts':'NO',
 
+  'no_posts_available':'You have not posted any inquiries yet!',
+
 
   //Post Details Page:
 
@@ -502,6 +564,8 @@ const Map<String,String> en={
 
   'fake_your_inquiries':'FAKE',
 
+  'no_inquiries_available':'You have not uploaded any inquiries yet!',
+
 
   //INQUIRY DETAILS PAGE:
 
@@ -514,6 +578,18 @@ const Map<String,String> en={
   'correct_result_inquiry_details':'Valid Data',
 
   'fake_result_inquiry_details':'Fake Data',
+
+  'inquiry_details_helper_title':'INQUIRY DETAILS',
+
+  'inquiry_details_helper_body1':'Inquiry: Check if the data is deep-faked or not',
+
+  'inquiry_details_helper_body2':'File: You can open the file you have uploaded',
+
+  'inquiry_details_helper_body3':'Share: You can share your inquiry as a post and everyone at the app will be able to view it',
+
+
+
+
 
 
 
@@ -532,6 +608,8 @@ const Map<String,String> en={
 
   'dark_mode_appearance':'Dark Mode',
 
+  'showHelp_appearance':'Show Help',
+
 
   //GENERAL SETTINGS PAGE:
 
@@ -544,6 +622,18 @@ const Map<String,String> en={
   'manage_your_subscriptions_settings':'Your Subscriptions',
 
   'manage_your_subscriptions_button':'Manage',
+
+  'arabic_general_settings':'Arabic',
+
+  'english_general_settings':'English',
+
+  'no_subscriptions_available':'You\'ve not subscribed to any users yet!\nSubscribe to some users',
+
+  'manage_subscriptions_helper_title':'SUBSCRIPTIONS',
+
+  'manage_subscriptions_helper_body1':'Users: Here you can view whom you have subscribed to',
+
+  'manage_subscriptions_helper_body2':'If no users are shown, then you\'ve not subscribed to any yet',
 
 
   // A USER PROFILE PAGE:

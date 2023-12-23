@@ -123,7 +123,9 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                                           child: Row(
                                             children: [
                                               Text(
-                                                value == 'ar' ? 'Arabic' : 'English'
+                                                value == 'ar' ? Localization.translate('arabic_general_settings') : Localization.translate('english_general_settings'),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
                                               ),
                                             ],
                                           ),

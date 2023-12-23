@@ -151,8 +151,8 @@ class MyApp extends StatelessWidget {
         [
           BlocProvider(create: (BuildContext  context)
           {
-            //AppCubit.setListener(wsChannel);
-            return AppCubit(wsChannel)..setListener(wsChannel)..changeTheme(themeFromState: isDark)..getUserData()..getPosts()..getUserPosts()..getNews()..getInquiries()..getSubscriptions()..getSubscriptionsPosts();
+            //AppCubit.setListener(wsChannel);  //setListener(wsChannel)
+            return AppCubit(wsChannel)..setListener()..changeTheme(themeFromState: isDark)..getUserData()..getPosts()..getUserPosts()..getNews()..getInquiries()..getSubscriptions()..getSubscriptionsPosts();
           }),
         ],
         child: BlocConsumer<AppCubit,AppStates>(

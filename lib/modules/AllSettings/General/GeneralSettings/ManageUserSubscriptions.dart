@@ -31,6 +31,47 @@ class ManageUserSubscriptions extends StatelessWidget {
                   color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
                   fontFamily: 'WithoutSans',
                   fontWeight: FontWeight.w600),),
+
+              actions:
+              [
+                Visibility(
+                  visible: cubit.showHelpDialogs,
+                  child: IconButton(
+                    icon: const Icon(Icons.question_mark),
+
+                    onPressed: ()
+                    {
+                      showDialog(
+                          context: context,
+                          builder: (dialogContext)
+                          {
+                            return defaultAlertDialog(
+                              context: dialogContext,
+                              title: Localization.translate('manage_subscriptions_helper_title'),
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children:
+                                  [
+                                    Text(Localization.translate('manage_subscriptions_helper_body1')),
+
+                                    const SizedBox(height: 10,),
+
+                                    Text(Localization.translate('manage_subscriptions_helper_body2')),
+
+                                    const SizedBox(height: 10,),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                      );
+                    },
+                  ),
+                ),
+              ],
               ),
 
               body: RefreshIndicator(
@@ -47,7 +88,8 @@ class ManageUserSubscriptions extends StatelessWidget {
                       condition: cubit.subscriptionsDetailsModel !=null && cubit.subscriptionsDetailsModel?.subscriptions!=null,
                       fallback: (context)=> Center(child: defaultProgressIndicator(context)),
 
-                      builder: (context)=>ListView.separated(
+                      builder: (context)=> cubit.subscriptionsDetailsModel!.subscriptions!.isNotEmpty
+                        ? ListView.separated(
                         itemBuilder: (context,index)=>itemBuilder(context: context, item: cubit.subscriptionsDetailsModel!.subscriptions![index], cubit: cubit),
                         separatorBuilder: (context,index)=>Column(
                           children:
@@ -60,6 +102,12 @@ class ManageUserSubscriptions extends StatelessWidget {
                         itemCount: cubit.subscriptionsDetailsModel!.subscriptions!.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
+                      )
+                        : Center(
+                          child: Text(
+                            Localization.translate('no_subscriptions_available'),
+                            style: const TextStyle(fontSize: 14,),
+                          ),
                       ),
                     ),
                   ),

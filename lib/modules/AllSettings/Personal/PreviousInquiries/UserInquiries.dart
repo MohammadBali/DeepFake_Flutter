@@ -66,7 +66,9 @@ class UserInquiries extends StatelessWidget {
                     [
                       ConditionalBuilder(
                         condition: cubit.inquiryModel !=null,
-                        builder: (context)=>ListView.separated(
+
+                        builder: (context)=>cubit.inquiryModel!.inquiries!.isNotEmpty
+                            ? ListView.separated(
                           itemBuilder: (context,index)=>itemBuilder(inquiry: cubit.inquiryModel!.inquiries![index], cubit: cubit, context: context),
                           separatorBuilder: (context,index)=> Column(
                             children:
@@ -79,7 +81,13 @@ class UserInquiries extends StatelessWidget {
                           itemCount: cubit.inquiryModel!.inquiries!.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                        ),
+                        )
+
+                            : Center(child: Text(
+                              Localization.translate('no_inquiries_available'),
+                              style: const TextStyle(fontSize: 14,),
+                              ),),
+
                         fallback: (context)=> Center(child: defaultProgressIndicator(context)),
                       ),
                     ],

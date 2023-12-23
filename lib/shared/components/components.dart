@@ -14,6 +14,7 @@ import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:open_file_plus/open_file_plus.dart';
+import 'package:string_extensions/string_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'Localization/Localization.dart';
 import 'constants.dart';
@@ -501,7 +502,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
                   const SizedBox(height: 8,),
 
                   Text(
-                    post.owner!.name!.length >10 ? '${ post.owner!.name!.substring(0,10)}...' :  post.owner!.name!  ,
+                    post.owner!.name!.length >10 ? '${ post.owner!.name!.substring(0,10).capitalize!}...' :  post.owner!.name!.capitalize!  ,
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,

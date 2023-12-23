@@ -43,6 +43,48 @@ class InquiryDetails extends StatelessWidget {
                     },
                     icon: const Icon(Icons.share_rounded)
                   ),
+
+                  Visibility(
+                    visible: cubit.showHelpDialogs,
+                    child: IconButton(
+                      icon: const Icon(Icons.question_mark),
+
+                      onPressed: ()
+                      {
+                        showDialog(
+                            context: context,
+                            builder: (dialogContext)
+                            {
+                              return defaultAlertDialog(
+                                context: dialogContext,
+                                title: Localization.translate('inquiry_details_helper_title'),
+                                content: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children:
+                                    [
+                                      Text(Localization.translate('inquiry_details_helper_body1')),
+
+                                      const SizedBox(height: 10,),
+
+                                      Text(Localization.translate('inquiry_details_helper_body2')),
+
+                                      const SizedBox(height: 10,),
+
+                                      Text(Localization.translate('inquiry_details_helper_body3')),
+
+                                      const SizedBox(height: 10,),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
 

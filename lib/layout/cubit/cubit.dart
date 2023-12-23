@@ -35,8 +35,8 @@ class AppCubit extends Cubit<AppStates>
 
   static AppCubit get(context)=> BlocProvider.of(context);
 
-  //SET LISTENER FOR WEB SOCKETS, DEFAULT CALLED BY MAIN
-   void setListener(IOWebSocketChannel awsChannel) {
+  //SET LISTENER FOR WEB SOCKETS, DEFAULT CALLED BY MAIN  //IOWebSocketChannel awsChannel
+   void setListener() {
     wsChannel.stream.listen((message)
     {
       //Parse JSON from String
@@ -103,13 +103,22 @@ class AppCubit extends Cubit<AppStates>
   }
 
   // Re-connect and listen to wsChannel
-   void _reConnectWsChannel()
+  void _reConnectWsChannel()
+  {
+   if(wsChannel !=null && wsChannel.sink !=null && wsChannel.closeCode !=null)
    {
-     print('Reconnecting WSChannel');
+     print('Closing Connection before initializing another...');
+     //Close previous connection
+     wsChannel.sink.close();
+   }
+
+   if(isActive)
+   {
+     print('Reconnecting WSChannel, app is Active ');
      wsChannel= IOWebSocketChannel.connect(webSocketLocalHost);
-     
-     setListener(wsChannel);
-  }
+     setListener();  //wsChannel
+   }
+}
 
   //WEB SOCKETS
 
@@ -154,7 +163,7 @@ class AppCubit extends Cubit<AppStates>
 
     else
       {
-        print('Could not modify likes, Post Model is Null');
+        print('Did not modify likes in postModel, Post Model is Null');
       }
 
     if(subscriptionsPostsModel !=null)
@@ -192,7 +201,7 @@ class AppCubit extends Cubit<AppStates>
 
     else
     {
-      print('Could not modify likes, Subscriptions Post Model is Null');
+      print('Did not modify likes in subscriptionsPostsModel, Subscriptions Post Model is Null');
     }
 
 
@@ -230,7 +239,7 @@ class AppCubit extends Cubit<AppStates>
       }
     else
       {
-        print('Could not modify likes, A User Post Model is Null');
+        print('Did not modify likes in aUserPostsModel, A User Post Model is Null');
       }
   }
 
@@ -497,8 +506,6 @@ class AppCubit extends Cubit<AppStates>
     wsChannel.sink.add(jsonEncode(data));
   }
 
-
-
   //Send Comment to Server by WebSockets
   void addComment({required String userID, required String postID, required String comment})
   {
@@ -573,6 +580,14 @@ class AppCubit extends Cubit<AppStates>
     emit(AppChangeLanguageState());
   }
 
+
+  //Show Help Dialogs Icons
+  bool showHelpDialogs = true;
+  void changeHelpDialog()
+  {
+    showHelpDialogs = !showHelpDialogs;
+    emit(AppChangeHelpState());
+  }
 
   //--------------------------------------------------\\
 

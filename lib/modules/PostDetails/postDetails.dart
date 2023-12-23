@@ -20,8 +20,8 @@ class PostDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Post post=globalPost;
+
     try
     {
       print(AppCubit.postModel!.posts!.indexOf(globalPost));
@@ -38,12 +38,18 @@ class PostDetails extends StatelessWidget {
         {
           if(state is AppWSAddLikePostModelSuccessState)
             {
+              if(state.post.id! == post.id!)
+              {
                 post=state.post;
+              }
             }
 
           if(state is AppWSModifyCommentPostModelSuccessState)
             {
-              post=state.post;
+              if(state.post.id! == post.id!)
+              {
+                post=state.post;
+              }
             }
 
           if(state is AppWSDeletePostPostModelSuccessState)

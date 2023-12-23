@@ -67,6 +67,41 @@ class Appearance extends StatelessWidget {
                         ),
                       ],
                     ),
+
+                    const SizedBox(height: 20,),
+
+                    Row(
+                      children:
+                      [
+                        const Icon(
+                          Icons.help_outlined,
+                          size: 22,
+                        ),
+
+                        const SizedBox(width: 10,),
+
+                        Text(
+                          Localization.translate('showHelp_appearance'),
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+
+                        const Spacer(),
+
+                        Switch(
+                          value: cubit.showHelpDialogs,
+                          onChanged: (bool newValue)
+                          {
+                            cubit.changeHelpDialog();
+                          },
+                          activeColor: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                          inactiveTrackColor: cubit.isDarkTheme? Colors.white: null,
+                          activeTrackColor: cubit.isDarkTheme? defaultDarkColor.withOpacity(0.5) : defaultColor.withOpacity(0.5),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

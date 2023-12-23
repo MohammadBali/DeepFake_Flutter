@@ -10,6 +10,8 @@ class AppChangeThemeModeState extends AppStates{}
 
 class AppChangeLanguageState extends AppStates{}
 
+class AppChangeHelpState extends AppStates{}
+
 //-----------------------------------------------
 
 //GET USER DATA

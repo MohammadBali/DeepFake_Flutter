@@ -65,7 +65,9 @@ class UserPosts extends StatelessWidget {
                     [
                       ConditionalBuilder(
                         condition: cubit.userPostsModel !=null,
-                        builder: (context)=>ListView.separated(
+
+                        builder: (context)=> cubit.userPostsModel!.posts!.isNotEmpty
+                            ? ListView.separated(
                             itemBuilder: (context,index)=>itemBuilder(post: cubit.userPostsModel!.posts![index], cubit: cubit, context: context),
                             separatorBuilder: (context,index)=> Column(
                               children:
@@ -78,7 +80,15 @@ class UserPosts extends StatelessWidget {
                             itemCount: cubit.userPostsModel!.posts!.length,
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
+                        )
+                            : Center(child: Text(
+                              Localization.translate('no_posts_available'),
+                              style: const TextStyle(
+                                fontSize: 14,
+                              ),
                         ),
+                        ),
+
                         fallback: (context)=> Center(child: defaultProgressIndicator(context)),
                       ),
                     ],
