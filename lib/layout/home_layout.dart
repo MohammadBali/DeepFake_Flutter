@@ -21,11 +21,13 @@ class HomeLayout extends StatelessWidget with WidgetsBindingObserver {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
+
     return BlocConsumer<AppCubit,AppStates>(
         listener: (context,state){},
         builder: (context,state)
         {
           var cubit= AppCubit.get(context);
+
           return Directionality(
             textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
             child: WillPopScope(
@@ -35,7 +37,7 @@ class HomeLayout extends StatelessWidget with WidgetsBindingObserver {
                   actions:
                   [
                     Visibility(
-                      visible: cubit.showHelpDialogs == true && [0,1].contains(cubit.currentBottomBarIndex),
+                      visible: cubit.showHelpDialogs == true && [0,1,2].contains(cubit.currentBottomBarIndex),
                       child: IconButton(
                         icon: const Icon(Icons.question_mark),
                         onPressed: ()
@@ -119,6 +121,45 @@ class HomeLayout extends StatelessWidget with WidgetsBindingObserver {
                                     );
                                   }
                               );
+                              break;
+
+                            case 2: //Multimedia Files
+
+                              showDialog(
+                                  context: context,
+                                  builder: (dialogContext)
+                                  {
+                                    return defaultAlertDialog(
+                                      context: dialogContext,
+                                      title: Localization.translate('multimediaPage_helper_title'),
+                                      content: SingleChildScrollView(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children:
+                                          [
+                                            Text(Localization.translate('multimediaPage_helper_body1')),
+
+                                            const SizedBox(height: 10,),
+
+                                            Text(Localization.translate('multimediaPage_helper_body2')),
+
+                                            const SizedBox(height: 10,),
+
+                                            Text(Localization.translate('multimediaPage_helper_body3')),
+
+                                            const SizedBox(height: 10,),
+
+                                            Text(Localization.translate('multimediaPage_helper_body4'), style: const TextStyle(decoration: TextDecoration.underline)),
+
+                                            const SizedBox(height: 10,),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }
+                              );
 
                               break;
 
@@ -146,7 +187,7 @@ class HomeLayout extends StatelessWidget with WidgetsBindingObserver {
 
                     BottomNavigationBarItem(label: Localization.translate('text_bnb') , icon: const Icon(Icons.file_present_rounded)),
 
-                    BottomNavigationBarItem(label: Localization.translate('audio_bnb') ,icon: const Icon(Icons.audiotrack_rounded)),
+                    BottomNavigationBarItem(label: Localization.translate('multimedia_bnb') ,icon: const Icon(Icons.video_collection_rounded)),
 
                     BottomNavigationBarItem(label: Localization.translate('bot_bnb') ,icon: const Icon(Icons.person_4_rounded)),
 

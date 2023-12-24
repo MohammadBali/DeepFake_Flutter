@@ -51,7 +51,7 @@ class ChatScreen extends StatelessWidget {
                           condition: cubit.messageModel!.messages!.isNotEmpty,
 
                           fallback: (context)=> Text(
-                            'Send a Message Now!',
+                            Localization.translate('chat_screen_no_text_title'),
                             style: TextStyle(
                               color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
                               fontSize: 18,

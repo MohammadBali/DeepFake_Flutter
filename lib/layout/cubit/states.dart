@@ -179,6 +179,19 @@ class AppUploadAudioInquiryErrorState extends AppStates{}
 //-----------------------------------------------
 
 
+
+// UPLOAD IMAGE INQUIRY
+
+
+class AppUploadImageInquiryLoadingState extends AppStates{}
+
+class AppUploadImageInquirySuccessState extends AppStates{}
+
+class AppUploadImageInquiryErrorState extends AppStates{}
+
+
+//-----------------------------------------------
+
 // UPDATE USER PROFILE DATA
 
 
@@ -294,6 +307,22 @@ class AppGetAudioFileErrorState extends AppStates{}
 // REMOVE FILE
 class AppRemoveAudioFileState extends AppStates{}
 
+
+
+//-----------------------------------------------
+
+
+// GET IMAGE FILE
+
+
+class AppGetImageFileLoadingState extends AppStates{}
+
+class AppGetImageFileSuccessState extends AppStates{}
+
+class AppGetImageFileErrorState extends AppStates{}
+
+// REMOVE FILE
+class AppRemoveImageFileState extends AppStates{}
 
 
 //-----------------------------------------------

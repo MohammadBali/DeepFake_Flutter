@@ -21,7 +21,7 @@ class TextFiles extends StatefulWidget {
 
 class _TextFilesState extends State<TextFiles> {
 
-  String? currentFeed=Localization.translate('text_choose_file_option');
+  String? currentTextType=Localization.translate('text_choose_file_option');
 
   TextEditingController postController= TextEditingController();
 
@@ -30,7 +30,7 @@ class _TextFilesState extends State<TextFiles> {
   @override
   void initState()
   {
-    currentFeed=Localization.translate('text_choose_file_option');
+    currentTextType=Localization.translate('text_choose_file_option');
     super.initState();
   }
 
@@ -130,7 +130,7 @@ class _TextFilesState extends State<TextFiles> {
                         const SizedBox(height: 25,),
 
                         Text(
-                          currentFeed == Localization.translate('text_choose_file_option') ? Localization.translate('text_second_title') : Localization.translate('text_third_string_title'),
+                          currentTextType == Localization.translate('text_choose_file_option') ? Localization.translate('text_second_title') : Localization.translate('text_third_string_title'),
                           style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 18,
@@ -162,14 +162,14 @@ class _TextFilesState extends State<TextFiles> {
                                   onTap: ()
                                   {
                                     setState(() {
-                                      currentFeed=Localization.translate('text_choose_file_option');
+                                      currentTextType=Localization.translate('text_choose_file_option');
                                     });
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(22.0),
                                     child: Icon(
                                       Icons.file_present_outlined,
-                                      color: currentFeed == Localization.translate('text_choose_file_option')
+                                      color: currentTextType == Localization.translate('text_choose_file_option')
                                           ? cubit.isDarkTheme? defaultDarkColor : defaultColor
                                           : cubit.isDarkTheme? Colors.white : defaultHomeColor,
                                     ),
@@ -190,14 +190,14 @@ class _TextFilesState extends State<TextFiles> {
                                   onTap: ()
                                   {
                                     setState(() {
-                                      currentFeed=Localization.translate('text_choose_string_option');
+                                      currentTextType=Localization.translate('text_choose_string_option');
                                     });
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(22.0),
                                     child: Icon(
                                       Icons.text_snippet_outlined,
-                                      color: currentFeed == Localization.translate('text_choose_string_option')
+                                      color: currentTextType == Localization.translate('text_choose_string_option')
                                           ? cubit.isDarkTheme? defaultDarkColor : defaultColor
                                           : cubit.isDarkTheme? Colors.white : defaultHomeColor,
                                     ),
@@ -214,7 +214,7 @@ class _TextFilesState extends State<TextFiles> {
 
                         //If File => Build Upload File Widget, otherwise, enable a place for user to enter text
                         ConditionalBuilder(
-                          condition: currentFeed == Localization.translate('text_choose_file_option'),
+                          condition: currentTextType == Localization.translate('text_choose_file_option'),
 
                           builder: (context)=>Expanded(
                             child: Center(
@@ -354,9 +354,7 @@ class _TextFilesState extends State<TextFiles> {
                             ),
                         ),
 
-                        SizedBox(height: currentFeed == Localization.translate('text_choose_file_option') ? 10 : 25,),
-
-                        
+                        SizedBox(height: currentTextType == Localization.translate('text_choose_file_option') ? 10 : 25,),
 
                         Center(
                           child: ConditionalBuilder(
@@ -369,7 +367,7 @@ class _TextFilesState extends State<TextFiles> {
                               color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
                               onTap: ()
                               async {
-                                if(currentFeed == Localization.translate('text_choose_file_option'))
+                                if(currentTextType == Localization.translate('text_choose_file_option'))
                                 {
                                   if(cubit.chosenTextFile!=null)
                                   {
@@ -467,36 +465,20 @@ class _TextFilesState extends State<TextFiles> {
                                   ),
                                 ),
 
-                                // const Spacer(),
-                                //
-                                // Visibility(
-                                //   visible: cubit.chosenFile !=null,
-                                //   child: IconButton(
-                                //       onPressed: ()
-                                //       {
-                                //         cubit.removeFile();
-                                //       },
-                                //       icon: Icon(
-                                //         Icons.remove,
-                                //         color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-                                //
-                                //       )
-                                //   ),
-                                // ),
                               ],
                             ),
 
                             const SizedBox(height: 25,),
 
                             Text(
-                              currentFeed == Localization.translate('text_choose_file_option') ? Localization.translate('text_second_title') : Localization.translate('text_third_string_title'),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18,
-                                  wordSpacing: 2
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
+                            currentTextType == Localization.translate('text_choose_file_option') ? Localization.translate('text_second_title') : Localization.translate('text_third_string_title'),
+                            style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                            wordSpacing: 2
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
 
                             ),
 
@@ -521,14 +503,14 @@ class _TextFilesState extends State<TextFiles> {
                                       onTap: ()
                                       {
                                         setState(() {
-                                          currentFeed=Localization.translate('text_choose_file_option');
+                                          currentTextType=Localization.translate('text_choose_file_option');
                                         });
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.all(22.0),
                                         child: Icon(
                                           Icons.file_present_outlined,
-                                          color: currentFeed == Localization.translate('text_choose_file_option')
+                                          color: currentTextType == Localization.translate('text_choose_file_option')
                                               ? cubit.isDarkTheme? defaultDarkColor : defaultColor
                                               : cubit.isDarkTheme? Colors.white : defaultHomeColor,
                                         ),
@@ -549,14 +531,14 @@ class _TextFilesState extends State<TextFiles> {
                                       onTap: ()
                                       {
                                         setState(() {
-                                          currentFeed=Localization.translate('text_choose_string_option');
+                                          currentTextType=Localization.translate('text_choose_string_option');
                                         });
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.all(22.0),
                                         child: Icon(
                                           Icons.text_snippet_outlined,
-                                          color: currentFeed == Localization.translate('text_choose_string_option')
+                                          color: currentTextType == Localization.translate('text_choose_string_option')
                                               ? cubit.isDarkTheme? defaultDarkColor : defaultColor
                                               : cubit.isDarkTheme? Colors.white : defaultHomeColor,
                                         ),
@@ -573,7 +555,7 @@ class _TextFilesState extends State<TextFiles> {
 
 
                             ConditionalBuilder(
-                              condition: currentFeed == Localization.translate('text_choose_file_option'),
+                              condition: currentTextType == Localization.translate('text_choose_file_option'),
 
                               builder: (context)=>Center(
                                 child: cubit.chosenTextFile ==null ? SizedBox(

@@ -37,6 +37,8 @@ const addTextInquiry='addTextInquiry';
 
 const addAudioInquiry='addAudioInquiry';
 
+const addImageInquiry='addImageInquiry';
+
 const getUserInquiries='inquiries/me';
 
 const deleteUserInquiry= 'inquiries/delete';

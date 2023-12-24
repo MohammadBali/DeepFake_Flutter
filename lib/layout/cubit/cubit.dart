@@ -7,7 +7,7 @@ import 'package:deepfake_detection/models/NewsModel/NewsModel.dart';
 import 'package:deepfake_detection/models/PostModel/PostModel.dart';
 import 'package:deepfake_detection/models/SubscriptionsModel/SubscriptionsModel.dart';
 import 'package:deepfake_detection/models/UserDataModel/UserDataModel.dart';
-import 'package:deepfake_detection/modules/AudioFiles/audio_files.dart';
+import 'package:deepfake_detection/modules/MultimediaFiles/multimedia_files.dart';
 import 'package:deepfake_detection/modules/ChatBot/chatBot.dart';
 import 'package:deepfake_detection/modules/Home/home.dart';
 import 'package:deepfake_detection/modules/Login/login.dart';
@@ -537,7 +537,7 @@ class AppCubit extends Cubit<AppStates>
   [
     Home(),
     const TextFiles(),
-    const AudioFiles(),
+    const MultimediaFiles(),
     const ChatBot(),
     const Profile(),
   ];
@@ -1368,6 +1368,7 @@ class AppCubit extends Cubit<AppStates>
 
   Inquiry? uploadedAudioInquiryModel;
 
+  //Upload an Audio Inquiry
   Future<bool> uploadAudioInquiry( {required PlatformFile file, void Function(int, int)? onSendProgress}) async
   {
     bool boolToReturn=false;
@@ -1422,12 +1423,118 @@ class AppCubit extends Cubit<AppStates>
 
     else
     {
-      defaultToast(msg: '${Localization.translate('big_file_size_toast')}, ${byteToMB(maxTextFileSize)} MB', length: Toast.LENGTH_LONG);
+      defaultToast(msg: '${Localization.translate('big_file_size_toast')}, ${byteToMB(maxAudioFileSize)} MB', length: Toast.LENGTH_LONG);
       return false;
     }
   }
 
  //----------------------------------------------
+
+  //FILE PICKER FOR IMAGE FILES
+
+  PlatformFile? chosenImageFile;
+
+  //Pick an image from storage
+  void pickImageFile() async
+  {
+    emit(AppGetImageFileLoadingState());
+
+    try
+    {
+      FilePickerResult? result= await FilePicker.platform.pickFiles(allowedExtensions: ['jpg','jpeg','png'], type: FileType.custom, allowMultiple: false, );
+      if(result !=null)
+      {
+        chosenImageFile=result.files.first;
+
+        emit(AppGetImageFileSuccessState());
+      }
+      else
+      {
+        print('IMAGE FILE PICKER RESULT IS NULL');
+        emit(AppGetImageFileErrorState());
+      }
+
+    }catch (e)
+    {
+      print('ERROR WHILE PICKING AN IMAGE FILE, ${e.toString()}');
+
+      defaultToast(msg: e.toString());
+      emit(AppGetImageFileErrorState());
+    }
+  }
+
+  //Discard chosen image
+  void removeImageFile()
+  {
+    chosenImageFile =null;
+    emit(AppRemoveImageFileState());
+  }
+
+
+  Inquiry? uploadedImageInquiryModel;
+
+  //Upload an Image Inquiry
+  Future<bool> uploadImageInquiry( {required PlatformFile file, void Function(int, int)? onSendProgress}) async
+  {
+    bool boolToReturn=false;
+    if(file.size <= maxImageFileSize)
+    {
+
+      print('In Uploading Image Inquiry...');
+
+      defaultToast(msg: 'Uploading Image File...');
+
+      emit(AppUploadImageInquiryLoadingState());
+
+      //Set Data to be sent as Map
+      final formData=FormData.fromMap(
+          {
+            'type':file.extension,
+            'name':file.name,
+            'result':'real', //TBD, Must be returned by back-end through AI Model
+            'image': await MultipartFile.fromFile(file.path!, filename: file.name),
+          });
+
+      MainDioHelper.postFileData(
+        url: addImageInquiry,
+        data:formData,
+        token: token,
+        onSendProgress: onSendProgress,
+
+      ).then((value) {
+
+        print('Got UploadImageInquiry Data...');
+
+        uploadedImageInquiryModel= Inquiry.fromJson(value.data['inquiry']);
+
+        emit(AppUploadImageInquirySuccessState());
+
+        getInquiries(); //Ask For New Inquiries
+
+        boolToReturn=true;
+
+        defaultToast(msg: Localization.translate('upload_image_inquiry_successfully_toast'));
+
+      }).catchError((error)
+      {
+        print('ERROR WHILE UPLOADING IMAGE INQUIRY, ${error.toString()}');
+        emit(AppUploadImageInquiryErrorState());
+
+        boolToReturn=false;
+      });
+
+      return boolToReturn;
+    }
+
+    else
+    {
+      defaultToast(msg: '${Localization.translate('big_file_size_toast')}, ${byteToMB(maxImageFileSize)} MB', length: Toast.LENGTH_LONG);
+      return false;
+    }
+  }
+
+
+  //----------------------------------------------
 
  //CHAT BOT
 

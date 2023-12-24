@@ -12,7 +12,7 @@ const Map<String,String> ar={
   'text_bnb':'ملف',
   'bot_bnb':'بوت',
   'profile_bnb':'الملف الشخصي',
-  'audio_bnb':'صوت',
+  'multimedia_bnb':'الوسائط',
 
   //Login:
 
@@ -91,11 +91,24 @@ const Map<String,String> ar={
   'textPage_helper_body4':'ملاحظة: إن المرفوع لا يُنشر بشكل تلقائي, لك حرية الاختيار بين النشر من عدمه',
 
 
-  //AUDIO PAGE:
+  //MULTIMEDIA PAGE:
 
   'audio_title':'ارفع ملفاً صوتياً',
   'audio_second_title':'قم باختيار ملفٍ صوتي',
 
+  'image_title':'ارفع ملفاً صورياً',
+
+  'image_second_title':'قم بإختيار صورة',
+
+  'audio_choose_file_option':'صوت',
+
+  'image_choose_file_option':'صورة',
+
+  'multimediaPage_helper_title':'قسم الوسائط',
+  'multimediaPage_helper_body1':' الصوتيات: بوسعك رفع ملفات الصوت من اللواحق الآتية: MP3, FLAC, WAV, M4A',
+  'multimediaPage_helper_body2':'الصور: بوسعك رفع صور من اللواحق الآتية: JPEG, JPG, PNG',
+  'multimediaPage_helper_body3':'إنشر نتائجك: يمكنك نشر المرفوع كمنشور بعد عودة النتائج',
+  'multimediaPage_helper_body4':'ملاحظة: إن المرفوع لا يُنشر بشكل تلقائي, لك حرية الاختيار بين النشر من عدمه',
 
   //HOME PAGE:
 
@@ -269,6 +282,8 @@ const Map<String,String> ar={
 
   'chat_screen_tff':'أضف رسالتك هنا...',
 
+  'chat_screen_no_text_title':'أرسل رسائلك الآن!',
+
   // TOAST MESSAGES:
 
   //POSTS
@@ -324,13 +339,19 @@ const Map<String,String> ar={
   //UPLOAD TEXT INQUIRY
 
   'upload_text_inquiry_successfully_toast':'تم الرفع بنجاح',
-  'upload_text_no_data_toast':'لا يوجد ملف ليتم رفعه',
+  'upload_text_no_data_toast':'لا يوجد ملفٌ نصيّ ليتم رفعه',
 
 
   //UPLOAD Audio INQUIRY
 
-  'upload_audio_inquiry_successfully_toast':'تم الرفع بنجاح',
-  'upload_audio_no_data_toast':'لا يوجد ملف ليتم رفعه',
+  'upload_audio_inquiry_successfully_toast':'تم رفع الملف الصوتي بنجاح',
+  'upload_audio_no_data_toast':'لا يوجد ملفٌ صوتيّ ليتم رفعه',
+
+
+  //UPLOAD IMAGE INQUIRY
+
+  'upload_image_inquiry_successfully_toast':'تم رفع الصورة بنجاح',
+  'upload_image_no_data_toast':'لا يوجد ملفٌ صوريّ ليتم رفعه',
 
 
   //TOO BIG FILE SIZE
@@ -404,7 +425,7 @@ const Map<String,String> en={
   'text_bnb':'Text',
   'bot_bnb':'Bot',
   'profile_bnb':'Profile',
-  'audio_bnb':'Audio',
+  'multimedia_bnb':'Multimedia',
 
   //Login:
 
@@ -480,10 +501,25 @@ const Map<String,String> en={
   'textPage_helper_body3':'Share Your Inquiry: You can share your inquiry as a post after the results are back',
   'textPage_helper_body4':'NOTE: Your inquiry does not get shared automatically as a post, you have the right to share or not',
 
-  //AUDIO PAGE:
+  //MULTIMEDIA PAGE:
 
   'audio_title':'Upload Audio File',
   'audio_second_title':'Choose an Audio to Upload',
+
+  'image_title':'Upload Image File',
+
+  'image_second_title':'Choose an Image to Upload',
+
+  'audio_choose_file_option':'Audio',
+
+  'image_choose_file_option':'Image',
+
+  'multimediaPage_helper_title':'MULTIMEDIA PAGE',
+  'multimediaPage_helper_body1':'Audio: You can upload audio files with the following extensions: MP3, FLAC, WAV, M4A',
+  'multimediaPage_helper_body2':'Image: You can upload image files with the following extensions: JPEG, JPG, PNG',
+  'multimediaPage_helper_body3':'Share Your Inquiry: You can share your inquiry as a post after the results are back',
+  'multimediaPage_helper_body4':'NOTE: Your inquiry does not get shared automatically as a post, you have the right to share or not',
+
 
 
   //HOME PAGE:
@@ -662,6 +698,10 @@ const Map<String,String> en={
 
   'chat_screen_tff':'Type your message here...',
 
+  'chat_screen_no_text_title':'Send a Message Now!',
+
+
+
 
   // TOAST MESSAGES:
 
@@ -718,13 +758,20 @@ const Map<String,String> en={
   //UPLOAD TEXT INQUIRY
 
   'upload_text_inquiry_successfully_toast':'Uploaded Successfully',
-  'upload_text_no_data_toast':'No Data to Upload',
+  'upload_text_no_data_toast':'No Text to Upload',
 
 
-    //UPLOAD Audio INQUIRY
+  //UPLOAD Audio INQUIRY
 
   'upload_audio_inquiry_successfully_toast':'Uploaded Audio Successfully',
-  'upload_audio_no_data_toast':'No Data to Upload',
+  'upload_audio_no_data_toast':'No Audio to Upload',
+
+
+  //UPLOAD IMAGE INQUIRY
+
+  'upload_image_inquiry_successfully_toast':'Uploaded Image Successfully',
+  'upload_image_no_data_toast':'No Image to Upload',
+
 
 
   //TOO BIG FILE SIZE
