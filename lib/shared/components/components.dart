@@ -19,6 +19,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'Localization/Localization.dart';
 import 'constants.dart';
 
+//Default FormField Styling
 Widget defaultFormField({
   required TextEditingController controller,
   required TextInputType keyboard,
@@ -92,7 +93,7 @@ Widget defaultFormField({
 
 //Default Boxes
 
-
+//Default Box Styling
 Widget defaultBox(
 {
   required AppCubit cubit,
@@ -139,7 +140,7 @@ Widget defaultBox(
 //------------------------------------------------------------------------------------------------------\\
 
 
-
+//Item Builder for Add a Post Widget & Insert a Text Style
 Widget defaultAddPostBox(
     {
       required AppCubit cubit,
@@ -181,6 +182,7 @@ Widget defaultAddPostBox(
 
 //------------------------------------------------------------------------------------------------------\\
 
+//Inquiry Box Styling inside posts
 
 Widget defaultQueryBox(
     {
@@ -205,6 +207,7 @@ Widget defaultQueryBox(
 
 //------------------------------------------------------------------------------------------------------\\
 
+//Default Button to be used
 Widget defaultButton(
 {
   double letterSpacing=0,
@@ -306,8 +309,6 @@ void navigateTo( BuildContext context, Widget widget) =>Navigator.push(
 
 //--------------------------------------------------------------------------------------------------\\
 
-
-
 // Navigate to a screen and save the route name
 
 void navigateAndSaveRouteSettings( BuildContext context, Widget widget, String routeName) =>Navigator.push(
@@ -321,14 +322,12 @@ void navigateAndSaveRouteSettings( BuildContext context, Widget widget, String r
 
 //--------------------------------------------------------------------------------------------------\\
 
-
 // Navigate to a screen and destroy the ability to go back
 void navigateAndFinish(context,Widget widget) => Navigator.pushAndRemoveUntil(
   context,
   MaterialPageRoute(builder: (context)=>widget),
       (route) => false,  // The Route that you came from, false will destroy the path back..
 );
-
 
 //--------------------------------------------------------------------------------------------------\\
 
@@ -358,15 +357,9 @@ MaterialColor getMaterialColor(Color color) {
   return MaterialColor(color.value, shades);
 }
 
-
-
-
 //---------------------------------------------------------------------------------\\
 
-
-
-//---------------------------------------------------------------------------------\\
-
+//Default Loading Indicators
 
 Widget defaultLinearProgressIndicator(BuildContext context, {double? value})
 {
@@ -394,6 +387,7 @@ isNumeric(string) => num.tryParse(string) != null;
 
 //------------------------------------------------------------------------------------------\\
 
+//Default Alert Dialogs
 
 Widget defaultAlertDialog(
     {
@@ -434,6 +428,8 @@ Widget defaultAlertDialog(
 
 
 //------------------------------------------------------------------------------------------\\
+
+//Default AppBar
 
 PreferredSizeWidget defaultAppBar({
   required AppCubit cubit,
@@ -631,7 +627,9 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text(Localization.translate('post_date')),
+            Text(
+              '${dataTypeFormatter(post.inquiry!.type!)} ${Localization.translate('post_date')}'
+            ),
 
             const SizedBox(width: 5,),
 
@@ -781,6 +779,31 @@ String dateFormatter(String date)
 
 //------------------------------------------------------------------------------------------\\
 
+List<String> allowedImageTypes=['jpg','jpeg','png'];
+List<String> allowedAudioTypes=['mp3','flac','m4a','wav'];
+List<String> allowedTextTypes=['docx','doc','txt','pdf'];
+
+//Will return data type
+String dataTypeFormatter(String type)
+{
+  if(allowedImageTypes.contains(type.toLowerCase()))
+    {
+      return 'Image';
+    }
+
+  else if (allowedAudioTypes.contains(type.toLowerCase()))
+    {
+      return 'Audio';
+    }
+  else if (allowedTextTypes.contains(type.toLowerCase()))
+    {
+      return 'Text';
+    }
+  return '';
+}
+
+//------------------------------------------------------------------------------------------\\
+
 //Open Local Files From Path
 
 Future<void> openFile(String path)
@@ -895,6 +918,7 @@ int byteToMB(int byte)
 
 //---------------------------------
 
+//FCM Background Messages Handler
 Future<void>firebaseMessagingBackgroundHandler(RemoteMessage message) async
 {
   print('Got background message');

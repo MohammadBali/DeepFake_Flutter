@@ -83,9 +83,11 @@ void main() async {
 
   Bloc.observer = MyBlocObserver(); //Running Bloc Observer which prints change in states and errors etc...  in console
 
+  //Dio Initialization
   MainDioHelper.init();
 
-  await CacheHelper.init(); //Starting CacheHelper, await for it since there is async,await in .init().
+
+  await CacheHelper.init(); //Starting CacheHelper (SharedPreferences), await for it since there is async,await in .init().
 
   //Load Language
   AppCubit.language= CacheHelper.getData(key: 'language');
