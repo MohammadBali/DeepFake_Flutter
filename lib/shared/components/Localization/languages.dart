@@ -66,6 +66,12 @@ const Map<String,String> ar={
 
   'news_title':'أخبار الذكاء الصنعي',
 
+  'image_type_title':'الملف الصوريّ',
+
+  'audio_type_title':'الملف الصوتيّ',
+
+  'text_type_title':'الملف النصيّ',
+
 
   //TEXT PAGE:
 
@@ -83,12 +89,13 @@ const Map<String,String> ar={
 
   'text_add_string_no_text':'أضف نصاً',
 
+  'text_wrong_file':'لاحقة ملف خاطئة',
 
   'textPage_helper_title':'قسم الملفات',
   'textPage_helper_body1':' ملف أو نص: يمكنك رفع ملف أو كتابة النص بشكل فوري لاكتشاف التزييف',
   'textPage_helper_body2':'ارفع الملف: كل ما عليك هو الاختيار وانتظار النتائج',
-  'textPage_helper_body3':'إنشر نتائجك: يمكنك نشر المرفوع كمنشور بعد عودة النتائج',
-  'textPage_helper_body4':'ملاحظة: إن المرفوع لا يُنشر بشكل تلقائي, لك حرية الاختيار بين النشر من عدمه',
+  'textPage_helper_body3':'إنشر نتائجك: يمكنك نشر الاستفسار كمنشور بعد عودة النتائج',
+  'textPage_helper_body4':'ملاحظة: إن الاستفسار لا يُنشر بشكل تلقائي, لك حرية الاختيار بين النشر من عدمه',
 
 
   //MULTIMEDIA PAGE:
@@ -107,8 +114,8 @@ const Map<String,String> ar={
   'multimediaPage_helper_title':'قسم الوسائط',
   'multimediaPage_helper_body1':' الصوتيات: بوسعك رفع ملفات الصوت من اللواحق الآتية: MP3, FLAC, WAV, M4A',
   'multimediaPage_helper_body2':'الصور: بوسعك رفع صور من اللواحق الآتية: JPEG, JPG, PNG',
-  'multimediaPage_helper_body3':'إنشر نتائجك: يمكنك نشر المرفوع كمنشور بعد عودة النتائج',
-  'multimediaPage_helper_body4':'ملاحظة: إن المرفوع لا يُنشر بشكل تلقائي, لك حرية الاختيار بين النشر من عدمه',
+  'multimediaPage_helper_body3':'إنشر نتائجك: يمكنك نشر الاستفسار كمنشور بعد عودة النتائج',
+  'multimediaPage_helper_body4':'ملاحظة: إن الاستفسار لا يُنشر بشكل تلقائي, لك حرية الاختيار بين النشر من عدمه',
 
   //HOME PAGE:
 
@@ -128,7 +135,7 @@ const Map<String,String> ar={
 
   'edit_profile_profile':'إعدادات الحساب',
   'your_posts_profile':'منشوراتك',
-  'previous_inquiries_profile':'مرفوعاتك الخاصة',
+  'previous_inquiries_profile':'استفساراتك الخاصة',
 
   'appearance_profile':'الشكل العام',
   'general_settings_profile':'الإعدادات العامة',
@@ -159,7 +166,7 @@ const Map<String,String> ar={
 
   'no_your_posts':'كلا',
 
-  'no_posts_available':'لم تقم بنشر أية مرفوعات بعد!',
+  'no_posts_available':'لم تقم بنشر أية استفسارات بعد!',
 
 
   //Post Details Page:
@@ -175,11 +182,11 @@ const Map<String,String> ar={
 
   //Previous Inquiries Page:
 
-  'previous_inquiries_title':'مرفوعاتك الخاصة',
+  'previous_inquiries_title':'استفساراتك الخاصة',
 
-  'delete_title_previous_inquiries':'حذف المرفوع',
+  'delete_title_previous_inquiries':'حذف الاستفسار',
 
-  'delete_secondary_title_previous_inquiries':'هل حقاً تريد حذف المرفوع؟',
+  'delete_secondary_title_previous_inquiries':'هل حقاً تريد حذف الاستفسار؟',
 
   'yes_your_inquiries':'نعم',
 
@@ -189,12 +196,12 @@ const Map<String,String> ar={
 
   'fake_your_inquiries':'مزيف',
 
-  'no_inquiries_available':'لم تقم برفع أية مرفوعات بعد!',
+  'no_inquiries_available':'لم تقم برفع أية استفسارات بعد!',
 
 
   //INQUIRY DETAILS PAGE:
 
-  'appBar_title_inquiry_details':'تفاصيل المرفوع',
+  'appBar_title_inquiry_details':'تفاصيل الاستفسار',
 
   'correct_secondary_inquiry_details':'هذا الملف غير مزيف وصحيح',
 
@@ -204,13 +211,13 @@ const Map<String,String> ar={
 
   'fake_result_inquiry_details':'المعلومات غير صحيحة',
 
-  'inquiry_details_helper_title':'تفاصيل المرفوع',
+  'inquiry_details_helper_title':'تفاصيل الاستفسار',
 
-  'inquiry_details_helper_body1':'المرفوع: تحقق ما إذا كانت البيانات مزيفة أم لا',
+  'inquiry_details_helper_body1':'الاستفسار: تحقق ما إذا كانت البيانات مزيفة أم لا',
 
   'inquiry_details_helper_body2':'الملف: بوسعك استعراض الملف الذي قمت برفعه',
 
-  'inquiry_details_helper_body3':'النشر: يمكنك نشر المرفوع كمنشور ليراه الآخرون عبر التطبيق',
+  'inquiry_details_helper_body3':'النشر: يمكنك نشر الاستفسار كمنشور ليراه الآخرون عبر التطبيق',
 
 
 
@@ -295,7 +302,7 @@ const Map<String,String> ar={
 
 
   //INQUIRIES
-  'delete_inquiry_loading_toast':'جاري حذف المرفوع الخاص',
+  'delete_inquiry_loading_toast':'جاري حذف الاستفسار الخاص',
 
   'delete_inquiry_error_toast':'حدث خطأ أثناء الحذف',
 
@@ -477,6 +484,12 @@ const Map<String,String> en={
 
   'news_title':'AI News',
 
+  'image_type_title':'Image',
+
+  'audio_type_title':'Audio',
+
+  'text_type_title':'Text',
+
 
   //TEXT PAGE:
 
@@ -494,6 +507,7 @@ const Map<String,String> en={
 
   'text_add_string_no_text':'Enter Text Please',
 
+  'text_wrong_file':'Wrong File Extension',
 
   'textPage_helper_title':'TEXT FILE PAGE',
   'textPage_helper_body1':'File or Text: You can either upload a file, or write your data instantly',
@@ -607,9 +621,9 @@ const Map<String,String> en={
 
   'appBar_title_inquiry_details':'Inquiry Details',
 
-  'correct_secondary_inquiry_details':'This Text File is not fake and it is valid',
+  'correct_secondary_inquiry_details':'This File is not fake and it is valid',
 
-  'fake_secondary_inquiry_details':'This Text File is fake and it is not valid',
+  'fake_secondary_inquiry_details':'This File is fake and it is not valid',
 
   'correct_result_inquiry_details':'Valid Data',
 

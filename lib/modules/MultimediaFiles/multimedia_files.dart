@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:deepfake_detection/layout/cubit/states.dart';
+import 'package:deepfake_detection/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:string_extensions/string_extensions.dart';
@@ -136,6 +137,7 @@ class _MultimediaFilesState extends State<MultimediaFiles> {
             );
           }
         },
+
         builder: (context,state)
         {
           var cubit= AppCubit.get(context);
@@ -417,7 +419,7 @@ class _MultimediaFilesState extends State<MultimediaFiles> {
 
                         Center(
                           child: ConditionalBuilder(
-                            condition: state is! AppUploadAudioInquiryLoadingState,
+                            condition: state is! AppUploadAudioInquiryLoadingState || state is! AppUploadImageInquiryLoadingState,
 
                             fallback: (context)=>defaultProgressIndicator(context),
 
@@ -432,25 +434,33 @@ class _MultimediaFilesState extends State<MultimediaFiles> {
                                   {
                                     if(cubit.chosenAudioFile!=null)
                                     {
-
-                                      cubit.uploadAudioInquiry(
-
-                                        file:cubit.chosenAudioFile!,
-
-                                        onSendProgress: (int sent, int total)
+                                      if(allowedAudioTypes.contains(cubit.chosenAudioFile!.extension))
                                         {
-                                          print('File is Being Uploaded: Sent:$sent Total:$total');
-                                        },
+                                          cubit.uploadAudioInquiry(
 
-                                      ).then((value)
-                                      {
-                                        cubit.removeAudioFile();
+                                            file:cubit.chosenAudioFile!,
 
-                                      }).catchError((error)
-                                      {
-                                        defaultToast(msg: error.toString());
-                                      });
+                                            onSendProgress: (int sent, int total)
+                                            {
+                                              print('File is Being Uploaded: Sent:$sent Total:$total');
+                                            },
+
+                                          ).then((value)
+                                          {
+                                            cubit.removeAudioFile();
+
+                                          }).catchError((error)
+                                          {
+                                            defaultToast(msg: error.toString());
+                                          });
+                                        }
+
+                                      else
+                                        {
+                                          defaultToast(msg: Localization.translate('text_wrong_file'));
+                                        }
                                     }
+
 
                                     else
                                     {
@@ -463,24 +473,32 @@ class _MultimediaFilesState extends State<MultimediaFiles> {
                                   {
                                     if(cubit.chosenImageFile!=null)
                                     {
-
-                                      cubit.uploadImageInquiry(
-
-                                        file:cubit.chosenImageFile!,
-
-                                        onSendProgress: (int sent, int total)
+                                      if(allowedImageTypes.contains(cubit.chosenImageFile!.extension))
                                         {
-                                          print('File is Being Uploaded: Sent:$sent Total:$total');
-                                        },
+                                          cubit.uploadImageInquiry(
 
-                                      ).then((value)
-                                      {
-                                        cubit.removeImageFile();
+                                            file:cubit.chosenImageFile!,
 
-                                      }).catchError((error)
+                                            onSendProgress: (int sent, int total)
+                                            {
+                                              print('File is Being Uploaded: Sent:$sent Total:$total');
+                                            },
+
+                                          ).then((value)
+                                          {
+                                            cubit.removeImageFile();
+
+                                          }).catchError((error)
+                                          {
+                                            defaultToast(msg: error.toString());
+                                          });
+                                        }
+
+                                      else
                                       {
-                                        defaultToast(msg: error.toString());
-                                      });
+                                        defaultToast(msg: Localization.translate('text_wrong_file'));
+                                      }
+
                                     }
 
                                     else
@@ -772,7 +790,7 @@ class _MultimediaFilesState extends State<MultimediaFiles> {
 
                           Center(
                             child: ConditionalBuilder(
-                              condition: state is! AppUploadAudioInquiryLoadingState,
+                              condition: state is! AppUploadAudioInquiryLoadingState || state is! AppUploadImageInquiryLoadingState,
 
                               fallback: (context)=>defaultProgressIndicator(context),
 
@@ -787,25 +805,33 @@ class _MultimediaFilesState extends State<MultimediaFiles> {
                                   {
                                     if(cubit.chosenAudioFile!=null)
                                     {
+                                      if(allowedAudioTypes.contains(cubit.chosenAudioFile!.extension))
+                                      {
+                                        cubit.uploadAudioInquiry(
 
-                                      cubit.uploadAudioInquiry(
+                                          file:cubit.chosenAudioFile!,
 
-                                        file:cubit.chosenAudioFile!,
+                                          onSendProgress: (int sent, int total)
+                                          {
+                                            print('File is Being Uploaded: Sent:$sent Total:$total');
+                                          },
 
-                                        onSendProgress: (int sent, int total)
+                                        ).then((value)
                                         {
-                                          print('File is Being Uploaded: Sent:$sent Total:$total');
-                                        },
+                                          cubit.removeAudioFile();
 
-                                      ).then((value)
-                                      {
-                                        cubit.removeAudioFile();
+                                        }).catchError((error)
+                                        {
+                                          defaultToast(msg: error.toString());
+                                        });
+                                      }
 
-                                      }).catchError((error)
+                                      else
                                       {
-                                        defaultToast(msg: error.toString());
-                                      });
+                                        defaultToast(msg: Localization.translate('text_wrong_file'));
+                                      }
                                     }
+
 
                                     else
                                     {
@@ -818,24 +844,32 @@ class _MultimediaFilesState extends State<MultimediaFiles> {
                                   {
                                     if(cubit.chosenImageFile!=null)
                                     {
+                                      if(allowedImageTypes.contains(cubit.chosenImageFile!.extension))
+                                      {
+                                        cubit.uploadImageInquiry(
 
-                                      cubit.uploadImageInquiry(
+                                          file:cubit.chosenImageFile!,
 
-                                        file:cubit.chosenImageFile!,
+                                          onSendProgress: (int sent, int total)
+                                          {
+                                            print('File is Being Uploaded: Sent:$sent Total:$total');
+                                          },
 
-                                        onSendProgress: (int sent, int total)
+                                        ).then((value)
                                         {
-                                          print('File is Being Uploaded: Sent:$sent Total:$total');
-                                        },
+                                          cubit.removeImageFile();
 
-                                      ).then((value)
-                                      {
-                                        cubit.removeImageFile();
+                                        }).catchError((error)
+                                        {
+                                          defaultToast(msg: error.toString());
+                                        });
+                                      }
 
-                                      }).catchError((error)
+                                      else
                                       {
-                                        defaultToast(msg: error.toString());
-                                      });
+                                        defaultToast(msg: Localization.translate('text_wrong_file'));
+                                      }
+
                                     }
 
                                     else

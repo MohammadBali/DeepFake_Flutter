@@ -35,7 +35,7 @@ class AppCubit extends Cubit<AppStates>
 
   static AppCubit get(context)=> BlocProvider.of(context);
 
-  //SET LISTENER FOR WEB SOCKETS, DEFAULT CALLED BY MAIN  //IOWebSocketChannel awsChannel
+  ///SET LISTENER FOR WEB SOCKETS, DEFAULT CALLED BY MAIN  //IOWebSocketChannel awsChannel
    void setListener() {
     wsChannel.stream.listen((message)
     {
@@ -102,7 +102,7 @@ class AppCubit extends Cubit<AppStates>
     );
   }
 
-  // Re-connect and listen to wsChannel
+  /// Re-connect and listen to wsChannel
   void _reConnectWsChannel()
   {
    if(wsChannel !=null && wsChannel.sink !=null && wsChannel.closeCode !=null)
@@ -122,7 +122,7 @@ class AppCubit extends Cubit<AppStates>
 
   //WEB SOCKETS
 
-  //Modify Likes
+  ///Modify Likes
   void wsLike(Post post)
   {
     print('Add/Remove Like WS');
@@ -243,7 +243,7 @@ class AppCubit extends Cubit<AppStates>
       }
   }
 
-  //Modify Comments
+  ///Modify Comments
   void wsComments(Post post)
   {
     print('Add/Remove Comments WS');
@@ -367,7 +367,7 @@ class AppCubit extends Cubit<AppStates>
     }
   }
 
-  //Delete Post
+  ///Delete Post
   void wsDeletePost(Post post)
   {
     print('Remove a Post WS');
@@ -487,7 +487,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  //Send Data to Server by WebSockets
+  ///Send Data to Server by WebSockets
   void addLike({required String userID, required String postID})
   {
     //If WebSocket is Closed for some reason => Will Reconnect.
@@ -506,7 +506,7 @@ class AppCubit extends Cubit<AppStates>
     wsChannel.sink.add(jsonEncode(data));
   }
 
-  //Send Comment to Server by WebSockets
+  ///Send Comment to Server by WebSockets
   void addComment({required String userID, required String postID, required String comment})
   {
     if(wsChannel.innerWebSocket ==null)
@@ -532,7 +532,7 @@ class AppCubit extends Cubit<AppStates>
 
   //GLOBAL SETTINGS
 
-  //List of BottomBarWidgets, Home, TextFiles, ChatBot and Profile
+  ///List of BottomBarWidgets, Home, TextFiles, ChatBot and Profile
   List<Widget> bottomBarWidgets=
   [
     Home(),
@@ -544,6 +544,7 @@ class AppCubit extends Cubit<AppStates>
 
   int currentBottomBarIndex = 0;
 
+  ///Change Bottom Navigation Bar into another
   void changeBottomNavBar(int index) {
     currentBottomBarIndex = index;
 
@@ -553,6 +554,7 @@ class AppCubit extends Cubit<AppStates>
   //DARK MODE
   bool isDarkTheme = false; //Check if the theme is Dark.
 
+  ///Change Theme
   void changeTheme({bool? themeFromState}) {
     if (themeFromState != null) //if a value is sent from main, then use it.. we didn't use CacheHelper because the value has already came from cache, then there is no need to..
         {
@@ -569,11 +571,10 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  //Current Language Code
-
+  ///Current Language Code
   static String? language='';
 
-  //Change Language
+  ///Change Language
   void changeLanguage(String lang) async
   {
     language=lang;
@@ -581,7 +582,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  //Show Help Dialogs Icons
+  ///Show Help Dialogs Icons
   bool showHelpDialogs = true;
   void changeHelpDialog()
   {
@@ -593,9 +594,10 @@ class AppCubit extends Cubit<AppStates>
 
   //USER APIS
 
-  //Get User Data by Token.
+  ///Get User Data by Token.
   static UserData? userData;
 
+  /// Get User Data through his token
   void getUserData()
   {
     if(token !='')
@@ -622,7 +624,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  //Update User Profile
+  ///Update User Profile
   void updateUserProfile({String? firstName, String? lastName , String? email, String? photo})
   {
     String? n, ln, e, p;
@@ -669,9 +671,8 @@ class AppCubit extends Cubit<AppStates>
       }
   }
 
-
-  //Get User Subscriptions
   SubscriptionsModel? subscriptionsModel;
+  ///Get User Subscriptions
   void getSubscriptions()
   {
     if(token!='')
@@ -697,8 +698,8 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  //Get User Subscriptions with Further Details -> For General Settings
   SubscriptionsDetailsModel? subscriptionsDetailsModel;
+  ///Get User Subscriptions with Further Details -> For General Settings
   void getSubscriptionsDetails()
   {
     if(token!='')
@@ -724,7 +725,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  // Add a user to subscriptions or remove him.
+  /// Add a user to subscriptions or remove him.
   void manageSubscriptions(String userId)
   {
     print('In Managing Subscriptions...');
@@ -748,7 +749,7 @@ class AppCubit extends Cubit<AppStates>
     });
   }
 
-  //Logout User and Remove his token from back-end side
+  ///Logout User and Remove his token from back-end side
   bool logout({required BuildContext context})
   {
     emit(AppLogoutLoadingState());
@@ -795,7 +796,7 @@ class AppCubit extends Cubit<AppStates>
 
   // NEWS APIS
 
-  //Get News
+  ///Get News
   NewsModel? newsModel;
   void getNews()
   {
@@ -826,11 +827,13 @@ class AppCubit extends Cubit<AppStates>
 
   //POSTS APIS
 
-  //Get Posts
+  ///Get Posts
   static PostModel? postModel;
 
-  //Get News & Posts & Subscriptions Posts & UserData if not available.
+  ///Get News & Posts & Subscriptions Posts & UserData if not available.
   PostModel? newPostModel;
+
+  ///Get News & Posts & Subscriptions Posts & UserData if not available.
   Future<void> checkForNewData()async
   {
 
@@ -898,7 +901,7 @@ class AppCubit extends Cubit<AppStates>
 
   }
 
-  //Get Available Posts
+  ///Get Available Posts
   void getPosts()
   {
     if(token !='')
@@ -924,7 +927,7 @@ class AppCubit extends Cubit<AppStates>
       }
   }
 
-  //Upload a Post
+  ///Upload a Post
   void uploadPost({required String inquiryId, required String comment, required String ownerId})
   {
     print('In Uploading a Post...');
@@ -963,7 +966,7 @@ class AppCubit extends Cubit<AppStates>
     });
   }
 
-  //Will get the next new posts when scrolled and will add them to postModel
+  ///Will get the next new posts when scrolled and will add them to postModel
   void getNextPosts({required String? nextPage})
   {
     if(nextPage !=null)
@@ -1003,7 +1006,7 @@ class AppCubit extends Cubit<AppStates>
       }
   }
 
-  //A Helper Function for GetNextPosts
+  ///A Helper Function for GetNextPosts
   int nextPostAdder(Post post)
   {
     try
@@ -1029,6 +1032,7 @@ class AppCubit extends Cubit<AppStates>
   //Get User Posts
   PostModel? userPostsModel;
 
+  ///Get User Posts
   void getUserPosts()
   {
     if(token!='')
@@ -1053,6 +1057,8 @@ class AppCubit extends Cubit<AppStates>
 
   //Get the Subscriptions Posts
   PostModel? subscriptionsPostsModel;
+
+  ///Get the Subscriptions Posts
   void getSubscriptionsPosts()
   {
     if(token!='')
@@ -1079,7 +1085,8 @@ class AppCubit extends Cubit<AppStates>
   
   //Got Some User Posts Through his ID
   AUserPostsModel? aUserPostsModel;
-  
+
+  ///Get Posts of a specific user by ID
   void getAUserPosts(String userId)
   {
     print('In Getting A User Posts');
@@ -1103,7 +1110,7 @@ class AppCubit extends Cubit<AppStates>
     });
   }
 
-  //Send API to delete from Back-end and then delete it from userPostsModel.
+  ///Send API to delete from Back-end and then delete it from userPostsModel.
   void deletePost(String postId)
   {
     print('In Delete Post with ID:$postId');
@@ -1149,7 +1156,7 @@ class AppCubit extends Cubit<AppStates>
 
   //INQUIRIES API
 
-  //Get User Inquiries
+  ///Get User Inquiries
   InquiryModel? inquiryModel;
   void getInquiries()
   {
@@ -1177,7 +1184,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  //Delete an Inquiry
+  ///Delete an Inquiry
   void deleteInquiry(String inquiryId)
   {
     print('In Delete Inquiry, Id is: $inquiryId');
@@ -1217,7 +1224,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  //Upload a Text Inquiry
+  ///Upload a Text Inquiry
 
   Inquiry? uploadedTextInquiryModel;
 
@@ -1285,14 +1292,14 @@ class AppCubit extends Cubit<AppStates>
 
   PlatformFile? chosenTextFile;
 
-  //Pick a File from storage
+  ///Pick a File from storage
   void pickTextFile() async
   {
     emit(AppGetFileLoadingState());
 
     try
     {
-      FilePickerResult? result= await FilePicker.platform.pickFiles(allowedExtensions: ['docx','pdf','doc','txt'], type: FileType.custom, allowMultiple: false, );
+      FilePickerResult? result= await FilePicker.platform.pickFiles(allowedExtensions: allowedTextTypes, type: FileType.custom, allowMultiple: false, );
       if(result !=null)
       {
         chosenTextFile=result.files.first;
@@ -1315,7 +1322,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  //Discard chosen file
+  ///Discard chosen file
   void removeTextFile()
   {
     chosenTextFile=null;
@@ -1325,18 +1332,18 @@ class AppCubit extends Cubit<AppStates>
 
   //------------------------------------
 
-  //FILE PICKER FOR AUDIO FILES
+  ///FILE PICKER FOR AUDIO FILES
 
   PlatformFile? chosenAudioFile;
 
-  //Pick and Audio File from storage
+  ///Pick and Audio File from storage
   void pickAudioFile()async
   {
     emit(AppGetAudioFileLoadingState());
 
     try
     {
-      FilePickerResult? result= await FilePicker.platform.pickFiles(allowedExtensions: ['mp3','wav'], type: FileType.custom, allowMultiple: false, );
+      FilePickerResult? result= await FilePicker.platform.pickFiles(allowedExtensions: allowedAudioTypes, type: FileType.custom, allowMultiple: false, );
       if(result !=null)
       {
         chosenAudioFile=result.files.first;
@@ -1358,7 +1365,7 @@ class AppCubit extends Cubit<AppStates>
     }
   }
 
-  //Discard chosen file
+  ///Discard chosen file
   void removeAudioFile()
   {
     chosenAudioFile=null;
@@ -1368,7 +1375,7 @@ class AppCubit extends Cubit<AppStates>
 
   Inquiry? uploadedAudioInquiryModel;
 
-  //Upload an Audio Inquiry
+  ///Upload an Audio Inquiry
   Future<bool> uploadAudioInquiry( {required PlatformFile file, void Function(int, int)? onSendProgress}) async
   {
     bool boolToReturn=false;
@@ -1434,14 +1441,14 @@ class AppCubit extends Cubit<AppStates>
 
   PlatformFile? chosenImageFile;
 
-  //Pick an image from storage
+  ///Pick an image from storage
   void pickImageFile() async
   {
     emit(AppGetImageFileLoadingState());
 
     try
     {
-      FilePickerResult? result= await FilePicker.platform.pickFiles(allowedExtensions: ['jpg','jpeg','png'], type: FileType.custom, allowMultiple: false, );
+      FilePickerResult? result= await FilePicker.platform.pickFiles(allowedExtensions: allowedImageTypes, type: FileType.custom, allowMultiple: false, );
       if(result !=null)
       {
         chosenImageFile=result.files.first;
@@ -1463,7 +1470,7 @@ class AppCubit extends Cubit<AppStates>
     }
   }
 
-  //Discard chosen image
+  ///Discard chosen image
   void removeImageFile()
   {
     chosenImageFile =null;
@@ -1473,7 +1480,7 @@ class AppCubit extends Cubit<AppStates>
 
   Inquiry? uploadedImageInquiryModel;
 
-  //Upload an Image Inquiry
+  ///Upload an Image Inquiry
   Future<bool> uploadImageInquiry( {required PlatformFile file, void Function(int, int)? onSendProgress}) async
   {
     bool boolToReturn=false;
@@ -1540,7 +1547,7 @@ class AppCubit extends Cubit<AppStates>
 
  MessageModel? messageModel = MessageModel();
 
- //Send a Message to AI Model and get their response back
+ ///Send a Message to AI Model and get their response back
  void sendMessage(String message)
  {
    print('In Sending a Message...');
@@ -1568,7 +1575,7 @@ class AppCubit extends Cubit<AppStates>
 
  }
 
- //Sinking a new message and adding it to the model
+ ///Sinking a new message and adding it to the model
  void addMessage(String m)
  {
    emit(AppAddMessageLoadingState());

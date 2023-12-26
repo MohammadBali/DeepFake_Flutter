@@ -5,6 +5,7 @@ import 'package:deepfake_detection/layout/cubit/states.dart';
 import 'package:deepfake_detection/modules/InquiryDetails/InquiryDetails.dart';
 import 'package:deepfake_detection/shared/components/Localization/Localization.dart';
 import 'package:deepfake_detection/shared/components/components.dart';
+import 'package:deepfake_detection/shared/components/constants.dart';
 import 'package:deepfake_detection/shared/styles/colors.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -168,7 +169,7 @@ class _TextFilesState extends State<TextFiles> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(22.0),
                                     child: Icon(
-                                      Icons.file_present_outlined,
+                                      Icons.text_snippet_rounded,
                                       color: currentTextType == Localization.translate('text_choose_file_option')
                                           ? cubit.isDarkTheme? defaultDarkColor : defaultColor
                                           : cubit.isDarkTheme? Colors.white : defaultHomeColor,
@@ -196,7 +197,7 @@ class _TextFilesState extends State<TextFiles> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(22.0),
                                     child: Icon(
-                                      Icons.text_snippet_outlined,
+                                      Icons.edit_document,
                                       color: currentTextType == Localization.translate('text_choose_string_option')
                                           ? cubit.isDarkTheme? defaultDarkColor : defaultColor
                                           : cubit.isDarkTheme? Colors.white : defaultHomeColor,
@@ -372,23 +373,33 @@ class _TextFilesState extends State<TextFiles> {
                                   if(cubit.chosenTextFile!=null)
                                   {
 
-                                    cubit.uploadTextInquiry(
-
-                                      file:cubit.chosenTextFile!,
-
-                                      onSendProgress: (int sent, int total)
+                                    if(allowedTextTypes.contains(cubit.chosenTextFile!.extension))
                                       {
-                                        print('File is Being Uploaded: Sent:$sent Total:$total');
-                                      },
 
-                                    ).then((value)
-                                    {
-                                      cubit.removeTextFile();
+                                        cubit.uploadTextInquiry(
 
-                                    }).catchError((error)
-                                    {
-                                      defaultToast(msg: error.toString());
-                                    });
+                                          file:cubit.chosenTextFile!,
+
+                                          onSendProgress: (int sent, int total)
+                                          {
+                                            print('File is Being Uploaded: Sent:$sent Total:$total');
+                                          },
+
+                                        ).then((value)
+                                        {
+                                          cubit.removeTextFile();
+
+                                        }).catchError((error)
+                                        {
+                                          defaultToast(msg: error.toString());
+                                        });
+                                      }
+
+                                    else
+                                      {
+                                        defaultToast(msg: Localization.translate('text_wrong_file'));
+                                      }
+
                                   }
 
                                   else
@@ -509,7 +520,7 @@ class _TextFilesState extends State<TextFiles> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(22.0),
                                         child: Icon(
-                                          Icons.file_present_outlined,
+                                          Icons.text_snippet_rounded,
                                           color: currentTextType == Localization.translate('text_choose_file_option')
                                               ? cubit.isDarkTheme? defaultDarkColor : defaultColor
                                               : cubit.isDarkTheme? Colors.white : defaultHomeColor,
@@ -775,33 +786,83 @@ class _TextFilesState extends State<TextFiles> {
                                 builder: (context)=>defaultButton(
                                   title: Localization.translate('upload_button'),
                                   color: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
-                                  onTap: ()
+                                  onTap: () async
                                   {
-                                    if(cubit.chosenTextFile!=null)
+                                    if(currentTextType == Localization.translate('text_choose_file_option'))
                                     {
+                                      if(cubit.chosenTextFile!=null)
+                                      {
 
-                                      cubit.uploadTextInquiry(
+                                        if(allowedTextTypes.contains(cubit.chosenTextFile!.extension))
+                                        {
 
-                                        file:cubit.chosenTextFile!,
+                                          cubit.uploadTextInquiry(
+
+                                            file:cubit.chosenTextFile!,
+
+                                            onSendProgress: (int sent, int total)
+                                            {
+                                              print('File is Being Uploaded: Sent:$sent Total:$total');
+                                            },
+
+                                          ).then((value)
+                                          {
+                                            cubit.removeTextFile();
+
+                                          }).catchError((error)
+                                          {
+                                            defaultToast(msg: error.toString());
+                                          });
+                                        }
+
+                                        else
+                                        {
+                                          defaultToast(msg: Localization.translate('text_wrong_file'));
+                                        }
+
+                                      }
+
+                                      else
+                                      {
+                                        defaultToast(msg: Localization.translate('upload_text_no_data_toast'));
+                                      }
+                                    }
+
+                                    else
+                                    {
+                                      if(postController.text.isNotEmpty && postTitleController.text.isNotEmpty)
+                                      {
+                                        //Create a File
+                                        File file= await writeFileFromText(postController.text, postTitleController.text);
+
+                                        //get it's platform File
+                                        PlatformFile platformFile = PlatformFile(name: basename(file.path), size: await file.length(), path: file.path);
+
+
+                                        cubit.uploadTextInquiry(
+
+                                        file:platformFile,
 
                                         onSendProgress: (int sent, int total)
                                         {
-                                          print('File is Being Uploaded: Sent:$sent Total:$total');
+                                        print('File is Being Uploaded: Sent:$sent Total:$total');
                                         },
 
-                                      ).then((value)
-                                      {
+                                        ).then((value) async
+                                        {
                                         cubit.removeTextFile();
-
-                                      }).catchError((error)
-                                      {
+                                        }).catchError((error)
+                                        {
                                         defaultToast(msg: error.toString());
-                                      });
-                                    }
-                                    else
-                                    {
-                                      defaultToast(msg: Localization.translate('upload_text_no_data_toast'));
-                                    }
+                                        });
+                                      }
+
+                                      else
+                                      {
+                                        defaultToast(msg: Localization.translate('text_add_string_no_text'));
+                                      }
+                                  }
+
                                   },
                                   textColor: cubit.isDarkTheme? Colors.black : Colors.white,
                                 ),

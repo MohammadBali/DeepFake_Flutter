@@ -19,7 +19,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'Localization/Localization.dart';
 import 'constants.dart';
 
-//Default FormField Styling
+///Default FormField Styling
 Widget defaultFormField({
   required TextEditingController controller,
   required TextInputType keyboard,
@@ -93,7 +93,7 @@ Widget defaultFormField({
 
 //Default Boxes
 
-//Default Box Styling
+///Default Box Styling
 Widget defaultBox(
 {
   required AppCubit cubit,
@@ -140,7 +140,7 @@ Widget defaultBox(
 //------------------------------------------------------------------------------------------------------\\
 
 
-//Item Builder for Add a Post Widget & Insert a Text Style
+///Item Builder for Add a Post Widget & Insert a Text Style
 Widget defaultAddPostBox(
     {
       required AppCubit cubit,
@@ -182,11 +182,11 @@ Widget defaultAddPostBox(
 
 //------------------------------------------------------------------------------------------------------\\
 
-//Inquiry Box Styling inside posts
+///Inquiry Box Styling inside posts
 
 Widget defaultQueryBox(
     {
-      required boxColor,
+      required Color boxColor,
       double borderRadius=8,
       double padding=15,
       required Widget child,
@@ -197,8 +197,12 @@ Widget defaultQueryBox(
       child: Container(
   padding: EdgeInsetsDirectional.all(padding),
   decoration: BoxDecoration(
-      color: boxColor,
-      borderRadius: BorderRadius.circular(borderRadius),),
+      //color: boxColor.withOpacity(0.7),
+      borderRadius: BorderRadius.circular(borderRadius),
+      border: Border.all(
+        color: boxColor
+      ),
+  ),
   child: child,
 ),
     );
@@ -207,7 +211,7 @@ Widget defaultQueryBox(
 
 //------------------------------------------------------------------------------------------------------\\
 
-//Default Button to be used
+///Default Button to be used
 Widget defaultButton(
 {
   double letterSpacing=0,
@@ -251,7 +255,7 @@ Widget defaultButton(
 //-------------------------------------------------------------------------------------------------------\\
 
 
-//DefaultToast message
+///DefaultToast message
 
 
 Future<bool?> defaultToast({
@@ -299,7 +303,7 @@ Color chooseToastColor(ToastStates state) {
 //--------------------------------------------------------------------------------------------------\\
 
 
-// Navigate to a screen, it takes context and a widget to go to.
+/// Navigate to a screen, it takes context and a widget to go to.
 
 void navigateTo( BuildContext context, Widget widget) =>Navigator.push(
   context,
@@ -309,7 +313,7 @@ void navigateTo( BuildContext context, Widget widget) =>Navigator.push(
 
 //--------------------------------------------------------------------------------------------------\\
 
-// Navigate to a screen and save the route name
+/// Navigate to a screen and save the route name
 
 void navigateAndSaveRouteSettings( BuildContext context, Widget widget, String routeName) =>Navigator.push(
   context,
@@ -322,7 +326,7 @@ void navigateAndSaveRouteSettings( BuildContext context, Widget widget, String r
 
 //--------------------------------------------------------------------------------------------------\\
 
-// Navigate to a screen and destroy the ability to go back
+/// Navigate to a screen and destroy the ability to go back
 void navigateAndFinish(context,Widget widget) => Navigator.pushAndRemoveUntil(
   context,
   MaterialPageRoute(builder: (context)=>widget),
@@ -331,7 +335,7 @@ void navigateAndFinish(context,Widget widget) => Navigator.pushAndRemoveUntil(
 
 //--------------------------------------------------------------------------------------------------\\
 
-//Default Divider for ListViews ...
+///Default Divider for ListViews ...
 Widget myDivider({Color? color=Colors.grey, double padding=0}) => Container(height: 1, width: double.infinity , color:color, padding: EdgeInsets.symmetric(horizontal: padding),);
 
 
@@ -339,7 +343,7 @@ Widget myDivider({Color? color=Colors.grey, double padding=0}) => Container(heig
 
 
 
-//Convert a Color to MaterialColor
+///Convert a Color to MaterialColor
 
 MaterialColor getMaterialColor(Color color) {
   final Map<int, Color> shades = {
@@ -359,7 +363,7 @@ MaterialColor getMaterialColor(Color color) {
 
 //---------------------------------------------------------------------------------\\
 
-//Default Loading Indicators
+///Default Linear Loading Indicator
 
 Widget defaultLinearProgressIndicator(BuildContext context, {double? value})
 {
@@ -369,7 +373,7 @@ Widget defaultLinearProgressIndicator(BuildContext context, {double? value})
   );
 }
 
-
+///Default Circular Loading Indicator
 Widget defaultProgressIndicator(BuildContext context, {double? value})
 {
   return CircularProgressIndicator(
@@ -381,13 +385,13 @@ Widget defaultProgressIndicator(BuildContext context, {double? value})
 
 //---------------------------------------------------------------------------------------\\
 
-
+///Check if a number is a numeric or not
 isNumeric(string) => num.tryParse(string) != null;
 
 
 //------------------------------------------------------------------------------------------\\
 
-//Default Alert Dialogs
+///Default Alert Dialogs
 
 Widget defaultAlertDialog(
     {
@@ -429,7 +433,7 @@ Widget defaultAlertDialog(
 
 //------------------------------------------------------------------------------------------\\
 
-//Default AppBar
+///Default AppBar
 
 PreferredSizeWidget defaultAppBar({
   required AppCubit cubit,
@@ -453,12 +457,12 @@ PreferredSizeWidget defaultAppBar({
 
 //------------------------------------------------------------------------------------------\\
 
-//Post Item Builder
+///Post Item Builder
 
 Widget postItemBuilder({required AppCubit cubit, required Post post, required BuildContext context, bool isCommentClickable =true, bool isBoxClickable=true, bool isPhotoClickable=true})=>defaultBox(
     cubit: cubit,
     boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
-    borderColor: post.inquiry!.result! == 'fake' ? defaultRedColor : Colors.white, //If Inquiry is fake => Border Color is RedAccent
+    borderColor: Colors.white, //If Inquiry is fake => Border Color is RedAccent : post.inquiry!.result! == 'fake' ? defaultRedColor : Colors.white
     manualBorderColor: post.inquiry!.result! == 'fake' ? true : false,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -517,7 +521,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
                 padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
                 child: Text(
                   post.title!,
-                  maxLines: 2,
+                  maxLines: 4,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -533,7 +537,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
           padding: const EdgeInsetsDirectional.only(end: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children:
             [
               Wrap(
@@ -589,18 +593,35 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
 
               //const Spacer(),
 
-              const SizedBox(width: 50,),
+              const SizedBox(width: 25,),
+
+              Text(
+                post.inquiry!.result!.toUpperCase() =='REAL' ? Localization.translate('correct_your_inquiries') : Localization.translate('fake_your_inquiries') ,
+                style: TextStyle(
+                    color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600
+                ),
+              ),
+
+              const SizedBox(width: 25,),
 
               Expanded(
                 child: Align(
                   alignment: AlignmentDirectional.bottomEnd,
                   child: defaultQueryBox(
-                      boxColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,
-                      child: Text(
-                        post.inquiry!.name!,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                      boxColor: cubit.isDarkTheme? defaultThirdDarkColor : Colors.black, //defaultThirdColor,
+                      child: Icon(
+                        dataTypeFormatter(post.inquiry!.type!) == 'Audio' ? Icons.audiotrack_rounded
+                        : (dataTypeFormatter(post.inquiry!.type!) == 'Image' ? Icons.image_rounded : Icons.text_snippet_rounded),
+                        size: 18,
                       ),
+                      // child: Text(
+                      //   post.inquiry!.result! == 'fake' ? 'Fake' : 'Real',
+                      //   //post.inquiry!.name!,
+                      //   maxLines: 1,
+                      //   overflow: TextOverflow.ellipsis,
+                      // ),
                       onTap:() async
                       {
                         File? file=await base64ToFile(
@@ -633,8 +654,15 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
 
             const SizedBox(width: 5,),
 
-            Text(
-              dateFormatter(post.createdAt!),
+            Expanded(
+              child: Align(
+                alignment: AlignmentDirectional.bottomEnd,
+                child: Text(
+                  dateFormatter(post.createdAt!),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ),
           ],
         ),
@@ -653,8 +681,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
 
 //------------------------------------------------------------------------------------------\\
 
-//Comment Item Builder
-
+///Comment Item Builder
 
 Widget commentItemBuilder({required AppCubit cubit, required Comment comment, required BuildContext context})=>Column(
   crossAxisAlignment: CrossAxisAlignment.start,
@@ -737,7 +764,7 @@ Widget commentItemBuilder({required AppCubit cubit, required Comment comment, re
 
 //------------------------------------------------------------------------------------------\\
 
-//URL Launcher
+///URL Launcher
 
 Future<void> defaultLaunchUrl(String ur) async
 {
@@ -750,14 +777,14 @@ Future<void> defaultLaunchUrl(String ur) async
 
 //------------------------------------------------------------------------------------------\\
 
-// Calculate the number of comments/likes and return it as String, 1000 => 1K ,  200,000 => 200K etc...
+/// Calculate the number of likes and return it as String, 1000 => 1K ,  200,000 => 200K etc...
 
 String calculateNumberOfLikes(List<Like> likes)
 {
   return '${likes.length}';
 }
 
-
+/// Calculate the number of comments and return it as String, 1000 => 1K ,  200,000 => 200K etc...
 String calculateNumberOfComments(List<Comment> comments)
 {
   return '${comments.length}';
@@ -766,7 +793,7 @@ String calculateNumberOfComments(List<Comment> comments)
 
 //------------------------------------------------------------------------------------------\\
 
-//Format Date to More readable one
+///Format Date to More readable one
 String dateFormatter(String date)
 {
   DateTime dateTime=DateTime.parse(date);
@@ -779,32 +806,30 @@ String dateFormatter(String date)
 
 //------------------------------------------------------------------------------------------\\
 
-List<String> allowedImageTypes=['jpg','jpeg','png'];
-List<String> allowedAudioTypes=['mp3','flac','m4a','wav'];
-List<String> allowedTextTypes=['docx','doc','txt','pdf'];
 
-//Will return data type
+
+///Will return data type
 String dataTypeFormatter(String type)
 {
   if(allowedImageTypes.contains(type.toLowerCase()))
     {
-      return 'Image';
+      return Localization.translate('image_type_title');
     }
 
   else if (allowedAudioTypes.contains(type.toLowerCase()))
     {
-      return 'Audio';
+      return Localization.translate('audio_type_title');
     }
   else if (allowedTextTypes.contains(type.toLowerCase()))
     {
-      return 'Text';
+      return Localization.translate('text_type_title');
     }
   return '';
 }
 
 //------------------------------------------------------------------------------------------\\
 
-//Open Local Files From Path
+///Open Local Files From Path
 
 Future<void> openFile(String path)
 async {
@@ -824,7 +849,7 @@ async {
 
 //------------------------------------------------------------------------------------------\\
 
-//Generate Random String
+///Generate Random String
 
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
@@ -833,7 +858,7 @@ String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
 
 //------------------------------------------------------------------------------------------\\
 
-//Convert the Base64 Back to File
+///Convert the Base64 Back to File
 
 Future<File?> base64ToFile({required String base, required String type, required String id})async
 {
@@ -861,7 +886,7 @@ Future<File?> base64ToFile({required String base, required String type, required
 //------------------------------------------------------------------------------------------\\
 
 
-//Write a String Data into a File and return it
+///Write a String Data into a File and return it
 
 Future<File> writeFileFromText(String data, String title) async
 {
@@ -876,7 +901,7 @@ Future<File> writeFileFromText(String data, String title) async
 
 //------------------------------------------------------------------------------------------\\
 
-//Returns True/False for if a User is subscribed to another or not
+///Returns True/False for if a User is subscribed to another or not
 
 bool isSubscribed({required String userId, required AppCubit cubit})
 {
@@ -893,7 +918,7 @@ bool isSubscribed({required String userId, required AppCubit cubit})
 
 //------------------------------------------------------------------------------------------\\
 
-//Check if a Post is already Liked or Not
+///Check if a Post is already Liked or Not
 bool isLiked(Post post)
 {
   for (var like in post.likes!)
@@ -910,7 +935,7 @@ bool isLiked(Post post)
 
 //------------------------------
 
-//Convert Bytes into MB...
+///Convert Bytes into MB...
 int byteToMB(int byte)
 {
   return (byte * 0.000001).round();
@@ -918,7 +943,7 @@ int byteToMB(int byte)
 
 //---------------------------------
 
-//FCM Background Messages Handler
+///FCM Background Messages Handler
 Future<void>firebaseMessagingBackgroundHandler(RemoteMessage message) async
 {
   print('Got background message');

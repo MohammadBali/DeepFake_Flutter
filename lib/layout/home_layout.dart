@@ -185,7 +185,7 @@ class HomeLayout extends StatelessWidget with WidgetsBindingObserver {
                   [
                     BottomNavigationBarItem(label: Localization.translate('home_bnb'), icon: const Icon(Icons.rss_feed_rounded)),
 
-                    BottomNavigationBarItem(label: Localization.translate('text_bnb') , icon: const Icon(Icons.file_present_rounded)),
+                    BottomNavigationBarItem(label: Localization.translate('text_bnb') , icon: const Icon(Icons.text_snippet_rounded)),
 
                     BottomNavigationBarItem(label: Localization.translate('multimedia_bnb') ,icon: const Icon(Icons.video_collection_rounded)),
 

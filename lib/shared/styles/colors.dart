@@ -8,7 +8,7 @@ MaterialColor defaultColor= getMaterialColor(HexColor('3E4E50')); //Like a Teal 
 
 Color defaultHomeColor= HexColor('EBEBEB');
 
-Color defaultSecondaryColor= HexColor('CA895F'); //Like Button, Degree of Teal OLD: A1674A
+Color defaultSecondaryColor= HexColor('CA895F'); //Like Button, Degree of Teal OLD: A1674A - CA895F
 
 Color defaultThirdColor= HexColor('BD7986'); //of a Red Pinky Color OLD:AB5F6D
 

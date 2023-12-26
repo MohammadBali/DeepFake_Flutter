@@ -21,3 +21,9 @@ String? firebaseToken='';
 //Is Active in app => allows re connection to WebSockets
 
 bool isActive=true;
+
+
+//Allowed Files to be uploaded
+List<String> allowedImageTypes=['jpg','jpeg','png'];
+List<String> allowedAudioTypes=['mp3','flac','m4a','wav'];
+List<String> allowedTextTypes=['docx','doc','txt','pdf'];

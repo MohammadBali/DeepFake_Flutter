@@ -94,6 +94,7 @@ flutter:
     - assets/images/chatbot/
     - assets/images/inquiry/
     - assets/images/others/
+    - assets/images/post/
 
 
   fonts:
