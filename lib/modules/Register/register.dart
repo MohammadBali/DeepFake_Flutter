@@ -75,6 +75,8 @@ class _RegisterState extends State<Register> {
 
                 AppCubit.get(context).getUserData();
 
+                AppCubit.get(context).getUserPosts();
+
                 AppCubit.get(context).getPosts();
 
                 AppCubit.get(context).getInquiries();

@@ -150,8 +150,15 @@ const Map<String,String> ar={
   'appBar_title_edit_profile_page':'إعدادات الحساب',
   'edit_your_details_profile_page':'عدّل معلوماتك الشخصية',
   'update_button_profile_page':'حدّث',
+  'delete_account_profile_page':'احذف حسابك',
 
   'appBar_title_choose_photo':'اختر صورة شخصية',
+
+  'delete_account_dialog_title':'هل أنت متأكد؟',
+
+  'delete_account_dialog_body1':'هل تريد حذف حسابك؟',
+
+  'delete_account_dialog_body2':'لن يكون بوسعك إستعادة الحساب',
 
 
   //POSTS PAGE:
@@ -415,6 +422,13 @@ const Map<String,String> ar={
 
   'raneem_zerkley':'رنيم الزركلي',
 
+  //--------------------------------------------------------------------\\
+
+  //DELETE ACCOUNT
+
+  'deleted_successfully_toast':'تم حذف الحساب بنجاح',
+  'deleted_error_toast':'حدث خطأ أثناء الحذف',
+
 };
 
 
@@ -568,8 +582,15 @@ const Map<String,String> en={
   'appBar_title_edit_profile_page':'Edit Profile',
   'edit_your_details_profile_page':'Edit Your Details',
   'update_button_profile_page':'UPDATE',
+  'delete_account_profile_page':'DELETE YOUR ACCOUNT',
 
   'appBar_title_choose_photo':'Choose a Photo',
+
+  'delete_account_dialog_title':'ARE YOU SURE ?',
+
+  'delete_account_dialog_body1':'Do you want to delete your account?',
+
+  'delete_account_dialog_body2':'You can\'t restore your data',
 
 
   //YOUR POSTS PAGE:
@@ -840,5 +861,12 @@ const Map<String,String> en={
   'mohammad_bali':'Mohammad Al Bali',
 
   'raneem_zerkley':'Raneem Al Zerkly',
+
+  //--------------------------------------------------------------------\\
+
+  //DELETE ACCOUNT
+
+  'deleted_successfully_toast':'Account has been deleted',
+  'deleted_error_toast':'Error while deleting account',
 
 };

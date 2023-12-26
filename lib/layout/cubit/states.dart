@@ -280,6 +280,15 @@ class AppLogoutLoadingState extends AppStates{}
 class AppLogoutSuccessState extends AppStates{}
 class AppLogoutErrorState extends AppStates{}
 
+//-----------------------------------------------
+
+//DELETE USER ACCOUNT
+
+class AppDeleteUserAccountLoadingState extends AppStates{}
+class AppDeleteUserAccountErrorState extends AppStates{}
+class AppDeleteUserAccountSuccessState extends AppStates{}
+
+//-----------------------------------------------
 
 // GET TEXT FILE
 

@@ -762,13 +762,8 @@ class AppCubit extends Cubit<AppStates>
 
       CacheHelper.saveData(key: 'token', value: '').then((value)
       {
-        token='';
-        userData=null;
-        postModel=null;
-        inquiryModel=null;
-        userPostsModel=null;
-        currentBottomBarIndex=0;
-        messageModel!.messages=[];
+        deleteAllData();
+
         defaultToast(msg: Localization.translate('logout_successfully_toast'));
 
         navigateAndFinish(context, Login());
@@ -792,7 +787,68 @@ class AppCubit extends Cubit<AppStates>
     return false;
   }
 
+
+  ///Delete user account and logout
+  void deleteAccount(BuildContext context)
+  {
+    if(token!='')
+      {
+        print('In deleting account');
+        emit(AppDeleteUserAccountLoadingState());
+
+        MainDioHelper.deleteData(
+          url: deleteUser,
+          data: {},
+          token: token,
+        ).then((value)
+        {
+          print('Deleted Successfully');
+          defaultToast(msg: Localization.translate('deleted_successfully_toast'));
+
+          deleteAllData();
+
+          defaultToast(msg: Localization.translate('logout_successfully_toast'));
+
+          navigateAndFinish(context, Login());
+
+          emit(AppDeleteUserAccountSuccessState());
+        }
+        ).catchError((error)
+        {
+          print('ERROR WHILE DELETING USER ACCOUNT, ${error.toString()}');
+
+          defaultToast(msg: Localization.translate('deleted_error_toast'));
+          defaultToast(msg: error.toString());
+
+          emit(AppDeleteUserAccountErrorState());
+        });
+
+      }
+  }
   //------------------------------------
+
+  ///Delete and empty All models and classes
+  void deleteAllData()
+  {
+    token='';
+    userData=null;
+    postModel=null;
+    inquiryModel=null;
+    userPostsModel=null;
+
+    subscriptionsModel=null;
+    subscriptionsDetailsModel=null;
+    subscriptionsPostsModel=null;
+    removeImageFile();
+    removeAudioFile();
+    removeTextFile();
+
+    currentBottomBarIndex=0;
+    messageModel!.messages=[];
+
+  }
+
+  //-------------------------------------
 
   // NEWS APIS
 

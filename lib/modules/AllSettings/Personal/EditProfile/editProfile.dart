@@ -230,6 +230,82 @@ class _EditProfileState extends State<EditProfile> {
                                       }
                                   ),
                                 ),
+
+                                const SizedBox(height: 25,),
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Expanded(
+                                      child: Align(
+                                        alignment: AlignmentDirectional.centerEnd,
+                                        child: TextButton(
+                                          child: Text(
+                                            Localization.translate('delete_account_profile_page'),
+                                            style: TextStyle(
+                                              color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
+                                              decoration: TextDecoration.underline,
+                                              fontFamily: 'Neology',
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+
+                                          onPressed: ()
+                                          {
+                                            showDialog(
+                                              context: context,
+                                              builder: (dialogContext)
+                                                {
+                                                  return defaultAlertDialog(
+                                                      context: dialogContext,
+                                                      title: Localization.translate('delete_account_dialog_title'),
+                                                      content: SingleChildScrollView(
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          mainAxisSize: MainAxisSize.min,
+                                                          children:
+                                                          [
+                                                            Text(Localization.translate('delete_account_dialog_body1')),
+
+                                                            const SizedBox(height: 10,),
+
+                                                            Text(Localization.translate('delete_account_dialog_body2'), style: const TextStyle(decoration: TextDecoration.underline)),
+
+                                                            const SizedBox(height: 10,),
+
+                                                            Row(
+                                                              children:
+                                                              [
+                                                                TextButton(
+                                                                    onPressed: ()
+                                                                    {
+                                                                      cubit.deleteAccount(context);
+                                                                    },
+                                                                    child: Text(Localization.translate('exit_app_yes'))
+                                                                ),
+
+                                                                const Spacer(),
+
+                                                                TextButton(
+                                                                  onPressed: ()=> Navigator.of(dialogContext).pop(false),
+                                                                  child: Text(Localization.translate('exit_app_no')),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                  );
+                                                }
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),

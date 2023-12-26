@@ -463,7 +463,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
     cubit: cubit,
     boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
     borderColor: Colors.white, //If Inquiry is fake => Border Color is RedAccent : post.inquiry!.result! == 'fake' ? defaultRedColor : Colors.white
-    manualBorderColor: post.inquiry!.result! == 'fake' ? true : false,
+    //manualBorderColor: post.inquiry!.result! == 'fake' ? true : false,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -736,8 +736,8 @@ Widget commentItemBuilder({required AppCubit cubit, required Comment comment, re
                 padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
                 child: Text(
                   comment.comment!,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                  //maxLines: 2,
+                  //overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),

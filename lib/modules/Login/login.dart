@@ -64,6 +64,8 @@ class _LoginState extends State<Login> {
 
                 cubit.getPosts();
 
+                cubit.getUserPosts();
+
                 cubit.getInquiries();
 
                 cubit.getUserPosts();
