@@ -218,6 +218,8 @@ const Map<String,String> ar={
 
   'fake_result_inquiry_details':'المعلومات غير صحيحة',
 
+  'share_as_post_inquiry_details':'قم بالنشر ',
+
   'inquiry_details_helper_title':'تفاصيل الاستفسار',
 
   'inquiry_details_helper_body1':'الاستفسار: تحقق ما إذا كانت البيانات مزيفة أم لا',
@@ -649,6 +651,8 @@ const Map<String,String> en={
   'correct_result_inquiry_details':'Valid Data',
 
   'fake_result_inquiry_details':'Fake Data',
+
+  'share_as_post_inquiry_details':'SHARE AS POST',
 
   'inquiry_details_helper_title':'INQUIRY DETAILS',
 

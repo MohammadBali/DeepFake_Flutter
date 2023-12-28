@@ -36,13 +36,13 @@ class InquiryDetails extends StatelessWidget {
                 ),
                 actions:
                 [
-                  IconButton(
-                    onPressed: ()
-                    {
-                      navigateTo(context, AddPost(inquiry: inquiry,));
-                    },
-                    icon: const Icon(Icons.share_rounded)
-                  ),
+                  // IconButton(
+                  //   onPressed: ()
+                  //   {
+                  //     navigateTo(context, AddPost(inquiry: inquiry,));
+                  //   },
+                  //   icon: const Icon(Icons.share_rounded)
+                  // ),
 
                   Visibility(
                     visible: cubit.showHelpDialogs,
@@ -151,16 +151,29 @@ class InquiryDetails extends StatelessWidget {
 
                             //const SizedBox(height: 40,),
 
-                            Text(
-                              inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_secondary_inquiry_details') : Localization.translate('fake_secondary_inquiry_details'),
-                              style: TextStyle(
-                                color: cubit.isDarkTheme? defaultDarkFontColor: defaultFontColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                letterSpacing: 1,
-                              ),
-                              maxLines: 4,
-                              overflow: TextOverflow.ellipsis,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
+                                  style: TextStyle(
+                                    color: cubit.isDarkTheme? defaultDarkColor: defaultColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 20,
+                                    letterSpacing: 1,
+                                  ),
+                                  maxLines: 4,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+
+                                const SizedBox(width: 10,),
+
+                                Icon(
+                                  inquiry.result?.toUpperCase() =='REAL' ? Icons.check_rounded : Icons.cancel_outlined,
+                                  color: cubit.isDarkTheme? defaultDarkColor: defaultColor,
+                                  //size: 32,
+                                ),
+                              ],
                             ),
 
                             //const SizedBox(height: 5,),
@@ -178,30 +191,22 @@ class InquiryDetails extends StatelessWidget {
 
                             //const Spacer(),
 
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Spacer(),
-
-                                Text(
-                                  inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
-                                  style: TextStyle(
-                                    color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-                                    fontSize: 30,
-                                    fontFamily: 'Neology',
-                                    letterSpacing: 2,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
+                            TextButton(
+                              onPressed: ()
+                              {
+                                navigateTo(context, AddPost(inquiry: inquiry,));
+                              },
+                              child: Text(
+                                Localization.translate('share_as_post_inquiry_details'),
+                                style: TextStyle(
+                                  color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
+                                  fontSize: 26,
+                                  fontFamily: 'Neology',
+                                  decoration: TextDecoration.underline
+                                  //letterSpacing: 2,
                                 ),
-
-                                const Spacer(),
-
-                                Icon(
-                                  inquiry.result?.toUpperCase() =='REAL' ? Icons.check_rounded : Icons.cancel_outlined,
-                                  size: 32,
-                                  color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-                                )
-                              ],
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
 
                           ],
@@ -269,16 +274,29 @@ class InquiryDetails extends StatelessWidget {
 
                               const SizedBox(height: 40,),
 
-                              Text(
-                                inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_secondary_inquiry_details') : Localization.translate('fake_secondary_inquiry_details'),
-                                style: TextStyle(
-                                  color: cubit.isDarkTheme? defaultDarkFontColor: defaultFontColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  letterSpacing: 1,
-                                ),
-                                maxLines: 4,
-                                overflow: TextOverflow.ellipsis,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
+                                    style: TextStyle(
+                                      color: cubit.isDarkTheme? defaultDarkColor: defaultColor,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20,
+                                      letterSpacing: 1,
+                                    ),
+                                    maxLines: 4,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+
+                                  const SizedBox(width: 10,),
+
+                                  Icon(
+                                    inquiry.result?.toUpperCase() =='REAL' ? Icons.check_rounded : Icons.cancel_outlined,
+                                    color: cubit.isDarkTheme? defaultDarkColor: defaultColor,
+                                    //size: 32,
+                                  ),
+                                ],
                               ),
 
                               const SizedBox(height: 5,),
@@ -291,30 +309,22 @@ class InquiryDetails extends StatelessWidget {
 
                               const SizedBox(height: 10,),
 
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Spacer(),
-
-                                  Text(
-                                    inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
-                                    style: TextStyle(
-                                      color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-                                      fontSize: 30,
+                              TextButton(
+                                onPressed: ()
+                                {
+                                  navigateTo(context, AddPost(inquiry: inquiry,));
+                                },
+                                child: Text(
+                                  Localization.translate('share_as_post_inquiry_details'),
+                                  style: TextStyle(
+                                      color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
+                                      fontSize: 26,
                                       fontFamily: 'Neology',
-                                      letterSpacing: 2,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
+                                      decoration: TextDecoration.underline
+                                    //letterSpacing: 2,
                                   ),
-
-                                  const Spacer(),
-
-                                  Icon(
-                                    inquiry.result?.toUpperCase() =='REAL' ? Icons.check_rounded : Icons.cancel_outlined,
-                                    size: 32,
-                                    color: cubit.isDarkTheme? defaultDarkColor : defaultColor,
-                                  )
-                                ],
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
 
                             ],

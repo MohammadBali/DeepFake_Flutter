@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:deepfake_detection/layout/cubit/cubit.dart';
@@ -263,12 +264,14 @@ class HomeLayout extends StatelessWidget with WidgetsBindingObserver {
         break;
 
       case AppLifecycleState.detached:
-
         break;
 
       case AppLifecycleState.paused:
+        Timer(const Duration(minutes: 1), ()
+        {
+          isActive= false;
+        });
 
-        isActive= false;
         break;
 
       case AppLifecycleState.inactive:
