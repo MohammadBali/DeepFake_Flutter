@@ -8,13 +8,13 @@ MaterialColor defaultColor= getMaterialColor(HexColor('3E4E50')); //Like a Teal 
 
 Color defaultHomeColor= HexColor('EBEBEB');
 
-Color defaultSecondaryColor= HexColor('CA895F'); //Like Button, Degree of Teal OLD: A1674A - CA895F
+Color defaultSecondaryColor= HexColor('9E7682'); //Like Button, Degree of Teal OLD: A1674A - CA895F
 
-Color defaultThirdColor= HexColor('BD7986'); //of a Red Pinky Color OLD:AB5F6D
+Color defaultThirdColor= HexColor('986C6A'); //of a Red Pinky Color OLD:AB5F6D  BD7986
 
 Color defaultAlertColor=HexColor('ABABD1');
 
-Color defaultBoxColor= HexColor('C5C5E6'); //of a Violet Color, OLD:ABABD1
+Color defaultBoxColor= HexColor('C6D3E2'); //Columbian Blue color, OLD Violet Color:C5C5E6
 
 Color defaultBottomNavBarColor= HexColor('C2C3C4'); // Light Grey Color
 

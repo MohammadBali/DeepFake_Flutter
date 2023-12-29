@@ -100,7 +100,6 @@ class InquiryDetails extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children:
                           [
-                            //const SizedBox(height: 20,),
 
                             Padding(
                               padding: const EdgeInsetsDirectional.symmetric(horizontal: 25),
@@ -129,7 +128,10 @@ class InquiryDetails extends StatelessWidget {
 
                                     const SizedBox(width: 5,),
 
-                                    const Icon(Icons.folder_open_rounded),
+                                    Icon(
+                                      dataTypeFormatter(inquiry.type!) == 'Audio' ? Icons.audiotrack_rounded
+                                      : (dataTypeFormatter(inquiry.type!) == 'Image' ? Icons.image_rounded : Icons.text_snippet_rounded),
+                                    ),
                                   ],
                                 ),
                                 onTap: ()
@@ -149,11 +151,16 @@ class InquiryDetails extends StatelessWidget {
                               ),
                             ),
 
-                            //const SizedBox(height: 40,),
 
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                               children: [
+
+                                Expanded(child: myDivider()),
+
+                                const SizedBox(width: 10,),
+
                                 Text(
                                   inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
                                   style: TextStyle(
@@ -166,17 +173,20 @@ class InquiryDetails extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                 ),
 
-                                const SizedBox(width: 10,),
+                                const SizedBox(width: 5,),
 
                                 Icon(
                                   inquiry.result?.toUpperCase() =='REAL' ? Icons.check_rounded : Icons.cancel_outlined,
                                   color: cubit.isDarkTheme? defaultDarkColor: defaultColor,
                                   //size: 32,
                                 ),
+
+                                const SizedBox(width: 10,),
+
+                                Expanded(child: myDivider()),
                               ],
                             ),
 
-                            //const SizedBox(height: 5,),
 
                             SizedBox(
                               width: MediaQuery.of(context).size.width/1.3,
@@ -189,7 +199,6 @@ class InquiryDetails extends StatelessWidget {
                               ),
                             ),
 
-                            //const Spacer(),
 
                             TextButton(
                               onPressed: ()
@@ -200,8 +209,9 @@ class InquiryDetails extends StatelessWidget {
                                 Localization.translate('share_as_post_inquiry_details'),
                                 style: TextStyle(
                                   color: cubit.isDarkTheme? defaultDarkFontColor : defaultFontColor,
-                                  fontSize: 26,
-                                  fontFamily: 'Neology',
+                                  fontSize: 24,
+                                  fontFamily: 'WithoutSans',
+                                  fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.underline
                                   //letterSpacing: 2,
                                 ),
@@ -252,7 +262,10 @@ class InquiryDetails extends StatelessWidget {
 
                                       const SizedBox(width: 5,),
 
-                                      const Icon(Icons.folder_open_rounded),
+                                      Icon(
+                                        dataTypeFormatter(inquiry.type!) == 'Audio' ? Icons.audiotrack_rounded
+                                            : (dataTypeFormatter(inquiry.type!) == 'Image' ? Icons.image_rounded : Icons.text_snippet_rounded),
+                                      ),
                                     ],
                                   ),
                                   onTap: ()
@@ -275,8 +288,14 @@ class InquiryDetails extends StatelessWidget {
                               const SizedBox(height: 40,),
 
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                                 children: [
+
+                                  Expanded(child: myDivider()),
+
+                                  const SizedBox(width: 10,),
+
                                   Text(
                                     inquiry.result?.toUpperCase() =='REAL' ? Localization.translate('correct_result_inquiry_details') : Localization.translate('fake_result_inquiry_details') ,
                                     style: TextStyle(
@@ -289,13 +308,17 @@ class InquiryDetails extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
 
-                                  const SizedBox(width: 10,),
+                                  const SizedBox(width: 5,),
 
                                   Icon(
                                     inquiry.result?.toUpperCase() =='REAL' ? Icons.check_rounded : Icons.cancel_outlined,
                                     color: cubit.isDarkTheme? defaultDarkColor: defaultColor,
                                     //size: 32,
                                   ),
+
+                                  const SizedBox(width: 10,),
+
+                                  Expanded(child: myDivider()),
                                 ],
                               ),
 

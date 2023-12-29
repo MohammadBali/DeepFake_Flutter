@@ -22,6 +22,7 @@ class ChatScreen extends StatelessWidget {
       builder: (context,state)
       {
         var cubit= AppCubit.get(context);
+
         return Directionality(
           textDirection: AppCubit.language=='ar' ? TextDirection.rtl : TextDirection.ltr,
           child: OrientationBuilder(
@@ -148,6 +149,7 @@ class ChatScreen extends StatelessWidget {
                                   size: 16.0,
                                 ),
                               ),
+
                             ],
                           ),
                         ),

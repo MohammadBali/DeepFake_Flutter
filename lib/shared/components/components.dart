@@ -702,7 +702,6 @@ Widget commentItemBuilder({required AppCubit cubit, required Comment comment, re
                  GestureDetector(
                    onTap: ()
                    {
-                     print(comment.owner!.lastName!);
                      if(comment.owner !=null)
                        {
                          cubit.getAUserPosts(comment.owner!.id!);
