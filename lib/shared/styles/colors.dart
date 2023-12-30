@@ -4,19 +4,19 @@ import 'package:hexcolor/hexcolor.dart';
 
 //LIGHT MODE
 
-MaterialColor defaultColor= getMaterialColor(HexColor('3E4E50')); //Like a Teal Color
+MaterialColor defaultColor= getMaterialColor(HexColor('324042')); //Outer Space, Teal color
 
-Color defaultHomeColor= HexColor('EBEBEB');
+Color defaultHomeColor= HexColor('EBEBEB'); //Anti flash white
 
-Color defaultSecondaryColor= HexColor('9E7682'); //Like Button, Degree of Teal OLD: A1674A - CA895F
+Color defaultSecondaryColor= HexColor('9E7682'); //Rose Taupe color,  OLD: 9E7682
 
-Color defaultThirdColor= HexColor('986C6A'); //of a Red Pinky Color OLD:AB5F6D  BD7986
+Color defaultThirdColor= HexColor('8DA3BD'); // Cadet Gray, OLD:  BD7986  986C6A
 
 Color defaultAlertColor=HexColor('ABABD1');
 
-Color defaultBoxColor= HexColor('C6D3E2'); //Columbian Blue color, OLD Violet Color:C5C5E6
+Color defaultBoxColor= HexColor('D1D1D1'); // Timber wolf Gray Color D1D1D1
 
-Color defaultBottomNavBarColor= HexColor('C2C3C4'); // Light Grey Color
+Color defaultBottomNavBarColor= HexColor('DDDDDD'); // Light Grey Color  OLD: C2C3C4
 
 Color defaultFontColor= Colors.black;
 

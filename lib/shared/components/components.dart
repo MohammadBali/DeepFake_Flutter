@@ -610,7 +610,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
                 child: Align(
                   alignment: AlignmentDirectional.bottomEnd,
                   child: defaultQueryBox(
-                      boxColor: cubit.isDarkTheme? defaultThirdDarkColor : Colors.black, //defaultThirdColor,
+                      boxColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,
                       child: Icon(
                         dataTypeFormatter(post.inquiry!.type!) == 'Audio' ? Icons.audiotrack_rounded
                         : (dataTypeFormatter(post.inquiry!.type!) == 'Image' ? Icons.image_rounded : Icons.text_snippet_rounded),
@@ -683,7 +683,7 @@ Widget postItemBuilder({required AppCubit cubit, required Post post, required Bu
 
 ///Comment Item Builder
 
-Widget commentItemBuilder({required AppCubit cubit, required Comment comment, required BuildContext context})=>Column(
+Widget commentItemBuilder({required AppCubit cubit, required Comment comment, required String postID, required BuildContext context})=>Column(
   crossAxisAlignment: CrossAxisAlignment.start,
 
   children:
@@ -699,7 +699,7 @@ Widget commentItemBuilder({required AppCubit cubit, required Comment comment, re
               children:
               [
 
-                 GestureDetector(
+                GestureDetector(
                    onTap: ()
                    {
                      if(comment.owner !=null)
@@ -737,6 +737,70 @@ Widget commentItemBuilder({required AppCubit cubit, required Comment comment, re
                   comment.comment!,
                   //maxLines: 2,
                   //overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+
+            //Icon(Icons.menu, size: 20,),
+
+            Visibility(
+              visible: comment.owner!.id == AppCubit.userData!.id,
+              child: Align(
+                alignment: AlignmentDirectional.topEnd,
+                child: InkWell(
+                  highlightColor: cubit.isDarkTheme? defaultDarkColor.withOpacity(0.2) : defaultColor.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                  child: Icon(Icons.remove, color: defaultRedColor, size: 28),
+
+                  onTap: ()
+                  {
+                    showDialog(
+                        context: context,
+                        builder: (dialogContext)
+                        {
+                          return defaultAlertDialog(
+                              context: dialogContext,
+                              title: Localization.translate('delete_comment_post_details_title'),
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children:
+                                  [
+                                    Text(Localization.translate('delete_comment_post_details_body1')),
+
+                                    const SizedBox(height: 5,),
+
+                                    Row(
+                                      children:
+                                      [
+                                        TextButton(
+                                            onPressed: ()
+                                            {
+                                              print('${comment.comment!} , ${comment.id!}');
+                                              cubit.deleteComment(commentID: comment.id!, postID: postID);
+
+                                              Navigator.of(dialogContext).pop(false);
+                                            },
+                                            child: Text(Localization.translate('exit_app_yes'))
+                                        ),
+
+                                        const Spacer(),
+
+                                        TextButton(
+                                          onPressed: ()=> Navigator.of(dialogContext).pop(false),
+                                          child: Text(Localization.translate('exit_app_no')),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ));
+                        }
+                    );
+                  },
+
                 ),
               ),
             ),

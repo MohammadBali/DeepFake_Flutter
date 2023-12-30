@@ -42,6 +42,7 @@ ThemeData lightTheme(context) => ThemeData(
     selectedItemColor: defaultColor,
     elevation: 20,
     backgroundColor: defaultBottomNavBarColor,
+
   ),
 
   datePickerTheme: DatePickerThemeData(

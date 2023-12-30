@@ -187,7 +187,7 @@ class UserPosts extends StatelessWidget {
                   }
                 );
               },
-              icon: const Icon(Icons.remove, color: Colors.redAccent,size: 28),
+              icon: Icon(Icons.remove, color: defaultRedColor, size: 28),
 
             ),
           ],

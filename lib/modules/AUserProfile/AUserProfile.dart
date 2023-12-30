@@ -79,6 +79,7 @@ class AUserProfile extends StatelessWidget {
           children:
           [
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children:
               [
                 Expanded(
@@ -106,61 +107,62 @@ class AUserProfile extends StatelessWidget {
                 // ),
 
 
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:
-                  [
-                    Text(
-                      '${user.name!} ${user.lastName!}',
-                      style: const TextStyle(
-                        fontFamily: 'Neology',
-                        fontSize: 24,
-
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:
+                    [
+                      Text(
+                        '${user.name!} ${user.lastName!}',
+                        style: const TextStyle(
+                          fontFamily: 'Neology',
+                          fontSize: 24,
+                        ),
                       ),
-                    ),
 
-                    //Build a Verified text if the user is official and verified
+                      //Build a Verified text if the user is official and verified
 
-                    if(user.isOfficial! == true)
-                      const SizedBox(height: 10,),
+                      if(user.isOfficial! == true)
+                        const SizedBox(height: 10,),
 
-                    if(user.isOfficial! == true)
-                      Row(
-                        children: [
+                      if(user.isOfficial! == true)
+                        Row(
+                          children: [
 
-                          Text(
-                            Localization.translate('verified_a_user_profile'),
-                            style: TextStyle(
-                              fontFamily: 'GabrielSans',
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              decoration: TextDecoration.overline,
-                              decorationStyle: TextDecorationStyle.wavy,
-                              decorationColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,
-                              color: defaultSecondaryDarkColor ,
+                            Text(
+                              Localization.translate('verified_a_user_profile'),
+                              style: TextStyle(
+                                fontFamily: 'GabrielSans',
+                                fontSize: 24,
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.overline,
+                                decorationStyle: TextDecorationStyle.wavy,
+                                decorationColor: cubit.isDarkTheme? defaultThirdDarkColor : defaultThirdColor,
+                                color: defaultSecondaryDarkColor ,
+                              ),
                             ),
-                          ),
 
-                          const SizedBox(width: 5,),
+                            const SizedBox(width: 5,),
 
-                          Image(
-                            image: const AssetImage('assets/images/others/blue_tick.png'),
-                            filterQuality: FilterQuality.high,
-                            height: 20,
-                            width: 20,
-                            alignment: AlignmentDirectional.center,
-                            color: defaultSecondaryDarkColor,
-                          ),
+                            Image(
+                              image: const AssetImage('assets/images/others/blue_tick.png'),
+                              filterQuality: FilterQuality.high,
+                              height: 20,
+                              width: 20,
+                              alignment: AlignmentDirectional.center,
+                              color: defaultSecondaryDarkColor,
+                            ),
 
-                          // Icon(
-                          //   Icons.check_rounded,
-                          //   color: defaultSecondaryDarkColor,
-                          //   size: 24,
-                          // ),
+                            // Icon(
+                            //   Icons.check_rounded,
+                            //   color: defaultSecondaryDarkColor,
+                            //   size: 24,
+                            // ),
 
-                        ],
-                      ),
-                  ],
+                          ],
+                        ),
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -24,13 +24,14 @@ class PostDetails extends StatelessWidget {
 
     try
     {
-      print(AppCubit.postModel!.posts!.indexOf(globalPost));
+      //print(AppCubit.postModel!.posts!.indexOf(globalPost));
+
       postIndex= AppCubit.postModel!.posts!.indexOf(globalPost);
       post= AppCubit.postModel!.posts![postIndex];
     }
     catch (e,stackTrace)
     {
-      print('CAUGHT UNKNOWN ERROR IN POST DETAILS PAGE, ${e.toString()}');
+      //print('CAUGHT UNKNOWN ERROR IN POST DETAILS PAGE, ${e.toString()}');
     }
 
     return BlocConsumer<AppCubit,AppStates>(
@@ -122,7 +123,7 @@ class PostDetails extends StatelessWidget {
                                   builder: (context)=>ConditionalBuilder(
                                     condition: post.comments!.isNotEmpty,
                                     builder: (context)=> ListView.separated(
-                                      itemBuilder: (context,index)=>commentItemBuilder(cubit: cubit, comment: post.comments![index], context: context),
+                                      itemBuilder: (context,index)=>commentItemBuilder(cubit: cubit, comment: post.comments![index], postID: post.id!, context: context),
                                       separatorBuilder: (context,index)=> Column(
                                         children:
                                         [
@@ -251,6 +252,8 @@ class PostDetails extends StatelessWidget {
                     );
 
                     addCommentController.text='';
+
+
                   }
                 else
                   {

@@ -181,6 +181,10 @@ const Map<String,String> ar={
   'post_details_title':'المنشور',
   'add_comment_post_details':'أضف تعليقاً',
 
+  'delete_comment_post_details_title':'حذف التعليق',
+
+  'delete_comment_post_details_body1':'هل تريد حقاً حذف هذا التعليق؟',
+
   'post_date':'نُشر بتاريخ ',
 
   'comment_date':'أُضيف بتاريخ  ',
@@ -327,6 +331,8 @@ const Map<String,String> ar={
   //ADD COMMENTS
 
   'comment_add_successfully_toast':'تم إضافة تعليقك بنجاح',
+
+  'comment_delete_successfully_toast':'تم حذف التعليق بنجاح',
 
   'comment_no_data_toast':'لا يوجد تعليق ليتم رفعه',
 
@@ -615,6 +621,10 @@ const Map<String,String> en={
   'post_details_title':'Post Details',
   'add_comment_post_details':'Add Comment',
 
+  'delete_comment_post_details_title':'DELETE COMMENT',
+
+  'delete_comment_post_details_body1':'Do you want to delete this comment?',
+
   'post_date':'Shared at: ',
 
   'comment_date':'Added at: ',
@@ -769,6 +779,8 @@ const Map<String,String> en={
   //ADD COMMENTS
 
   'comment_add_successfully_toast':'Comment Added Successfully',
+
+  'comment_delete_successfully_toast':'Comment Deleted Successfully',
 
   'comment_no_data_toast':'No Data to post',
 

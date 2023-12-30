@@ -34,31 +34,30 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   bool isLast=false;
 
-  //Needs To Be Fixed
   List<OnBoardingModel> list=
   [
     OnBoardingModel(
         image: 'assets/images/lottie/Two_Persons_Watch_Laptop_Statistics.json',
-        title: "Can't Be Sure What's Wrong and What's Right?",
-        body: 'With the huge amount of data, it can be hard to detect the truth today.'
+        title: "Not Sure About the Authenticity of Some Data?", //Can't Be Sure What's Wrong and What's Right?
+        body: 'The deepfake today creates major dangers and casts shadows of doubts upon the integrity of information and the authenticity of its content.' //With the huge amount of data, it can be hard to detect the truth today.
     ),
 
     OnBoardingModel(
         image: 'assets/images/lottie/Scroll_and_Set_Likes.json',
         title: 'DeepGuard Will Put your Mind at Ease',
-        body: 'Just upload the data and let us handle it.'
+        body: 'Just upload the your text, audio or image and let us uncover the truth!'
     ),
 
     OnBoardingModel(
         image: 'assets/images/lottie/People_Waving_Community.json',
         title: 'Introducing Community',
-        body: 'Share Your Inquiries as Posts and interact with All Users!'
+        body: 'Share your inquiries as posts in an interactive community where you can interact with all users!'  //Share Your Inquiries as Posts and interact with All Users!
     ),
 
     OnBoardingModel(
         image: 'assets/images/lottie/Person_and_Scroll_Posts.json',
-        title: 'See What Others Have Found!',
-        body: 'Likes and Comments, just interact with everyone at anytime!'
+        title: 'See What Others Have Detected!',
+        body: 'Likes & Comments, just interact with everyone at anytime and help to spread the awareness' //Likes and Comments, just interact with everyone at anytime!
     ),
 
   ];
@@ -135,8 +134,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       {
                         if(index==list.length-1)  //if it is the last Screen => set IsLast to true
                             {
-                          print('Last on_boarding screen');
-
                           setState(()
                           {
                             isLast=true;
@@ -145,8 +142,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         }
                         else
                         {
-                          print('not last on_boarding screen');
-
                           setState(()
                           {
                             isLast=false;
@@ -201,8 +196,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         else
                         {
                           pageViewController.nextPage(
-                            duration: const Duration(milliseconds: 950),
-                            curve: Curves.fastOutSlowIn,
+                            duration: const Duration(milliseconds: 650), //950
+                            curve: Curves.decelerate, //fastOutSlowIn
 
                           );
 

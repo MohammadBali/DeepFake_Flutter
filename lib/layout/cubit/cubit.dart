@@ -527,6 +527,27 @@ class AppCubit extends Cubit<AppStates>
     defaultToast(msg: Localization.translate('comment_add_successfully_toast'));
   }
 
+
+  ///Delete a Comment by WebSockets
+  void deleteComment({required String commentID, required String postID})
+  {
+    if(wsChannel.innerWebSocket ==null)
+    {
+      _reConnectWsChannel();
+    }
+    Map<String,dynamic> data=
+    {
+      'type':'deleteComment',
+      'commentID':commentID,
+      'postID':postID,
+      'token':token
+    };
+
+    wsChannel.sink.add(jsonEncode(data));
+
+    defaultToast(msg: Localization.translate('comment_delete_successfully_toast'));
+  }
+
   //--------------------------------------------------\\
 
 

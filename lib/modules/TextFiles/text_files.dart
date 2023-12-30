@@ -302,6 +302,8 @@ class _TextFilesState extends State<TextFiles> {
                                   context: context,
                                   cubit: cubit,
                                   boxColor: null,
+                                  borderColor: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
+                                  manualBorderColor: true,
                                   child: SizedBox(
                                     width: double.infinity,
                                     //height: MediaQuery.of(context).size.height /2.5,
@@ -650,6 +652,8 @@ class _TextFilesState extends State<TextFiles> {
                                     context: context,
                                     cubit: cubit,
                                     boxColor: null,
+                                    borderColor: cubit.isDarkTheme? defaultSecondaryDarkColor : defaultSecondaryColor,
+                                    manualBorderColor: true,
                                     child: SizedBox(
                                       width: double.infinity,
                                       //height: MediaQuery.of(context).size.height /2.5,

@@ -34,7 +34,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   firebaseToken= await FirebaseMessaging.instance.getToken();
-  print('FIREBASE TOKEN: $firebaseToken');
+  //print('FIREBASE TOKEN: $firebaseToken');
 
   NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
     alert: true,
