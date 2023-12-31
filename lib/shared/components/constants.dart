@@ -25,5 +25,5 @@ bool isActive=true;
 
 //Allowed Files to be uploaded
 List<String> allowedImageTypes=['jpg','jpeg','png'];
-List<String> allowedAudioTypes=['mp3','flac','m4a','wav'];
+List<String> allowedAudioTypes=['mp3','rm','wav'];
 List<String> allowedTextTypes=['docx','doc','txt','pdf'];

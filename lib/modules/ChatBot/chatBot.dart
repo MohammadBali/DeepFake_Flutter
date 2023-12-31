@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/components/Localization/Localization.dart';
 import '../../shared/components/components.dart';
 import '../../shared/styles/colors.dart';
+import 'dart:math' as math;
 
 class ChatBot extends StatelessWidget {
   const ChatBot({super.key});
@@ -65,7 +66,7 @@ class ChatBot extends StatelessWidget {
                               child: Align(
                                 alignment: AlignmentDirectional.center,
                                 child: Image(
-                                  image: cubit.isDarkTheme? const AssetImage('assets/images/chatbot/chatbot_dark.png') : const AssetImage('assets/images/chatbot/chatbot_light.png'),
+                                  image:const AssetImage('assets/images/chatbot/chatbot2.png'),
                                   fit: BoxFit.contain,
                                   filterQuality: FilterQuality.high,
                                   alignment: AlignmentDirectional.center,
@@ -142,11 +143,12 @@ class ChatBot extends StatelessWidget {
                               Align(
                                 alignment: AlignmentDirectional.center,
                                 child: Image(
-                                  image: cubit.isDarkTheme? const AssetImage('assets/images/chatbot/chatbot_dark.png') : const AssetImage('assets/images/chatbot/chatbot_light.png'),
+                                  image: const AssetImage('assets/images/chatbot/chatbot2.png',),
                                   fit: BoxFit.contain,
                                   filterQuality: FilterQuality.high,
                                   alignment: AlignmentDirectional.center,
                                   height: MediaQuery.of(context).size.height/3,
+
                                 ),
                               ),
 

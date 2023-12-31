@@ -253,7 +253,6 @@ class PostDetails extends StatelessWidget {
 
                     addCommentController.text='';
 
-
                   }
                 else
                   {

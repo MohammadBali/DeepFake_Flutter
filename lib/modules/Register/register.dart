@@ -234,6 +234,7 @@ class _RegisterState extends State<Register> {
                                   initialDate: DateTime.now(),
                                   firstDate: DateTime(1920),
                                   lastDate: DateTime.now(),
+                                  keyboardType: TextInputType.phone
 
                                 ).then((value)
                                 {
