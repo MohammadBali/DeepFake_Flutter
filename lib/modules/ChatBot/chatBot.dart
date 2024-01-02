@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/components/Localization/Localization.dart';
 import '../../shared/components/components.dart';
 import '../../shared/styles/colors.dart';
-import 'dart:math' as math;
 
 class ChatBot extends StatelessWidget {
   const ChatBot({super.key});

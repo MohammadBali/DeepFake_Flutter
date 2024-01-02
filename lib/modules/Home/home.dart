@@ -17,9 +17,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  //Scroll Controller & listener for Lazy Loading
   ScrollController scrollController= ScrollController();
   final GlobalKey _key = GlobalKey();
 
+  //Start the page with General Feed Section
   String? currentFeed=Localization.translate('feed_home');
 
   @override
@@ -70,7 +72,7 @@ class _HomeState extends State<Home> {
           },
 
           child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(), //To allow pull down indicator anytime
             controller: scrollController, //Necessary for lazy loading
             key: _key,
             child: Padding(
@@ -80,7 +82,7 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children:
                   [
-
+                    //News Section
                     ConditionalBuilder(
                       condition: cubit.newsModel !=null, //Check if there are news to show it or not
                       builder: (context) =>SizedBox(
@@ -99,6 +101,7 @@ class _HomeState extends State<Home> {
 
                     const SizedBox(height: 40,),
 
+                    //Home Feed & My Feed
                     Align(
                       alignment: AlignmentDirectional.center,
                       child: defaultBox(
@@ -242,7 +245,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-
+  ///onScroll Function for asking for more posts
   void _onScroll(AppCubit cubit)
   {
     //Will Scroll Only and Only if: 1. Got to the end of the list / 2. is in the Feed home NOT MY FEED
@@ -259,6 +262,7 @@ class _HomeState extends State<Home> {
 
   }
 
+  //News Builder
   Widget newsItemBuilder({required AppCubit cubit, required Article article, required BuildContext context})=>defaultBox(
     cubit: cubit,
     boxColor: cubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,

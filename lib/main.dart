@@ -140,7 +140,7 @@ class MyApp extends StatelessWidget {
   final bool isDark;        //If the app last theme was dark or light
   final Widget homeWidget;  // Passing the widget to be loaded.
 
-  final IOWebSocketChannel wsChannel;
+  final IOWebSocketChannel wsChannel; //Web Socket Channel to be received
 
   const MyApp({super.key, required this.isDark, required this.homeWidget, required this.wsChannel});
 

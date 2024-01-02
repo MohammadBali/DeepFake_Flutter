@@ -40,6 +40,65 @@ class ChatScreen extends StatelessWidget {
                         fontWeight: FontWeight.w600
                     ),
                   ),
+
+                  actions:
+                  [
+                    //Allow to clear messages
+                    Visibility(
+                      visible: cubit.messageModel!.messages!.isNotEmpty,
+                      child: IconButton(
+                        onPressed: ()
+                        {
+                          showDialog(
+                            context: context,
+                            builder: (dialogContext)
+                            {
+                              return defaultAlertDialog(
+                                context: dialogContext,
+                                title: Localization.translate('chat_screen_delete_messages'),
+                                content: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children:
+                                    [
+                                      Text(Localization.translate('chat_screen_delete_body1')),
+
+                                      const SizedBox(height: 5,),
+
+                                      Row(
+                                        children:
+                                        [
+                                          TextButton(
+                                              onPressed: ()
+                                              {
+                                                cubit.removeMessages();
+                                                Navigator.of(dialogContext).pop(false);
+                                              },
+                                              child: Text(Localization.translate('exit_app_yes'))
+                                          ),
+
+                                          const Spacer(),
+
+                                          TextButton(
+                                            onPressed: ()=> Navigator.of(dialogContext).pop(false),
+                                            child: Text(Localization.translate('exit_app_no')),
+                                          ),
+                                        ],
+                                      )
+
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        icon: Icon(Icons.remove, color: defaultRedColor,),
+                      ),
+                    ),
+                  ],
                 ),
 
                 body: Padding(
@@ -165,6 +224,7 @@ class ChatScreen extends StatelessWidget {
     );
   }
 
+  //My Message item builder, written by user
   Widget myMessageBuilder({ Message? message, required AppCubit cubit})
   {
     //print('Data is: ${message!.text}, ${message!.senderId}, ${message!.date}');
@@ -191,6 +251,7 @@ class ChatScreen extends StatelessWidget {
     );
   }
 
+  //Response from AI item builder
   Widget responseMessageBuilder({ Message? message, required AppCubit cubit})
   {
     return Align(

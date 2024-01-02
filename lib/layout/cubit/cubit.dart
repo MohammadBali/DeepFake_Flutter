@@ -1668,6 +1668,9 @@ class AppCubit extends Cubit<AppStates>
      messageModel!.messages!.add(message);
 
      emit(AppAddMessageSuccessState());
+
+     //Send Message to AI model
+     //sendMessage(m);
    }
    catch (e,stackTrace)
    {
@@ -1677,4 +1680,14 @@ class AppCubit extends Cubit<AppStates>
    }
  }
 
+ ///Remove All messages from this session
+ void removeMessages()
+ {
+   emit(AppRemoveMessagesLoadingState());
+
+   messageModel = MessageModel();
+   //messageModel!.messages=[];
+
+   emit(AppRemoveMessagesSuccessState());
+ }
 }

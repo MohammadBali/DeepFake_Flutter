@@ -112,7 +112,7 @@ const Map<String,String> ar={
   'image_choose_file_option':'صورة',
 
   'multimediaPage_helper_title':'قسم الوسائط',
-  'multimediaPage_helper_body1':' الصوتيات: بوسعك رفع ملفات الصوت من اللواحق الآتية: MP3, FLAC, WAV, M4A',
+  'multimediaPage_helper_body1':' الصوتيات: بوسعك رفع ملفات الصوت من اللواحق الآتية: MP3, WAV, RM',
   'multimediaPage_helper_body2':'الصور: بوسعك رفع صور من اللواحق الآتية: JPEG, JPG, PNG',
   'multimediaPage_helper_body3':'إنشر نتائجك: يمكنك نشر الاستفسار كمنشور بعد عودة النتائج',
   'multimediaPage_helper_body4':'ملاحظة: إن الاستفسار لا يُنشر بشكل تلقائي, لك حرية الاختيار بين النشر من عدمه',
@@ -303,6 +303,10 @@ const Map<String,String> ar={
   'chat_screen_tff':'أضف رسالتك هنا...',
 
   'chat_screen_no_text_title':'أرسل رسائلك الآن!',
+
+  'chat_screen_delete_messages':'حذف الرسائل',
+
+  'chat_screen_delete_body1':'هل تريد حذف رسائل هذه الجلسة؟',
 
   // TOAST MESSAGES:
 
@@ -551,7 +555,7 @@ const Map<String,String> en={
   'image_choose_file_option':'Image',
 
   'multimediaPage_helper_title':'MULTIMEDIA PAGE',
-  'multimediaPage_helper_body1':'Audio: You can upload audio files with the following extensions: MP3, FLAC, WAV, M4A',
+  'multimediaPage_helper_body1':'Audio: You can upload audio files with the following extensions: MP3, RM, WAV',
   'multimediaPage_helper_body2':'Image: You can upload image files with the following extensions: JPEG, JPG, PNG',
   'multimediaPage_helper_body3':'Share Your Inquiry: You can share your inquiry as a post after the results are back',
   'multimediaPage_helper_body4':'NOTE: Your inquiry does not get shared automatically as a post, you have the right to share or not',
@@ -748,6 +752,10 @@ const Map<String,String> en={
   'chat_screen_tff':'Type your message here...',
 
   'chat_screen_no_text_title':'Send a Message Now!',
+
+  'chat_screen_delete_messages':'DELETE MESSAGES',
+
+  'chat_screen_delete_body1':'Do you want to delete previous chat?',
 
 
 

@@ -358,6 +358,12 @@ class AppAddMessageSuccessState extends AppStates{}
 class AppAddMessageErrorState extends AppStates{}
 
 
+// DELETE PREVIOUS MESSAGES
+
+class AppRemoveMessagesLoadingState extends AppStates{}
+
+class AppRemoveMessagesSuccessState extends AppStates{}
+
 //-----------------------------------------------
 
 
